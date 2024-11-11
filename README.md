@@ -34,7 +34,7 @@ ng generate component <tên component>
 git clone https://github.com/nghizz/FilmProject.git
 
 
-# Quy trình làm việc với Git khi nhiều người cùng tham gia
+# Quy trình làm việc với Git
 
 ## 1. Pull (cập nhật) mã nguồn mới nhất từ kho từ xa
 Trước khi bắt đầu chỉnh sửa, hãy luôn cập nhật mã nguồn mới nhất về thư mục của bạn để tránh xung đột:

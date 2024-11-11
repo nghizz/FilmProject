@@ -29,3 +29,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Tạo một component mới
 
 ng generate component <tên component>
+
+## Tải code từ git về folder
+git clone https://github.com/nghizz/FilmProject.git

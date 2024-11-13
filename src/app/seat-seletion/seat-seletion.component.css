@@ -176,7 +176,6 @@ body {
     display: flex;
     justify-content: center;
 }
-
 .checkout button {
     background-color: var(--accent-color);
     color: var(--text-light);

@@ -31,47 +31,7 @@
 
 <body>
     <!-- HEADER -->
-    <header class="container-md" style="width: 80%;">
-        <p class="text-right text-white mb-0">
-            <i class="fa-solid fa-phone"></i>
-            <span class="mx-3 border-right pr-2">012.345.6789</span>
-            <i class="fa fa-search"></i>
-            <input type="text" placeholder="Search"
-                style="border-radius: 5px; margin-left: 5px; border: 1px solid white; text-align: center;">
-        </p>
-        <nav class="navbar navbar-expand-md">
-            <a class="navbar-brand" href="#" 
-                style="color: #fff; font-size: 50px; letter-spacing: 5px; margin-left: 50px;">
-                DREAM
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#movieNavBar"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon">
-                    <i class="fa fa-bars"></i>
-                </span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="movieNavBar">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active line">
-                        <a class="nav-link" href="#">TRANG CHỦ <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item line">
-                        <a class="nav-link" href="#">RẠP PHIM</a>
-                    </li>
-                    <li class="nav-item line">
-                        <a class="nav-link" href="#">LỊCH CHIẾU</a>
-                    </li>
-                    <li class="nav-item line">
-                        <a class="nav-link" href="#">ƯU ĐÃI</a>
-                    </li>
-                    <li class="nav-item line">
-                        <a class="nav-link" href="#">THÀNH VIÊN</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <app-header></app-header>
 
     <!-- CAROUSEL -->
     <section class="movieCarousel">
@@ -172,48 +132,7 @@
         </section>
 
     <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="row section">
-                <div class="col-3">
-                    <h3>GET IN TOUCH</h3>
-                    <ul>
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Give us feedback</a></li>
-                        <li><a href="#">Contact us</a></li>
-                    </ul>
-                </div>
-                <div class="col-3">
-                    <h3>ABOUT MOVIE STAR</h3>
-                    <ul>
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">Find us</a></li>
-                        <li><a href="#">Schedule</a></li>
-                        <li><a href="#">News</a></li>
-                    </ul>
-                </div>
-                <div class="col-3">
-                    <h3>LEGAL STUFF</h3>
-                    <ul>
-                        <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="#">Privacy policy</a></li>
-                        <li><a href="#">Cookie policy</a></li>
-                    </ul>
-                </div>
-                <div class="col-3">
-                    <h3>CONNECT WITH US</h3>
-                    <ul>
-                        <li><a href="#"><i class="fab fa-facebook-f"></i> Facebook</a></li>
-                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
-                        <li><a href="#"><i class="fab fa-google-plus-g"></i> Google +</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer__copyright">
-                <p>2023 © Movie Cyber / Cybersoft</p>
-            </div>
-        </div>
-    </footer>
+    <app-footer></app-footer>
 
     <!-- Thư viện hỗ trợ -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

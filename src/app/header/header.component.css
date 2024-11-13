@@ -1,0 +1,139 @@
+/* Header Styles */
+header {
+    color: var(--text-light);
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    padding: 40px 0 20px;
+}
+
+.header-top {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    padding: 5px 0;
+}
+
+.search-box {
+    background-color: transparent;
+    border: 1px solid var(--text-light);
+    border-radius: 5px;
+    padding: 8px 15px;
+    color: var(--text-light);
+    width: 200px;
+}
+
+/* Carousel Styles */
+#carouselMovie .carousel-item .carousel-caption {
+    text-align: left;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#carouselMovie .carousel-item .carousel-caption p:first-of-type {
+    color: #fbbd61;
+    font-size: 0.875rem;
+    letter-spacing: 2px;
+    margin: 0;
+    animation-delay: 0.5s;
+}
+
+#carouselMovie .carousel-item .carousel-caption p:last-of-type {
+    font-size: 1.125rem;
+    margin-bottom: 20px;
+}
+
+#carouselMovie .carousel-item .carousel-caption h2 {
+    font-size: 3.25rem;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+}
+
+.movieCarousel__trailer {
+    animation-delay: 0.5s;
+}
+
+.movieCarousel__trailer>span {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid white;
+    font-size: 0.8rem;
+    display: inline-block;
+    line-height: 48px;
+    text-align: center;
+    margin-right: 8px;
+}
+
+.movieCarousel__trailer button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    color: white;
+    background: linear-gradient(to right, #fbbd61, #ec7532);
+    position: relative;
+    overflow: hidden;
+    outline: none;
+}
+
+/* Button hover animation */
+.movieCarousel__trailer button::before {
+    content: "";
+    width: 110%;
+    height: 100%;
+    background-color: #ec7532;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    transform: skewX(30deg) translateX(-110%);
+    transition: all .5s;
+    z-index: 1;
+}
+
+.movieCarousel__trailer button:hover:before {
+    transform: skewX(30deg) translateX(-10px);
+}
+
+.movieCarousel__trailer button span {
+    position: relative;
+    z-index: 2;
+}
+
+#carouselMovie .carousel-indicators {
+    justify-content: flex-start;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-right: 0;
+    margin-left: 0;
+    padding-right: 30px;
+    padding-left: 30px;
+    bottom: 10%;
+}
+
+#carouselMovie .carousel-indicators li {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: transparent;
+}
+
+#carouselMovie .carousel-indicators li.active {
+    background-color: white;
+}
+
+.movieCarousel__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, black, transparent);
+}

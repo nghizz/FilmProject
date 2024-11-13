@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chọn ghế ngồi</title> <!-- Giữ nguyên CSS bạn đã có -->
+</head>
+<body>
+    <div class="header">
+        <div class="logo">NAME COMPANY</div>
+        <div class="nav">
+            <a href="#">TRANG CHỦ</a>
+            <a href="#">LỊCH CHIẾU</a>
+            <a href="#">KHUYẾN MÃI</a>
+            <a href="#">LIÊN HỆ</a>
+            <a href="#">TUYỂN DỤNG</a>
+        </div>
+        <div class="auth-buttons">
+            <button>Đăng Nhập</button>
+            <button>Đăng Ký</button>
+        </div>
+    </div>
+
+    <div class="movieCarousel__overlay">
+        <div class="movie">Phim 1</div>
+        <div class="movie">Phim 2</div>
+        <div class="movie">Phim 3</div>
+        <div class="movie">Phim 4</div>
+    </div>
+
+    <div class="seats">
+        <div class="seat">
+            <div *ngFor="let seat of seats" 
+                 [ngClass]="{
+                    'regular': seat.type === 'regular', 
+                    'double': seat.type === 'double', 
+                    'vip': seat.type === 'vip', 
+                    'selected': seat.isSelected
+                 }" 
+                 (click)="toggleSeat(seat)" [attr.data-seat]="seat.name">
+                {{ seat.name }}
+            </div>
+        </div>
+    </div>
+
+    <div class="legend">
+        <div class="double"><span></span> Ghế đôi</div>
+        <div class="regular"><span></span> Ghế Thường</div>
+        <div class="vip"><span></span> Ghế Vip</div>
+    </div>
+
+    <div class="selection">
+        <div>
+          <div>Ghế đã chọn</div>
+          <input type="text" [value]="selectedSeatsString" readonly />
+        </div>
+        <div>
+          <div>Giá vé</div>
+          <input type="text" [value]="totalPrice | currency: 'VND'" readonly />
+        </div>
+    </div>
+
+    <div class="checkout">
+        <button (click)="checkout()" [disabled]="!selectedSeats.length">Thanh toán</button>
+    </div>
+    
+</body>
+</html>

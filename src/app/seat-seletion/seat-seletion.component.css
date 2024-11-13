@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+    --primary-color: #333;
+    --accent-color: #ffd700;
+    --text-light: #fff;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: var(--primary-color);
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 5px solid var(--accent-color);
+}
+
+.header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--text-light);
+    margin-left: 20px;
+}
+
+.header .nav {
+    display: flex;
+    gap: 20px;
+}
+
+.header .nav a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 600;
+    padding: 10px 15px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.header .nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.header .nav a:hover {
+    color: var(--accent-color);
+}
+
+.header .nav a:hover::after {
+    width: 100%;
+}
+
+.header .auth-buttons {
+    margin-right: 20px;
+}
+
+.header .auth-buttons button {
+    background-color: var(--accent-color);
+    color: var(--text-light);
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.header .auth-buttons button:hover {
+    transform: scale(1.05);
+}
+
+.movieCarousel__overlay {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding: 20px 0;
+}
+
+.movieCarousel__overlay .movie {
+    margin: 0 10px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    flex: 0 0 auto;
+}
+
+.seats {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.seat {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 600px;
+}
+
+.seat div {
+    width: 100px;
+    height: 50px;
+    margin: 5px;
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.seat .double {
+    background-color: #ff69b4;
+}
+
+.seat .vip {
+    background-color: #ffd700;
+}
+
+.seat .selected {
+    background-color: #999;
+    color: #fff;
+}
+
+.legend {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.legend div {
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.legend div span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.legend .double span {
+    background-color: #ff69b4;
+}
+
+.legend .regular span {
+    background-color: #ccc;
+}
+
+.legend .vip span {
+    background-color: #ffd700;
+}
+
+.selection {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.selection div {
+    margin-right: 20px;
+}
+
+.checkout {
+    display: flex;
+    justify-content: center;
+}
+
+.checkout button {
+    background-color: var(--accent-color);
+    color: var(--text-light);
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.checkout button:hover {
+    transform: scale(1.05);
+    background-color: #e6a900; /* Thay đổi màu khi hover */
+}
+
+.checkout button:active {
+    transform: scale(1);
+    background-color: #cc8a00; /* Màu khi nút được nhấn */
+}
+
+.checkout button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}

@@ -52,6 +52,11 @@ export class SeatSelectionComponent {
   regularPrice: number = 200000;
   doublePrice: number = 400000;
   vipPrice: number = 600000;
+  popcornPrice: number = 50000;
+  drinkPrice: number = 30000;
+
+  popcornQuantity: number = 0;
+  drinkQuantity: number = 0;
 
   get selectedSeats(): Seat[] {
     return this.seats.filter(seat => seat.isSelected);
@@ -61,7 +66,7 @@ export class SeatSelectionComponent {
     return this.selectedSeats.map(seat => seat.name).join(', ');
   }
 
-  get totalPrice(): number {
+  get totalSeatPrice(): number {
     return this.selectedSeats.reduce((acc, seat) => {
       switch (seat.type) {
         case 'regular':
@@ -76,39 +81,35 @@ export class SeatSelectionComponent {
     }, 0);
   }
 
+  get totalServicePrice(): number {
+    return (this.popcornQuantity * this.popcornPrice) + (this.drinkQuantity * this.drinkPrice);
+  }
+
+  get totalAmount(): number {
+    return this.totalSeatPrice + this.totalServicePrice;
+  }
+
   toggleSeat(seat: Seat): void {
-    // Toggle the selection of the seat
     seat.isSelected = !seat.isSelected;
   }
+  
 
   checkout(): void {
     const selectedSeatsString = this.selectedSeatsString;
-    const totalPrice = this.totalPrice;
-  
-    // Kiểm tra xem người dùng đã chọn ghế và tổng giá có hợp lệ không
+    const totalPrice = this.totalAmount;
+
     if (selectedSeatsString && totalPrice > 0) {
-      // Giả lập hành động thanh toán
-      console.log('Đang xử lý thanh toán...');
-  
-      // Định dạng tổng giá thành tiền VND
       const formattedPrice = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
       }).format(totalPrice);
-  
-      // Sau khi thanh toán thành công, hiển thị thông báo
+
       alert(`Thanh toán thành công!\nGhế đã chọn: ${selectedSeatsString}\nTổng giá: ${formattedPrice}`);
-  
-      // Sau khi thanh toán, xóa thông tin ghế đã chọn
       this.seats.forEach(seat => seat.isSelected = false);
-      
-      // Làm mới lại thông tin ghế đã chọn và tổng giá
-      console.log('Ghế đã chọn:', []);
-      console.log('Tổng giá:', 0);
+      this.popcornQuantity = 0;
+      this.drinkQuantity = 0;
     } else {
-      // Nếu chưa chọn ghế, yêu cầu người dùng chọn ghế
-      alert('Vui lòng chọn ghế trước khi thanh toán!');
+      alert('Vui lòng chọn ghế và dịch vụ trước khi thanh toán!');
     }
   }
-  
 }

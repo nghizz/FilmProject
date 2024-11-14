@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seat Selection</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">NAME COMPANY</div>
+        <div class="nav">
+            <a href="#">TRANG CHỦ</a>
+            <a href="#">LỊCH CHIẾU</a>
+            <a href="#">KHUYẾN MÃI</a>
+            <a href="#">LIÊN HỆ</a>
+            <a href="#">TUYỂN DỤNG</a>
+        </div>
+        <div class="auth-buttons">
+            <button>Đăng Nhập</button>
+            <button>Đăng Ký</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Phần bên trái: Chọn ghế ngồi -->
+        <div class="left">
+            <h2>Chọn ghế ngồi</h2>
+            <div class="seats">
+                <div class="seat">
+                    <div *ngFor="let seat of seats" [ngClass]="{
+                            'regular': seat.type === 'regular', 
+                            'double': seat.type === 'double', 
+                            'vip': seat.type === 'vip', 
+                            'selected': seat.isSelected
+                         }" (click)="toggleSeat(seat)" [attr.data-seat]="seat.name">
+                        {{ seat.name }}
+                    </div>
+                </div>
+            </div>
+            <div class="legend">
+                <div class="double"><span></span> Ghế đôi</div>
+                <div class="regular"><span></span> Ghế Thường</div>
+                <div class="vip"><span></span> Ghế Vip</div>
+            </div>
+        </div>
+
+        <!-- Phần bên phải: Chọn dịch vụ -->
+        <div class="right">
+            <h2>Chọn dịch vụ</h2>
+            <div class="services">
+                <div>
+                    <label for="popcornQuantity">Bắp ({{ popcornPrice | currency: 'VND' }}):</label>
+                    <input type="number" id="popcornQuantity" [(ngModel)]="popcornQuantity" min="0">
+                </div>
+                <div>
+                    <label for="drinkQuantity">Nước ({{ drinkPrice | currency: 'VND' }}):</label>
+                    <input type="number" id="drinkQuantity" [(ngModel)]="drinkQuantity" min="0">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="selection">
+        <div>Ghế đã chọn: <input type="text" [value]="selectedSeatsString" readonly /></div>
+        <div>Giá vé: <input type="text" [value]="totalSeatPrice | currency: 'VND'" readonly /></div>
+        <div>Giá dịch vụ: <input type="text" [value]="totalServicePrice | currency: 'VND'" readonly /></div>
+        <div>Tổng cộng: <input type="text" [value]="totalAmount | currency: 'VND'" readonly /></div>
+    </div>
+
+    <div class="checkout">
+        <button (click)="checkout()" [disabled]="!selectedSeats.length">Thanh toán</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Nhóm 2. All rights reserved.</p>
+        <div>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+        </div>
+    </footer>
+</body>
+
+</html>

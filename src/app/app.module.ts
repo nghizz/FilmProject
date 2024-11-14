@@ -17,6 +17,7 @@ import { IndexComponent } from './index/index.component';
     SeatSelectionComponent, // Đã sửa tên thành SeatSelectionComponent
     SearchFilmComponent,
     IndexComponent,
+    SearchFilmComponent
   ],
   imports: [
     BrowserModule,

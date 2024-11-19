@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common'; // Để hỗ trợ các tính năng như ngClass, currency pipe
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,13 +18,15 @@ import { IndexComponent } from './index/index.component';
     SeatSelectionComponent, // Đã sửa tên thành SeatSelectionComponent
     SearchFilmComponent,
     IndexComponent,
-    SearchFilmComponent
+    SearchFilmComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

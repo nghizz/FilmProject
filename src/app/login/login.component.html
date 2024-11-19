@@ -12,14 +12,17 @@
     <div>
         <div class="container">
             <div class="form-box">
-                <form action="" name="Formfill" onsubmit="return validation()">
+                <form (ngSubmit)="onSubmit()" name="Formfill">
                     <h2>Đăng nhập</h2>
-                    <p id="result"></p>
+                    <!-- Thông báo lỗi -->
+                    <p *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</p>
+                    <!-- Thông báo thành công -->
+                    <p *ngIf="successMessage" class="text-success">{{ successMessage }}</p>
                     <div class="input-box">
-                        <input id="username" type="text" name="Username" placeholder="Tài khoản">
+                        <input id="username" [(ngModel)]="credentials.username" name="username" placeholder="Tài khoản" required>
                     </div>
                     <div class="input-box">
-                        <input id="password" type="password" name="Password" placeholder="Mật khẩu">
+                        <input id="password" [(ngModel)]="credentials.password" name="password" placeholder="Mật khẩu" type="password" required>
                     </div>
                     <div class="button">
                         <input id="btn-signin" type="submit" value="Đăng nhập" class="btn">

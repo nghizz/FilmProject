@@ -9,7 +9,7 @@
 }
 
 body {
-    background: none;
+    background-color: #f0f0f0; /* Light gray background */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,51 +17,49 @@ body {
     font-size: 16px;
     position: relative;
     overflow: hidden;
-    /* background: url('img/videonen.gif') no-repeat center center fixed; */
-    background-size: cover;
 }
 
-
 .container {
-    width: 175%;
-    max-width: 400px;
-    padding: 2rem;
-    background-color: rgba(0, 0, 0, 0.8); /* Màu nền container */
+    width: 100%;
+    max-width: 500px; /* Increased container width to match signup form */
+    padding: 2rem; /* Increased padding */
+    background-color: #fff; /* White background */
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: none; /* Remove any transform or scale effects */
 }
 
 .form-box h2 {
     text-align: center;
-    color: #eccc68; /* Màu vàng */
-    font-size: 24px;
+    color: #333; /* Dark gray color */
+    font-size: 28px; /* Increased size for emphasis */
     margin-bottom: 20px;
     letter-spacing: 1px;
 }
 
 .input-box {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Increased margin */
 }
 
 .input-box input {
     width: 100%;
     padding: 12px 20px;
     font-size: 16px;
-    color: #ffffff;
-    background-color: #333;
-    border: none;
+    color: #333; /* Dark gray text color */
+    background-color: #f8f8f8; /* Light gray input field */
+    border: 1px solid #ddd; /* Light gray border */
     border-radius: 8px;
     outline: none;
-    transition: background-color 0.3s ease;
+    transition: border-color 0.3s ease; /* Border color transition on focus */
 }
 
 .input-box input::placeholder {
-    color: #b2bec3;
+    color: #999; /* Light gray placeholder color */
 }
 
 .input-box input:focus {
-    background-color: #444;
+    border-color: #666; /* Dark gray border color on focus */
 }
 
 .button {
@@ -69,21 +67,23 @@ body {
 }
 
 .button .btn {
-    background-color: #eccc68; /* Màu vàng cho nút */
-    color: #000;
+    background-color: #333; /* Dark gray button color */
+    color: #fff; /* White text color */
     border: none;
     border-radius: 8px;
-    padding: 12px;
+    padding: 14px; /* Slightly larger padding */
     width: 100%;
-    font-size: 18px;
+    font-size: 18px; /* Increased font size */
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Keep transform on hover only */
 }
 
 .button .btn:hover {
-    background-color: #f1c40f; /* Màu vàng sáng khi hover */
-    color: #fff;
-    transform: scale(1.05);
+    background-color: #666; /* Slightly lighter gray on hover */
+}
+
+.button .btn:active {
+    transform: none; /* Ensure no scale effect when button is clicked */
 }
 
 div {
@@ -92,11 +92,26 @@ div {
 }
 
 a {
-    color: #eccc68;
+    color: #333; /* Dark gray link color */
     text-decoration: none;
     margin: 0 10px;
+    font-size: 14px; /* Improved readability */
 }
 
 a:hover {
     text-decoration: underline;
+}
+
+/* Thông báo lỗi */
+.text-danger {
+    color: #dc3545; /* Red color for error messages */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Thông báo thành công */
+.text-success {
+    color: #28a745; /* Green color for success messages */
+    font-weight: bold;
+    margin-bottom: 10px;
 }

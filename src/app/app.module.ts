@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { SeatSelectionComponent } from './seat-seletion/seat-seletion.component'; // Đảm bảo tên component chính xác
 import { SearchFilmComponent } from './search-film/search-film.component';
 import { IndexComponent } from './index/index.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { IndexComponent } from './index/index.component';
     SearchFilmComponent,
     IndexComponent,
     SearchFilmComponent,
-    
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,6 +28,7 @@ import { IndexComponent } from './index/index.component';
     CommonModule,
     FormsModule,
     HttpClientModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -51,23 +51,25 @@
 
         <!-- Phần bên phải: Chọn dịch vụ -->
         <div class="right">
-            <h2>Chọn dịch vụ</h2>
+            <h2>Áp dụng khuyến mãi</h2>
             <div class="services">
                 <div>
-                    <label for="popcornQuantity">Bắp ({{ popcornPrice | currency: 'VND' }}):</label>
-                    <input type="number" id="popcornQuantity" [(ngModel)]="popcornQuantity" min="0">
+                  <label for="promotion">Chọn khuyến mãi:</label>
+                  <select id="promotion" [(ngModel)]="selectedPromotion">
+                    <option value="0">Không áp dụng khuyến mãi</option>
+                    <option value="0.2">20% off for New Year</option>
+                    <option value="0.15">15% off on weekends</option>
+                  </select>
                 </div>
-                <div>
-                    <label for="drinkQuantity">Nước ({{ drinkPrice | currency: 'VND' }}):</label>
-                    <input type="number" id="drinkQuantity" [(ngModel)]="drinkQuantity" min="0">
-                </div>
-            </div>
+              </div>
+              
+
         </div>
     </div>
     <div class="selection">
         <div>Ghế đã chọn: <input type="text" [value]="selectedSeatsString" readonly /></div>
         <div>Giá vé: <input type="text" [value]="totalSeatPrice | currency: 'VND'" readonly /></div>
-        <div>Giá dịch vụ: <input type="text" [value]="totalServicePrice | currency: 'VND'" readonly /></div>
+        <div>Áp dung khuyến mãi: <input type="text" [value]="totalServicePrice | currency: 'VND'" readonly /></div>
         <div>Tổng cộng: <input type="text" [value]="totalAmount | currency: 'VND'" readonly /></div>
     </div>
 

@@ -87,11 +87,12 @@ export class SeatSelectionComponent {
     return (this.popcornQuantity * this.popcornPrice) + (this.drinkQuantity * this.drinkPrice);
   }
 
+  get discountAmount(): number {
+    return (this.totalSeatPrice + this.totalServicePrice) * this.selectedPromotion;
+  }
+
   get totalAmount(): number {
-    // Apply the promotion to both seat price and service price
-    const seatPriceWithDiscount = this.totalSeatPrice * (1 - this.selectedPromotion);
-    const servicePriceWithDiscount = this.totalServicePrice * (1 - this.selectedPromotion);
-    return seatPriceWithDiscount + servicePriceWithDiscount;
+    return this.totalSeatPrice + this.totalServicePrice - this.discountAmount;
   }
 
   toggleSeat(seat: Seat): void {

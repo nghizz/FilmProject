@@ -57,7 +57,7 @@
                         <a class="nav-link" href="#">TRANG CHỦ <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item line">
-                        <a class="nav-link" href="#">RẠP PHIM</a>
+                        <a class="nav-link" href="/seat-selection">RẠP PHIM</a>
                     </li>
                     <li class="nav-item line">
                         <a class="nav-link" href="#">LỊCH CHIẾU</a>
@@ -65,12 +65,24 @@
                     <li class="nav-item line">
                         <a class="nav-link" href="#">ƯU ĐÃI</a>
                     </li>
-                    <li class="nav-item line">
-                        <a class="nav-link" href="/login">ĐĂNG NHẬP</a>
-                    </li>
-                    <li class="nav-item line">
-                        <a class="nav-link" href="#">ĐĂNG KÝ</a>
-                    </li>
+                    <!-- Kiểm tra trạng thái đăng nhập -->
+                    <ng-container *ngIf="isLoggedIn; else loggedOut">
+                        <li class="nav-item line">
+                            <a class="nav-link" href="#">Xin chào, {{ username }}</a>
+                        </li>
+                        <li class="nav-item line">
+                            <a class="nav-link" (click)="logout()">ĐĂNG XUẤT</a>
+                        </li>
+                    </ng-container>
+                    <ng-template #loggedOut>
+                        <li class="nav-item line">
+                            <a class="nav-link" href="/login">ĐĂNG NHẬP</a>
+                        </li>
+                        <li class="nav-item line">
+                            <a class="nav-link" href="/register">ĐĂNG KÝ</a>
+                        </li>
+                    </ng-template>
+>>>>>>> 64ced5a7c40ced5df5779a792a30e367141fea69
                 </ul>
             </div>
         </nav>

@@ -69,7 +69,10 @@
     <div class="selection">
         <div>Ghế đã chọn: <input type="text" [value]="selectedSeatsString" readonly /></div>
         <div>Giá vé: <input type="text" [value]="totalSeatPrice | currency: 'VND'" readonly /></div>
-        <div>Áp dung khuyến mãi: <input type="text" [value]="totalServicePrice | currency: 'VND'" readonly /></div>
+        <div>
+            Áp dụng khuyến mãi: 
+            <input type="text" [value]="discountAmount | currency: 'VND'" readonly />
+          </div>
         <div>Tổng cộng: <input type="text" [value]="totalAmount | currency: 'VND'" readonly /></div>
     </div>
 

@@ -6,7 +6,7 @@ import { IndexComponent } from './index/index.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'index', component: IndexComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }  // Mặc định chuyển đến login
+  { path: '', redirectTo: '/index', pathMatch: 'full' }  // Mặc định chuyển đến login
 ];
 
 @NgModule({

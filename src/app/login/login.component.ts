@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthApiService } from '../services/api/auth-api.service'; 
+import { AuthApiService } from '../services/api/auth-api.service';
 
 @Component({
   selector: 'app-login',
@@ -15,29 +15,33 @@ export class LoginComponent {
   constructor(private authApiService: AuthApiService, private router: Router) { }
 
   onSubmit() {
-    // Kiểm tra điều kiện nhập username và password
     if (!this.credentials.username || !this.credentials.password) {
         this.errorMessage = 'Vui lòng nhập username và password.';
         return;
     }
-
-    // Gửi yêu cầu đăng nhập đến API
+  
     this.authApiService.login(this.credentials).subscribe(
         (response) => {
             if (response && response.message === 'Đăng nhập thành công') {
                 this.successMessage = response.message;
                 this.errorMessage = '';
-                // Lưu token hoặc thông tin người dùng vào localStorage
-                localStorage.setItem('auth_token', response.token);  // Lưu token vào localStorage
-                this.router.navigate(['/index']);  // Chuyển hướng đến trang index
-            } else {
-                this.errorMessage = 'Đăng nhập thất bại. Vui lòng thử lại.';
-                this.successMessage = '';
+                localStorage.setItem('auth_token', response.token); // Lưu token
+                localStorage.setItem('username', response.user.username); // Lưu tên người dùng
+                this.router.navigate(['/index']); // Điều hướng
             }
         },
         (error) => {
-            console.error('Login failed:', error);
-            this.errorMessage = 'Có lỗi xảy ra. Vui lòng thử lại.';
+            // Xử lý lỗi chi tiết từ backend
+            switch (error.status) {
+                case 401:
+                    this.errorMessage = error.error.message || 'Tài khoản hoặc mật khẩu không chính xác.';
+                    break;
+                case 404:
+                    this.errorMessage = 'Không tìm thấy tài khoản này.';
+                    break;
+                default:
+                    this.errorMessage = 'Có lỗi xảy ra. Vui lòng thử lại.';
+            }
             this.successMessage = '';
         }
     );

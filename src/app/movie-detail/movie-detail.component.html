@@ -1,0 +1,18 @@
+<div *ngIf="movie" class="movie-detail-container">
+  <h2>{{ movie?.title }}</h2>
+  <p class="movie-description">{{ movie?.description }}</p>
+  <h3>Chọn Suất Chiếu:</h3>
+  <ul class="showtime-list">
+    <li *ngFor="let showtime of movie?.showtimes" (click)="onShowtimeSelect(showtime)" 
+        [class.selected]="showtime === selectedShowtime" class="showtime-item">
+      {{ showtime }}
+    </li>
+  </ul>
+  <div *ngIf="selectedShowtime" class="selected-showtime">
+    <h4>Suất Chiếu Đã Chọn: {{ selectedShowtime }}</h4>
+    <a [routerLink]="['/seat-selection', selectedShowtime]" class="select-seat-link">Chọn Ghế</a> <!-- Điều hướng đến seat-selection với tham số showtime -->
+  </div>
+</div>
+<div *ngIf="!movie">
+  <p>Không tìm thấy thông tin phim.</p>
+</div>

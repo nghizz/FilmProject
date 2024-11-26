@@ -11,6 +11,7 @@ import { SeatSelectionComponent } from './seat-seletion/seat-seletion.component'
 import { SearchFilmComponent } from './search-film/search-film.component';
 import { IndexComponent } from './index/index.component';
 import { RegisterComponent } from './register/register.component';
+import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { RegisterComponent } from './register/register.component';
     IndexComponent,
     SearchFilmComponent,
     RegisterComponent,
+    MovieDetailComponent,
   ],
   imports: [
     BrowserModule,

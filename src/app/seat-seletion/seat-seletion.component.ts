@@ -5,10 +5,11 @@ interface Seat {
   type: 'regular' | 'double' | 'vip';
   isSelected: boolean;
 }
+
 @Component({
   selector: 'app-seat-seletion',
   templateUrl: './seat-seletion.component.html',
-  styleUrl: './seat-seletion.component.css'
+  styleUrls: ['./seat-seletion.component.css']
 })
 export class SeatSelectionComponent {
   seats: Seat[] = [
@@ -54,6 +55,7 @@ export class SeatSelectionComponent {
   vipPrice: number = 600000;
   popcornPrice: number = 50000;
   drinkPrice: number = 30000;
+  selectedPromotion: number = 0; // Default to no promotion
 
   popcornQuantity: number = 0;
   drinkQuantity: number = 0;
@@ -85,14 +87,17 @@ export class SeatSelectionComponent {
     return (this.popcornQuantity * this.popcornPrice) + (this.drinkQuantity * this.drinkPrice);
   }
 
+  get discountAmount(): number {
+    return (this.totalSeatPrice + this.totalServicePrice) * this.selectedPromotion;
+  }
+
   get totalAmount(): number {
-    return this.totalSeatPrice + this.totalServicePrice;
+    return this.totalSeatPrice + this.totalServicePrice - this.discountAmount;
   }
 
   toggleSeat(seat: Seat): void {
     seat.isSelected = !seat.isSelected;
   }
-  
 
   checkout(): void {
     const selectedSeatsString = this.selectedSeatsString;

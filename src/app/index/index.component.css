@@ -133,6 +133,20 @@ header {
 
 }
 
+.dropdown-menu {
+    background-color: transparent; /* Màu trắng với độ trong suốt */
+    border-radius: 5px; /* Bo góc cho dropdown */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bóng mờ bên dưới */
+}
+
+.dropdown-item {
+    color: #ffffff; /* Màu chữ cho các mục trong dropdown */
+}
+
+.dropdown-item:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Màu nền khi hover */
+    color: #007bff; /* Màu chữ khi hover */
+}
 .movieCarousel__trailer button span {
     position: relative;
     z-index: 2;

@@ -11,21 +11,6 @@
 </head>
 
 <body>
-    <div class="header">
-        <div class="logo">GP TEAM</div>
-        <div class="nav">
-            <a href="#">TRANG CHỦ</a>
-            <a href="#">LỊCH CHIẾU</a>
-            <a href="#">KHUYẾN MÃI</a>
-            <a href="#">LIÊN HỆ</a>
-            <a href="#">TUYỂN DỤNG</a>
-        </div>
-        <div class="auth-buttons">
-            <button>Đăng Nhập</button>
-            <button>Đăng Ký</button>
-        </div>
-    </div>
-
     <div class="container">
         <!-- Phần bên trái: Chọn ghế ngồi -->
         <div class="left">
@@ -79,15 +64,6 @@
     <div class="checkout">
         <button (click)="checkout()" [disabled]="!selectedSeats.length">Thanh toán</button>
     </div>
-
-    <footer>
-        <p>&copy; 2024 Nhóm 2. All rights reserved.</p>
-        <div>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Contact Us</a>
-        </div>
-    </footer>
 </body>
 
 </html>

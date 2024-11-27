@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 export class IndexComponent implements OnInit {
   isLoggedIn: boolean = false;
   username: string = '';
+  role: string | null = ''; // Thêm biến để lưu role
+  isDropdownOpen: boolean = false; // Thêm biến để quản lý trạng thái dropdown
 
   constructor(private router: Router) {}
 
@@ -17,21 +19,25 @@ export class IndexComponent implements OnInit {
     if (typeof window !== 'undefined' && window.localStorage) {
       const token = localStorage.getItem('auth_token');
       const storedUsername = localStorage.getItem('username');
+      const storedRole = localStorage.getItem('role'); // Lấy role từ local storage
       if (token && storedUsername) {
         this.isLoggedIn = true;
         this.username = storedUsername;
+        this.role = storedRole || ''; // Gán giá trị cho role
       }
     }
   }
 
   logout(): void {
-    // Xóa dữ liệu đăng nhập và chuyển hướng tới trang đăng nhập
+    // Đăng xuất
     if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.removeItem('auth_token');
       localStorage.removeItem('username');
+      localStorage.removeItem('role');
     }
     this.isLoggedIn = false;
     this.username = '';
+    this.role = ''; // Reset role khi đăng xuất
     this.router.navigate(['/login']);
   }
 }

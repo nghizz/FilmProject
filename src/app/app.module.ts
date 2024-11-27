@@ -3,6 +3,7 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { CommonModule } from '@angular/common'; // Để hỗ trợ các tính năng như ngClass, currency pipe
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,7 @@ import { SearchFilmComponent } from './search-film/search-film.component';
 import { IndexComponent } from './index/index.component';
 import { RegisterComponent } from './register/register.component';
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';
+import { MovieListComponent } from './movie-list/movie-list.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component';
     SearchFilmComponent,
     RegisterComponent,
     MovieDetailComponent,
+    MovieListComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,7 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component';
     CommonModule,
     FormsModule,
     HttpClientModule,
-    
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

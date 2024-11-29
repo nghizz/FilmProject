@@ -1,27 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-movie-detail',
   templateUrl: './movie-detail.component.html',
   styleUrls: ['./movie-detail.component.css'],
 })
 export class MovieDetailComponent implements OnInit {
-  movie: any = null; // Đặt giá trị khởi tạo là null
+  movie: any = null;
   selectedShowtime: string | null = null;
-  selectedDate: string = new Date().toISOString().split('T')[0]; // Khởi tạo ngày hiện tại
-
-  username: string = '';
-  rating: number | null = null;
-  comment: string = '';
+  selectedDate: string = new Date().toISOString().split('T')[0];
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const movieId = +params.get('id')!;
-      this.movie = this.getMovieById(movieId);
-      this.selectedShowtime = null; 
+      this.movie = this.getMovieById(movieId); // Lấy thông tin phim
     });
   }
 
@@ -65,21 +61,15 @@ export class MovieDetailComponent implements OnInit {
 
   navigateToSeatSelection(): void {
     if (this.selectedShowtime && this.selectedDate) {
-      this.router.navigate(['seat-selection/:showtime'], { queryParams: { showtime: this.selectedShowtime, date: this.selectedDate } });
+      this.router.navigate(['seat-selection', this.selectedShowtime], {
+        queryParams: {
+          theaterName: 'NameMovie', // Thay vào tên rạp thực tế
+          movieName: this.movie.title, // Gửi tên phim
+          date: this.selectedDate,
+        },
+      });
     } else {
       alert('Vui lòng chọn giờ chiếu và ngày.');
     }
   }
-
- //handleSubmit(): void {
-   // if (this.username && this.rating && this.comment) {
-     // alert(`Đánh giá thành công!\nTên: ${this.username}\nĐiểm: ${this.rating}\nBình luận: ${this.comment}`);
-      // Reset các trường sau khi gửi
-      //this.username = '';
-      //this.rating = null;
-     // this.comment = '';
-    //} else {
-    // alert('Vui lòng điền đầy đủ thông tin.');
-    // }
- // }
 }

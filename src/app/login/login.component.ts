@@ -27,6 +27,7 @@ export class LoginComponent {
                 this.errorMessage = '';
                 localStorage.setItem('auth_token', response.token); // Lưu token
                 localStorage.setItem('username', response.user.username); // Lưu tên người dùng
+                localStorage.setItem('role',response.user.role); // Lưu chức vụ người dùng
                 this.router.navigate(['/index']); // Điều hướng
             }
         },

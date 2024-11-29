@@ -14,6 +14,7 @@ import { IndexComponent } from './index/index.component';
 import { RegisterComponent } from './register/register.component';
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
+import { ReviewComponent } from './review/review.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { MovieListComponent } from './movie-list/movie-list.component';
     RegisterComponent,
     MovieDetailComponent,
     MovieListComponent,
+    ReviewComponent,
   ],
   imports: [
     BrowserModule,

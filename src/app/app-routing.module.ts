@@ -6,7 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { SeatSelectionComponent } from './seat-seletion/seat-seletion.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
-
+import { ReviewComponent } from './review/review.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'index', component: IndexComponent },
@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'movie-details', redirectTo: '/movie-details/1' },
   { path: 'movie-list', component: MovieListComponent },
   { path: '', redirectTo: '/index', pathMatch: 'full' },
+  {path: 'review', component: ReviewComponent}
 ];
 
 

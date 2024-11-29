@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +12,26 @@ export class AuthApiService {
   constructor(private http: HttpClient) {}
 
   //Đăng ký người dùng
-  register(userDetails: { username: string; password: string; confirmPassword: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/Users/register`, userDetails, {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    });
+ register(userDetails: { username: string; password: string; confirmPassword: string }): Observable<any> {
+  return this.http.post(`${this.apiUrl}/Users/register`, userDetails, {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  }).pipe(
+    tap((response: any) => {
+      // Kiểm tra nếu phản hồi thành công và có dữ liệu người dùng
+      if (response && response.user) {
+        // Kiểm tra môi trường là trình duyệt (browser) trước khi sử dụng localStorage
+        if (typeof window !== 'undefined' && window.localStorage) {
+          // Lưu thông tin người dùng vào localStorage
+          localStorage.setItem('username', response.user.username);
+          localStorage.setItem('auth_token', response.token);
+        }
+      }
+    }),
+    catchError((error: any) => {
+      console.error('Đăng ký thất bại:', error);
+      return throwError(() => new Error('Đăng ký thất bại. Vui lòng thử lại.'));
+    })
+  );
   }
   // Đăng nhập người dùng
   login(credentials: { username: string; password: string }): Observable<any> {

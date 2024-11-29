@@ -1,0 +1,75 @@
+main {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #d9d9d9;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+}
+
+.header .history-btn {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.header .history-btn:hover {
+    background-color: #c0392b;
+}
+
+.voucher-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+.voucher-card {
+    background-color: #ccc;
+    width: 200px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.voucher-card:hover {
+    transform: scale(1.05);
+    border: 2px solid #3498db;
+}
+
+.voucher-card .image {
+    height: 150px;
+    background-color: #999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px 8px 0 0;
+}
+
+.voucher-card .info {
+    padding: 10px;
+    font-size: 14px;
+}
+
+.voucher-card .time {
+    padding: 10px;
+    font-size: 12px;
+    color: #555;
+}

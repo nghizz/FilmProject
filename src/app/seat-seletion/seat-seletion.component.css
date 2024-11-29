@@ -408,3 +408,58 @@ footer a:hover {
         flex-wrap: wrap;
     }
 }
+
+.seats {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 10px;
+  }
+  
+  .seat {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .seat.regular {
+    background-color: #e0f7fa;
+  }
+  
+  .seat.double {
+    background-color: #ffcc80;
+  }
+  
+  .seat.vip {
+    background-color: #ffcdd2;
+  }
+  
+  .seat.selected {
+    border: 2px solid #4caf50;
+  }
+  
+  .legend div {
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .legend span {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    display: inline-block;
+  }
+  
+  .regular span {
+    background-color: #e0f7fa;
+  }
+  
+  .double span {
+    background-color: #ffcc80;
+  }
+  
+  .vip span {
+    background-color: #ffcdd2;
+  }
+  

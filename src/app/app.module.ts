@@ -15,6 +15,7 @@ import { RegisterComponent } from './register/register.component';
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,9 @@ import { MovieListComponent } from './movie-list/movie-list.component';
     RouterModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
+
 })
 export class AppModule { }
+

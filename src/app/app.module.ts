@@ -17,6 +17,7 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { PaymentComponent } from './payment/payment.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +40,9 @@ import { PaymentComponent } from './payment/payment.component';
     RouterModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
+
 })
 export class AppModule { }
+

@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'movie-details', redirectTo: '/movie-details/1' },
   { path: 'movie-list', component: MovieListComponent },
   { path: '', redirectTo: '/index', pathMatch: 'full' },
-  {path: 'review', component: ReviewComponent}
+  { path: 'review', component:ReviewComponent}
 ];
 
 

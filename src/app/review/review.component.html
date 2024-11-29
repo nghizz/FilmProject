@@ -1,0 +1,48 @@
+<div *ngIf="purchasedMovies.length > 0; else noMovies">
+    <h2>Danh sách phim đã xem:</h2>
+    <ul>
+      <li *ngFor="let movie of purchasedMovies">
+        <img [src]="movie.posterUrl" alt="{{ movie.title }}" width="50">
+        {{ movie.title }} - {{ movie.genre }}
+      </li>
+    </ul>
+  </div>
+  <ng-template #noMovies>
+    <p>Chưa có phim nào trong danh sách đã thanh toán</p>
+  </ng-template>
+  
+  
+  <div class="review-form">
+    <h3>Gửi đánh giá</h3>
+    <!-- Xếp hạng -->
+  <label for="rating">Xếp hạng:</label>
+  <select id="rating" [value]="rating" (change)="onRatingChange($event)">
+    <option *ngFor="let star of [1, 2, 3, 4, 5]" [value]="star">{{ star }} sao</option>
+  </select>
+  
+  <!-- Nhận xét -->
+  <label for="comment">Nhận xét của bạn:</label>
+  <textarea
+    id="comment"
+    [(ngModel)]="commentText"
+    placeholder="Viết nhận xét"
+  >
+  </textarea>
+  
+  <!-- Gửi -->
+  <button (click)="submitReview()">Gửi</button>
+  
+  </div>
+  
+  <hr />
+  
+  <div class="reviews-list">
+    <!-- Hiển thị danh sách đánh giá -->
+    <div *ngFor="let review of reviews; let i = index" class="review-item">
+      <h3>{{ review.customer }} - {{ review.rating }} sao</h3>
+      <p>{{ review.comment }}</p>
+      <div class="review-actions">
+        <button (click)="likeReview(i)">👍 Thích ({{ review.likes }})</button>
+        <button (click)="likeReview(i)">👎 Không thích ({{ review.dislikes }})</button>
+      </div>
+    </div>

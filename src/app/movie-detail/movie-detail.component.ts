@@ -61,11 +61,12 @@ export class MovieDetailComponent implements OnInit {
 
   navigateToSeatSelection(): void {
     if (this.selectedShowtime && this.selectedDate) {
-      this.router.navigate(['seat-selection', this.selectedShowtime], {
+      this.router.navigate(['seat-selection'], {
         queryParams: {
-          theaterName: 'NameMovie', // Thay vào tên rạp thực tế
-          movieName: this.movie.title, // Gửi tên phim
-          date: this.selectedDate,
+          theaterName: 'NameMovie', // Tên rạp
+          movieName: this.movie.title, // Tên phim
+          date: this.selectedDate, // Ngày chiếu
+          showtime: this.selectedShowtime, // Giờ chiếu
         },
       });
     } else {

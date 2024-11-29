@@ -58,6 +58,7 @@
       </div>
     </div>
     <div class="checkout">
+      <button (click)="out()" style="margin-right: 30px;">Quay lại</button>
       <button (click)="checkout()" [disabled]="selectedSeats.length === 0">Thanh toán</button>
     </div>
   </div>

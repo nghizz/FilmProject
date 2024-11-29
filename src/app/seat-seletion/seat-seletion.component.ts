@@ -9,6 +9,7 @@ import { SeatApiService, Seat } from '../services/api/seat-api.service';
 })
 export class SeatSelectionComponent implements OnInit {
   seats: Seat[] = []; // Danh sách ghế từ API
+  groupedSeats: Seat[][] = []; // Danh sách ghế được nhóm theo hàng
   selectedSeats: Seat[] = []; // Các ghế đã chọn
   selectedPromotion: number = 0; // Tỷ lệ khuyến mãi (mặc định không có khuyến mãi)
 
@@ -22,7 +23,7 @@ export class SeatSelectionComponent implements OnInit {
 
   ngOnInit(): void {
     // Lấy thông tin từ query parameters
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       this.theaterName = params['theaterName'] || 'Tên Rạp';
       this.movieName = params['movieName'] || 'Tên Phim';
       this.date = params['date'] || '';
@@ -40,15 +41,31 @@ export class SeatSelectionComponent implements OnInit {
     this.seatApiService.getAvailableSeats().subscribe(
       (data: Seat[]) => {
         // Thêm thuộc tính `isSelected` để theo dõi trạng thái chọn ghế
-        this.seats = data.map(seat => ({
+        this.seats = data.map((seat) => ({
           ...seat,
           isSelected: false
         }));
+
+        // Nhóm ghế theo hàng
+        this.groupSeatsByRow();
       },
-      error => {
+      (error) => {
         console.error('Không thể tải danh sách ghế:', error);
       }
     );
+  }
+
+  /**
+   * Nhóm ghế theo hàng (rowNumber)
+   */
+  private groupSeatsByRow(): void {
+    const grouped = this.seats.reduce((acc, seat) => {
+      acc[seat.rowNumber] = acc[seat.rowNumber] || [];
+      acc[seat.rowNumber].push(seat);
+      return acc;
+    }, {} as { [key: string]: Seat[] });
+
+    this.groupedSeats = Object.values(grouped);
   }
 
   /**
@@ -64,7 +81,7 @@ export class SeatSelectionComponent implements OnInit {
    * Cập nhật danh sách ghế đã chọn
    */
   private updateSelectedSeats(): void {
-    this.selectedSeats = this.seats.filter(seat => seat.isSelected);
+    this.selectedSeats = this.seats.filter((seat) => seat.isSelected);
   }
 
   /**
@@ -72,14 +89,13 @@ export class SeatSelectionComponent implements OnInit {
    */
   get selectedSeatsString(): string {
     return this.selectedSeats
-      .map(seat => `${seat.rowNumber}-${seat.seatNumber}`) // Ví dụ: "A-1, A-2"
+      .map((seat) => `${seat.rowNumber}-${seat.seatNumber}`) // Ví dụ: "A-1, A-2"
       .join(', ');
   }
 
   /**
    * Tính tổng giá vé của các ghế đã chọn
-   */
-  get totalSeatPrice(): number {
+   */get totalSeatPrice(): number {
     return this.selectedSeats.reduce((total, seat) => total + seat.price, 0);
   }
 
@@ -100,23 +116,30 @@ export class SeatSelectionComponent implements OnInit {
   /**
    * Xử lý thanh toán
    */
-  checkout(): void {if (this.selectedSeats.length === 0) {
-    alert('Vui lòng chọn ít nhất một ghế để thanh toán.');
-    return;
+  out() : void{
+    alert('Đã hủy!');
+    window.history.back();
   }
+  checkout(): void {
+    if (this.selectedSeats.length === 0) {
+      alert('Vui lòng chọn ít nhất một ghế để thanh toán.');
+      return;
+    }
 
-  const seatNumbers = this.selectedSeats.map(seat => `${seat.rowNumber}-${seat.seatNumber}`).join(', ');
-  const totalAmount = this.totalAmount;
+    const seatNumbers = this.selectedSeats
+      .map((seat) => `${seat.rowNumber}-${seat.seatNumber}`)
+      .join(', ');
+    const totalAmount = this.totalAmount;
 
-  this.router.navigate(['/payment'], {
-    queryParams: {
-      theaterName: this.theaterName,
-      movieName: this.movieName,
-      date: this.date,
-      showtime: this.showtime,
-      seatNumber: seatNumbers,
-      totalAmount: totalAmount,
-    },
-  });
-}
+    this.router.navigate(['/payment'], {
+      queryParams: {
+        theaterName: this.theaterName,
+        movieName: this.movieName,
+        date: this.date,
+        showtime: this.showtime,
+        seatNumber: seatNumbers,
+        totalAmount: totalAmount
+      }
+    });
+  }
 }

@@ -12,12 +12,12 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'index', component: IndexComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'seat-selection/:showtime', component: SeatSelectionComponent },
   { path: 'movie-details/:id', component: MovieDetailComponent },
-  //{ path: 'movie-details', redirectTo: '/movie-details/1' },
   { path: 'movie-list', component: MovieListComponent },
   { path: 'payment', component: PaymentComponent },
   { path: '', redirectTo: '/index', pathMatch: 'full' },
+  { path: 'seat-selection', component: SeatSelectionComponent }, // Trang chọn ghế
+  { path: '**', redirectTo: 'movie-list' }, // Xử lý các route không tồn tại
 ];
 
 @NgModule({

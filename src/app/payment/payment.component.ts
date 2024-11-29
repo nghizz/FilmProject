@@ -15,8 +15,9 @@ export class PaymentComponent implements OnInit {
   showTime: string = '';
   seatNumber: string = '';
   totalAmount: number = 0;
+  date: string = ''; // Thêm khai báo cho thuộc tính 'date'
 
-  paymentMethod: string = 'onepay';  // Mặc định chọn "OnePay"
+  paymentMethod: string = 'onepay'; // Mặc định chọn "OnePay"
 
   constructor(private route: ActivatedRoute) {}
 
@@ -24,9 +25,10 @@ export class PaymentComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.theaterName = params['theaterName'] || 'Tên Rạp';
       this.movieName = params['movieName'] || 'Tên Phim';
-      this.showTime = params['showTime'] || '16:00';
+      this.date = params['date'] || ''; // Gán giá trị cho thuộc tính 'date'
+      this.showTime = params['showtime'] || '16:00';
       this.seatNumber = params['seatNumber'] || '';
-      this.totalAmount = +params['totalAmount'] || 0;  // Convert string to number
+      this.totalAmount = +params['totalAmount'] || 0; // Convert string to number
     });
   }
 
@@ -34,12 +36,10 @@ export class PaymentComponent implements OnInit {
   onCancel(): void {
     alert('Đã hủy thanh toán!');
     window.history.back();
-    // Có thể thêm logic để điều hướng về trang trước
   }
 
-  // Xử lý khi nhấn nút "Xác nhận"
+  // Kiểm tra tính hợp lệ của form
   isFormValid(): boolean {
-    // Kiểm tra tính hợp lệ của thông tin thanh toán
     if (!this.customerName.trim()) {
       alert('Họ và tên không được để trống!');
       return false;
@@ -75,26 +75,23 @@ export class PaymentComponent implements OnInit {
     return true; // Form hợp lệ
   }
 
+  // Xử lý khi nhấn nút "Xác nhận"
   onConfirm(): void {
     if (this.isFormValid()) {
-      // Hiển thị thông tin thanh toán
       alert(`Thanh toán thành công!
           Họ và tên: ${this.customerName}
           Số điện thoại: ${this.phoneNumber}
           Email: ${this.email}
           Tên rạp: ${this.theaterName}
           Tên phim: ${this.movieName}
+          Ngày chiếu: ${this.date} 
           Xuất chiếu: ${this.showTime}
           Số ghế: ${this.seatNumber}
           Tổng tiền: ${this.totalAmount} VND
           Hình thức: ${this.getPaymentMethodName()}
       `);
-
-      // Thêm logic gọi API hoặc các xử lý khác nếu cần
     }
-  }
-
-  // Lấy tên hình thức thanh toán
+  }// Lấy tên hình thức thanh toán
   getPaymentMethodName(): string {
     switch (this.paymentMethod) {
       case 'onepay':

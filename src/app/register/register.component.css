@@ -30,7 +30,7 @@ body {
     width: 100%;
     max-width: 500px; /* Độ rộng tối đa */
     padding: 30px;
-    background-color: rgba(255, 255, 255, 0.8); /* Làm mờ nền form */
+    background-color: rgba(119, 118, 118, 0.7);; /* Làm mờ nền form */
     border-radius: 10px;
     border: 2px solid rgba(0, 0, 0, 0.5); /* Viền đậm hơn */
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3); /* Tăng bóng đổ */
@@ -63,7 +63,7 @@ body {
 }
 
 .input-box input::placeholder {
-    color: #aaa; /* Màu placeholder */
+    color: #4c4b4b; /* Màu placeholder */
 }
 
 .input-box input:focus {
@@ -80,7 +80,7 @@ body {
     padding: 12px;
     font-size: 18px;
     font-weight: bold;
-    color: #fff;
+    color: #3b3b3b;
     background-color: #333;
     border: none;
     border-radius: 5px;
@@ -89,7 +89,7 @@ body {
 }
 
 .button .btn:hover {
-    background-color: #555; /* Thay đổi màu khi hover */
+    background-color: #888484; /* Thay đổi màu khi hover */
 }
 
 /* Links */
@@ -98,7 +98,7 @@ div.group {
 }
 
 a {
-    color: #555;
+    color: #fffdfd;
     text-decoration: none;
     font-size: 16px;
     margin: 0 5px;

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 interface Seat {
   name: string;
@@ -9,9 +10,11 @@ interface Seat {
 @Component({
   selector: 'app-seat-seletion',
   templateUrl: './seat-seletion.component.html',
-  styleUrls: ['./seat-seletion.component.css']
+  styleUrls: ['./seat-seletion.component.css'],
 })
-export class SeatSelectionComponent {
+export class SeatSelectionComponent implements OnInit {
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
   seats: Seat[] = [
     { name: 'Ghế 01', type: 'double', isSelected: false },
     { name: 'Ghế 02', type: 'double', isSelected: false },
@@ -55,17 +58,33 @@ export class SeatSelectionComponent {
   vipPrice: number = 600000;
   popcornPrice: number = 50000;
   drinkPrice: number = 30000;
-  selectedPromotion: number = 0; // Default to no promotion
+  selectedPromotion: number = 0; // Mặc định không có khuyến mãi
 
   popcornQuantity: number = 0;
   drinkQuantity: number = 0;
 
+  theaterName: string = '';
+  movieName: string = '';
+  showTime: string = '';
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.theaterName = params['theaterName'] || 'Tên Rạp';
+      this.movieName = params['movieName'] || 'Tên Phim';
+
+      // Lấy showtime từ paramMap
+      this.route.paramMap.subscribe(paramMap => {
+        this.showTime = paramMap.get('showtime') || '16:00'; // Đảm bảo lấy chính xác showtime
+      });
+    });
+  }
+
   get selectedSeats(): Seat[] {
-    return this.seats.filter(seat => seat.isSelected);
+    return this.seats.filter((seat) => seat.isSelected);
   }
 
   get selectedSeatsString(): string {
-    return this.selectedSeats.map(seat => seat.name).join(', ');
+    return this.selectedSeats.map((seat) => seat.name).join(', ');
   }
 
   get totalSeatPrice(): number {
@@ -78,13 +97,13 @@ export class SeatSelectionComponent {
         case 'vip':
           return acc + this.vipPrice;
         default:
-          return acc;
+          return acc; // Trả về giá trị hiện tại nếu không khớp loại
       }
     }, 0);
   }
 
   get totalServicePrice(): number {
-    return (this.popcornQuantity * this.popcornPrice) + (this.drinkQuantity * this.drinkPrice);
+    return this.popcornQuantity * this.popcornPrice + this.drinkQuantity * this.drinkPrice;
   }
 
   get discountAmount(): number {
@@ -96,7 +115,7 @@ export class SeatSelectionComponent {
   }
 
   toggleSeat(seat: Seat): void {
-    seat.isSelected = !seat.isSelected;
+    seat.isSelected = !seat.isSelected; // Chuyển trạng thái ghế được chọn
   }
 
   checkout(): void {
@@ -104,15 +123,15 @@ export class SeatSelectionComponent {
     const totalPrice = this.totalAmount;
 
     if (selectedSeatsString && totalPrice > 0) {
-      const formattedPrice = new Intl.NumberFormat('vi-VN', {
-        style: 'currency',
-        currency: 'VND',
-      }).format(totalPrice);
-
-      alert(`Thanh toán thành công!\nGhế đã chọn: ${selectedSeatsString}\nTổng giá: ${formattedPrice}`);
-      this.seats.forEach(seat => seat.isSelected = false);
-      this.popcornQuantity = 0;
-      this.drinkQuantity = 0;
+      this.router.navigate(['/payment'], {
+        queryParams: {
+          theaterName: this.theaterName,
+          movieName: this.movieName,
+          showTime: this.showTime,
+          seatNumber: selectedSeatsString,
+          totalAmount: totalPrice,
+        },
+      });
     } else {
       alert('Vui lòng chọn ghế và dịch vụ trước khi thanh toán!');
     }

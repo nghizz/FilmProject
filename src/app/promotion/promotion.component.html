@@ -55,33 +55,48 @@
           </div>
         </div>
       </nav>
-    </header>
+</header>
     
-  <!-- Main Content -->
+<!-- Main Content -->
 <main>
-    <div class="header">
-        <div>VOUCHER KHUYẾN MÃI</div>
-        <button class="history-btn">LỊCH SỬ</button>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Danh sách khuyến mãi</h2>
+    <!-- Nút Lịch sử sử dụng voucher -->
+    <button class="btn btn-outline-primary" routerLink="/voucher-history">
+      Lịch sử 
+    </button>
+    <div class="promotion-grid row">
+      <div *ngFor="let promotion of promotions" class="promotion-item col-md-4 mb-4" (click)="selectPromotion(promotion)" >
+        <!-- Hiển thị ảnh -->
+        <div class="promotion-image">
+          <img [src]="promotion.imageUrl" alt="{{ promotion.title }}" class="img-fluid rounded" />
+        </div>
+        <!-- Thông tin khuyến mãi -->
+        <div class="promotion-info mt-3">
+          <h5 class="text-primary">{{ promotion.title }}</h5>
+          <p class="text-muted">{{ promotion.description }}</p>
+          <p><strong>Giảm giá:</strong> {{ promotion.discount }}%</p>
+        </div>
+        <!-- Thời gian khuyến mãi -->
+        <div class="promotion-time text-muted">
+          <p><strong>Bắt đầu:</strong> {{ promotion.startDate | date: 'dd/MM/yyyy' }}</p>
+          <p><strong>Kết thúc:</strong> {{ promotion.endDate | date: 'dd/MM/yyyy' }}</p>
+        </div>
+        <!-- Thông tin chi tiết hiển thị khi nhấn -->
+        <div
+          class="promotion-details-overlay"
+          [class.active]="selectedPromotion === promotion">
+          <h4 class="text-success text-center">Chi tiết khuyến mãi</h4>
+          <p>{{ promotion.description }}</p>
+          <p><strong>Giảm giá:</strong> {{ promotion.discount }}%</p>
+          <p><strong>Bắt đầu:</strong> {{ promotion.startDate | date: 'dd/MM/yyyy' }}</p>
+          <p><strong>Kết thúc:</strong> {{ promotion.endDate | date: 'dd/MM/yyyy' }}</p>
+        </div>
+      </div>
     </div>
-    <div class="voucher-container">
-        <div class="voucher-card">
-            <div class="image">ẢNH + THÔNG TIN KHUYẾN MÃI</div>
-            <div class="info">Thông tin khuyến mãi</div>
-            <div class="time">Thời gian khuyến mãi</div>
-        </div>
-        <div class="voucher-card">
-            <div class="image">ẢNH + THÔNG TIN KHUYẾN MÃI</div>
-            <div class="info">Thông tin khuyến mãi</div>
-            <div class="time">Thời gian khuyến mãi</div>
-        </div>
-        <div class="voucher-card">
-            <div class="image">ẢNH + THÔNG TIN KHUYẾN MÃI</div>
-            <div class="info">Thông tin khuyến mãi</div>
-            <div class="time">Thời gian khuyến mãi</div>
-        </div>
-    </div>
+  </div>
 </main>
-  
+
   <!-- Footer -->
     <footer class="footer">
       <div class="container">

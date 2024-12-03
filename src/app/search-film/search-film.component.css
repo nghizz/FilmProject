@@ -80,6 +80,10 @@
     }
 }
 
+main {
+  margin-top: 80px; /* Điều chỉnh giá trị này để tránh header che phủ */
+}
+
 /* Phần tìm kiếm */
 .search-bar {
     display: flex;

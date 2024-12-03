@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root' // Đảm bảo MovieService được cung cấp trong toàn ứng dụng
 })
 export class MovieService {
-  private apiUrl = 'https://localhost:44374/api/Movies';
+  private apiUrl = 'https://localhost:7233/api/Movies';
 
   constructor(private http: HttpClient) {}
 

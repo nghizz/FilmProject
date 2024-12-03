@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SeatSelectionComponent } from './seat-seletion/seat-seletion.component';
-import { IndexComponent } from './index/index.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -21,7 +20,6 @@ import { PromotionComponent } from './promotion/promotion.component';
     AppComponent,
     LoginComponent,
     SeatSelectionComponent,
-    IndexComponent,
     RegisterComponent,
     HomeComponent,
     HomePageComponent,

@@ -17,6 +17,10 @@ body {
     font-size: 16px;
     position: relative;
     overflow: hidden;
+    background-image: url('https://media.vietq.vn/files/phim-hanh-dong-my-giang-sinh-2015-1.jpg'); /* Thêm hình nền */
+    background-size: cover; /* Hình nền bao phủ toàn màn hình */
+    background-position: center; /* Căn giữa hình nền */
+    background-repeat: no-repeat; /* Không lặp hình nền */
 }
 
 .container {

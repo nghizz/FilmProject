@@ -22,7 +22,7 @@
               <a class="nav-link" href="#">LỊCH CHIẾU</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">KHUYẾN MÃI</a>
+              <a class="nav-link" routerLink="/promotion">KHUYẾN MÃI</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">LIÊN HỆ</a>
@@ -34,8 +34,8 @@
   
           <!-- Auth buttons -->
           <div class="auth-buttons">
-            <button class="btn btn-outline-primary me-2">ĐĂNG NHẬP</button>
-            <button class="btn btn-primary">ĐĂNG KÝ</button>
+            <button class="btn btn-outline-primary me-2" (click)="goToLogin()">ĐĂNG NHẬP</button>
+            <button class="btn btn-primary"(click)="goToRegister()">ĐĂNG KÝ</button>
           </div>
         </div>
       </div>

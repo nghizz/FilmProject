@@ -1,120 +1,145 @@
-import { Component } from '@angular/core';
-
-interface Seat {
-  name: string;
-  type: 'regular' | 'double' | 'vip';
-  isSelected: boolean;
-}
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SeatApiService, Seat } from '../services/api/seat-api.service';
 
 @Component({
-  selector: 'app-seat-seletion',
+  selector: 'app-seat-selection',
   templateUrl: './seat-seletion.component.html',
   styleUrls: ['./seat-seletion.component.css']
 })
-export class SeatSelectionComponent {
-  seats: Seat[] = [
-    { name: 'Ghế 01', type: 'double', isSelected: false },
-    { name: 'Ghế 02', type: 'double', isSelected: false },
-    { name: 'Ghế 03', type: 'regular', isSelected: false },
-    { name: 'Ghế 04', type: 'regular', isSelected: false },
-    { name: 'Ghế 05', type: 'regular', isSelected: false },
-    { name: 'Ghế 06', type: 'double', isSelected: false },
-    { name: 'Ghế 07', type: 'double', isSelected: false },
-    { name: 'Ghế 08', type: 'regular', isSelected: false },
-    { name: 'Ghế 09', type: 'regular', isSelected: false },
-    { name: 'Ghế 10', type: 'regular', isSelected: false },
-    { name: 'Ghế 11', type: 'double', isSelected: false },
-    { name: 'Ghế 12', type: 'double', isSelected: false },
-    { name: 'Ghế 13', type: 'regular', isSelected: false },
-    { name: 'Ghế 14', type: 'regular', isSelected: false },
-    { name: 'Ghế 15', type: 'regular', isSelected: false },
-    { name: 'Ghế 16', type: 'double', isSelected: false },
-    { name: 'Ghế 17', type: 'double', isSelected: false },
-    { name: 'Ghế 18', type: 'regular', isSelected: false },
-    { name: 'Ghế 19', type: 'regular', isSelected: false },
-    { name: 'Ghế 20', type: 'regular', isSelected: false },
-    { name: 'Ghế 21', type: 'double', isSelected: false },
-    { name: 'Ghế 22', type: 'double', isSelected: false },
-    { name: 'Ghế 23', type: 'regular', isSelected: false },
-    { name: 'Ghế 24', type: 'regular', isSelected: false },
-    { name: 'Ghế 25', type: 'regular', isSelected: false },
-    { name: 'Ghế 26', type: 'vip', isSelected: false },
-    { name: 'Ghế 27', type: 'vip', isSelected: false },
-    { name: 'Ghế 28', type: 'vip', isSelected: false },
-    { name: 'Ghế 29', type: 'vip', isSelected: false },
-    { name: 'Ghế 30', type: 'vip', isSelected: false },
-    { name: 'Ghế 31', type: 'vip', isSelected: false },
-    { name: 'Ghế 32', type: 'vip', isSelected: false },
-    { name: 'Ghế 33', type: 'vip', isSelected: false },
-    { name: 'Ghế 34', type: 'vip', isSelected: false },
-    { name: 'Ghế 35', type: 'vip', isSelected: false }
-  ];
+export class SeatSelectionComponent implements OnInit {
+  seats: Seat[] = []; // Danh sách ghế từ API
+  groupedSeats: Seat[][] = []; // Danh sách ghế được nhóm theo hàng
+  selectedSeats: Seat[] = []; // Các ghế đã chọn
+  selectedPromotion: number = 0; // Tỷ lệ khuyến mãi (mặc định không có khuyến mãi)
 
-  regularPrice: number = 200000;
-  doublePrice: number = 400000;
-  vipPrice: number = 600000;
-  popcornPrice: number = 50000;
-  drinkPrice: number = 30000;
-  selectedPromotion: number = 0; // Default to no promotion
+  // Các thông tin nhận từ query parameters
+  theaterName: string = '';
+  movieName: string = '';
+  date: string = '';
+  showtime: string = '';
 
-  popcornQuantity: number = 0;
-  drinkQuantity: number = 0;
+  constructor(private seatApiService: SeatApiService, private route: ActivatedRoute, private router: Router) {}
 
-  get selectedSeats(): Seat[] {
-    return this.seats.filter(seat => seat.isSelected);
+  ngOnInit(): void {
+    // Lấy thông tin từ query parameters
+    this.route.queryParams.subscribe((params) => {
+      this.theaterName = params['theaterName'] || 'Tên Rạp';
+      this.movieName = params['movieName'] || 'Tên Phim';
+      this.date = params['date'] || '';
+      this.showtime = params['showtime'] || '';
+    });
+
+    // Load danh sách ghế
+    this.loadAvailableSeats();
   }
 
-  get selectedSeatsString(): string {
-    return this.selectedSeats.map(seat => seat.name).join(', ');
-  }
+  /**
+   * Tải danh sách ghế từ API
+   */
+  loadAvailableSeats(): void {
+    this.seatApiService.getAvailableSeats().subscribe(
+      (data: Seat[]) => {
+        // Thêm thuộc tính `isSelected` để theo dõi trạng thái chọn ghế
+        this.seats = data.map((seat) => ({
+          ...seat,
+          isSelected: false
+        }));
 
-  get totalSeatPrice(): number {
-    return this.selectedSeats.reduce((acc, seat) => {
-      switch (seat.type) {
-        case 'regular':
-          return acc + this.regularPrice;
-        case 'double':
-          return acc + this.doublePrice;
-        case 'vip':
-          return acc + this.vipPrice;
-        default:
-          return acc;
+        // Nhóm ghế theo hàng
+        this.groupSeatsByRow();
+      },
+      (error) => {
+        console.error('Không thể tải danh sách ghế:', error);
       }
-    }, 0);
+    );
   }
 
-  get totalServicePrice(): number {
-    return (this.popcornQuantity * this.popcornPrice) + (this.drinkQuantity * this.drinkPrice);
+  /**
+   * Nhóm ghế theo hàng (rowNumber)
+   */
+  private groupSeatsByRow(): void {
+    const grouped = this.seats.reduce((acc, seat) => {
+      acc[seat.rowNumber] = acc[seat.rowNumber] || [];
+      acc[seat.rowNumber].push(seat);
+      return acc;
+    }, {} as { [key: string]: Seat[] });
+
+    this.groupedSeats = Object.values(grouped);
   }
 
-  get discountAmount(): number {
-    return (this.totalSeatPrice + this.totalServicePrice) * this.selectedPromotion;
-  }
-
-  get totalAmount(): number {
-    return this.totalSeatPrice + this.totalServicePrice - this.discountAmount;
-  }
-
+  /**
+   * Xử lý chọn/bỏ chọn ghế
+   * @param seat Ghế được nhấn
+   */
   toggleSeat(seat: Seat): void {
-    seat.isSelected = !seat.isSelected;
+    seat.isSelected = !seat.isSelected; // Đổi trạng thái ghế
+    this.updateSelectedSeats(); // Cập nhật danh sách ghế đã chọn
   }
 
+  /**
+   * Cập nhật danh sách ghế đã chọn
+   */
+  private updateSelectedSeats(): void {
+    this.selectedSeats = this.seats.filter((seat) => seat.isSelected);
+  }
+
+  /**
+   * Chuỗi ghế đã chọn (hiển thị cho người dùng)
+   */
+  get selectedSeatsString(): string {
+    return this.selectedSeats
+      .map((seat) => `${seat.rowNumber}-${seat.seatNumber}`) // Ví dụ: "A-1, A-2"
+      .join(', ');
+  }
+
+  /**
+   * Tính tổng giá vé của các ghế đã chọn
+   */get totalSeatPrice(): number {
+    return this.selectedSeats.reduce((total, seat) => total + seat.price, 0);
+  }
+
+  /**
+   * Tính số tiền giảm giá dựa trên khuyến mãi
+   */
+  get discountAmount(): number {
+    return this.totalSeatPrice * this.selectedPromotion;
+  }
+
+  /**
+   * Tính tổng tiền sau khi áp dụng khuyến mãi
+   */
+  get totalAmount(): number {
+    return this.totalSeatPrice - this.discountAmount;
+  }
+
+  /**
+   * Xử lý thanh toán
+   */
+  out() : void{
+    alert('Đã hủy!');
+    window.history.back();
+  }
   checkout(): void {
-    const selectedSeatsString = this.selectedSeatsString;
-    const totalPrice = this.totalAmount;
-
-    if (selectedSeatsString && totalPrice > 0) {
-      const formattedPrice = new Intl.NumberFormat('vi-VN', {
-        style: 'currency',
-        currency: 'VND',
-      }).format(totalPrice);
-
-      alert(`Thanh toán thành công!\nGhế đã chọn: ${selectedSeatsString}\nTổng giá: ${formattedPrice}`);
-      this.seats.forEach(seat => seat.isSelected = false);
-      this.popcornQuantity = 0;
-      this.drinkQuantity = 0;
-    } else {
-      alert('Vui lòng chọn ghế và dịch vụ trước khi thanh toán!');
+    if (this.selectedSeats.length === 0) {
+      alert('Vui lòng chọn ít nhất một ghế để thanh toán.');
+      return;
     }
+
+    const seatNumbers = this.selectedSeats
+      .map((seat) => `${seat.rowNumber}-${seat.seatNumber}`)
+      .join(', ');
+    const totalAmount = this.totalAmount;
+
+    this.router.navigate(['/payment'], {
+      queryParams: {
+        theaterName: this.theaterName,
+        movieName: this.movieName,
+        date: this.date,
+        showtime: this.showtime,
+        seatNumber: seatNumbers,
+        totalAmount: totalAmount
+      }
+    });
   }
 }

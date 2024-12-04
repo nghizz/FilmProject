@@ -37,13 +37,9 @@
               }
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ],
+            "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {
@@ -86,24 +82,6 @@
           },
           "defaultConfiguration": "development"
         },
-        "server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "outputPath": "dist/film-project-server",
-            "main": "src/main.server.ts",
-            "tsConfig": "tsconfig.server.json"
-          },
-          "configurations": {
-            "production": {
-              "outputHashing": "all",
-              "sourceMap": false
-            },
-            "development": {
-              "sourceMap": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
         },
@@ -131,6 +109,7 @@
     }
   },
   "cli": {
-    "analytics": "1deabc63-566a-4198-b6ca-34802889672a"
+    "analytics": "7d67180b-94e7-4e12-a1a1-c43c90f27ee2"
   }
 }
+

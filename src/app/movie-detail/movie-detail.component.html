@@ -1,0 +1,28 @@
+<div class="movie-detail-container">
+  <img [src]="movie?.posterUrl || 'placeholder.jpg'" alt="{{ movie?.title }}" class="movie-poster" />
+  <h2>Tên Phim: {{ movie?.title || 'Chưa có' }}</h2>
+  <p>Đạo diễn: {{ movie?.director || 'Chưa có' }}</p>
+  <p>Năm sản xuất: {{ movie?.releaseYear || 'Chưa có' }}</p>
+  <p>Thể loại: {{ movie?.genre || 'Chưa có' }}</p>
+  <p>Mô tả: {{ movie?.description || 'Chưa có thông tin' }}</p>
+  <button class="trailer-button">► Trailer</button>
+
+  <h3>Ngày Chiếu:</h3>
+  <input type="date" [(ngModel)]="selectedDate" (change)="onDateSelect($event)" />
+
+  <h3>Giờ Chiếu:</h3>
+  <select (change)="onShowtimeSelect($event)">
+      <option value="" disabled selected>Chọn giờ chiếu</option>
+      <option *ngFor="let showtime of movie?.showtimes" [value]="showtime">{{ showtime }}</option>
+  </select>
+
+  <button class="next-button" *ngIf="selectedShowtime && selectedDate" (click)="navigateToSeatSelection()">
+    Tiếp Theo
+  </button>
+
+  <!-- <h3>Đánh giá:</h3>
+  <input type="text" [(ngModel)]="username" placeholder="Tên người dùng..." />
+  <input type="number" [(ngModel)]="rating" placeholder="Điểm đánh giá..." min="1" max="5" />
+  <textarea [(ngModel)]="comment" placeholder="Viết bình luận ..."></textarea> 
+  <button class="submit-button" (click)="handleSubmit()">Gửi</button>-->
+</div>

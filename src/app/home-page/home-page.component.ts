@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MovieService } from '../services/api/movie.service'; // Import MovieService
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { MovieService } from '../services/api/movie.service'; 
 import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common'; // Import isPlatformBrowser
 
 @Component({
   selector: 'app-home-page',
@@ -8,29 +9,46 @@ import { Router } from '@angular/router';
   styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent implements OnInit {
-  currentUser: any = null;
-  isLoggedIn: boolean = false;
-  movies: any[] = []; // Danh sách phim
-  loadingMovies: boolean = true; // Trạng thái đang tải
-  errorMovies: string | null = null; // Lỗi nếu có
+  currentUser: any = null; 
+  isLoggedIn: boolean = false; 
+  movies: any[] = []; 
+  loadingMovies: boolean = true; 
+  errorMovies: string | null = null; 
 
   constructor(
-    private movieService: MovieService, // Inject MovieService
-    private router: Router // Inject Router
+    private movieService: MovieService, 
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object // Inject PLATFORM_ID
   ) {}
 
   ngOnInit(): void {
-    this.fetchMovies(); // Lấy danh sách phim khi component được khởi tạo
+    this.checkLoginStatus();
+    this.fetchMovies(); 
   }
 
-  // Lấy danh sách tất cả phim từ API
+  checkLoginStatus(): void {
+    if (isPlatformBrowser(this.platformId)) { // Kiểm tra nếu đang ở môi trường trình duyệt
+      const storedUser = localStorage.getItem('auth_token');
+      if (storedUser) {
+        this.isLoggedIn = true;
+        this.currentUser = {
+          username: localStorage.getItem('username'),
+          role: localStorage.getItem('role'),
+        };
+      } else {
+        this.isLoggedIn = false;
+        this.router.navigate(['/home']); 
+      }
+    }
+  }
+
   fetchMovies(): void {
     this.loadingMovies = true;
     this.errorMovies = null;
 
     this.movieService.getAllMovies().subscribe({
       next: (data) => {
-        this.movies = data; // Gán dữ liệu vào biến movies
+        this.movies = data; 
         this.loadingMovies = false;
       },
       error: (err) => {
@@ -41,10 +59,14 @@ export class HomePageComponent implements OnInit {
     });
   }
 
-  logout() {
-    this.currentUser = null; // Xóa thông tin người dùng
-    this.isLoggedIn = false; // Đặt trạng thái đăng nhập thành false
-    localStorage.removeItem('currentUser'); // Xóa dữ liệu người dùng trong localStorage (nếu có)
-    this.router.navigate(['/login']); // Điều hướng đến trang đăng nhập
+  logout(): void {
+    this.currentUser = null; 
+    this.isLoggedIn = false; 
+    if (isPlatformBrowser(this.platformId)) { // Kiểm tra nếu đang ở môi trường trình duyệt
+      localStorage.removeItem('auth_token'); 
+      localStorage.removeItem('username'); 
+      localStorage.removeItem('role'); 
+    }
+    this.router.navigate(['/login']);
   }
 }

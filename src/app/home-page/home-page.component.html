@@ -22,7 +22,7 @@
             <a class="nav-link" href="#">LỊCH CHIẾU</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">KHUYẾN MÃI</a>
+            <a class="nav-link" routerLink="/promotion">KHUYẾN MÃI</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">LIÊN HỆ</a>
@@ -31,14 +31,27 @@
             <a class="nav-link" href="#">TUYỂN DỤNG</a>
           </li>
         </ul>
-  
-          <!-- User Profile Dropdown -->
-            <div class="user-profile" *ngIf="currentUser">
-            <div class="dropdown">
-              <button class="btn btn-link dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
-                <span class="username">{{currentUser.username}}</span>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+
+        <!-- User Profile Dropdown -->
+        <ng-container *ngIf="currentUser; else loggedOut">
+          <div class="dropdown">
+            <button class="btn btn-link dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
+              <span class="username">Xin chào ! {{ currentUser.username }}</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              <!-- Menu for admin -->
+              <ng-container *ngIf="currentUser.role === 'admin'">
+                <li><a class="dropdown-item" routerLink="/manage-movies">
+                  <i class="fas fa-film"></i> Quản lí Phim
+                </a></li>
+                <li><a class="dropdown-item" routerLink="/manage-tickets">
+                  <i class="fas fa-ticket-alt"></i> Quản lí Vé
+                </a></li>
+                <li><hr class="dropdown-divider"></li>
+              </ng-container>
+
+              <!-- Menu for regular user -->
+              <ng-container *ngIf="currentUser.role === 'user'">
                 <li><a class="dropdown-item" routerLink="/profile">
                   <i class="fas fa-user"></i> Thông tin tài khoản
                 </a></li>
@@ -46,16 +59,30 @@
                   <i class="fas fa-ticket-alt"></i> Đơn hàng của tôi
                 </a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" (click)="logout()">
-                  <i class="fas fa-sign-out-alt"></i> Đăng xuất
-                </a></li>
-              </ul>
-            </div>
-          </div> 
-        </div>
+              </ng-container>
+
+              <li><a class="dropdown-item text-danger" (click)="logout()">
+                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+              </a></li>
+            </ul>
+          </div>
+        </ng-container>
+
+        <!-- If user is not logged in, show login and register links -->
+        <ng-template #loggedOut>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/login">ĐĂNG NHẬP</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/register">ĐĂNG KÝ</a>
+            </li>
+          </ul>
+        </ng-template>
       </div>
-    </nav>
-  </header>
+    </div>
+  </nav>
+</header>
   
 <!-- Main Content -->
 <main>

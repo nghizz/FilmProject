@@ -1,0 +1,246 @@
+/* Header Section */
+.header {
+  background-color: rgb(249, 243, 243);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+
+  /* Hiệu ứng khi scroll */
+  &.scrolled {
+    background-color: rgba(249, 243, 243, 0.95);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar {
+    padding: 0.5rem 0;
+
+    .navbar-nav {
+      margin-left: auto;
+      margin-right: 2rem;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.5);
+      }
+
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+        background-color: #ff6b00;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%);
+        margin-right: 8px;
+      }
+
+      .logo-text {
+        color: #ff6b00;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+    }
+
+    .nav-link {
+      color: #ff6b00 !important;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+
+      &:hover {
+        color: white;
+      }
+    }
+
+    .auth-buttons {
+      .btn-outline-primary {
+        border-color: #ff6b00;
+        color: #ff6b00;
+
+        &:hover {
+          background-color: #ff6b00;
+          color: white;
+        }
+      }
+
+      .btn-primary {
+        background-color: #ff6b00;
+        border-color: #ff6b00;
+
+        &:hover {
+          background-color: darken(#ff6b00, 10%);
+          border-color: darken(#ff6b00, 10%);
+        }
+      }
+    }
+  }
+}
+
+main {
+  margin-top: 80px; /* Điều chỉnh giá trị này để tránh header che phủ */
+}
+
+/* Movies Section */
+.movies-section {
+  padding: 3rem 0;
+  background-color: #f8f9fa;
+}
+
+.section-title {
+  color: #ff6b00;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.movie-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-img-top {
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .badge {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-right: 0.5rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 767px) {
+  .movie-card {
+    .card-img-top {
+      height: 200px;
+    }
+  }
+}
+
+
+/* Footer Section */
+.footer {
+  background-color: #212121;
+  color: white;
+  padding: 3rem 0 1rem;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background-color: #ff6b00;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%);
+      margin-right: 8px;
+    }
+
+    .logo-text {
+      color: #ff6b00;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  }
+
+  .footer-heading {
+    color: #ff6b00;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 1.2rem;
+    text-transform: uppercase;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 0.8rem;
+
+      a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.9rem;
+
+        &:hover {
+          color: #ff6b00;
+        }
+      }
+    }
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+
+    .social-icon {
+      color: white;
+      font-size: 1.5rem;
+
+      &:hover {
+        color: #ff6b00;
+      }
+    }
+  }
+
+  .app-download {
+    .app-buttons {
+      display: flex;
+      gap: 1rem;
+
+      img {
+        height: 40px;
+        object-fit: contain;
+      }
+    }
+  }
+
+  .footer-bottom {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+
+    .copyright {
+      color: #666;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+  }
+}

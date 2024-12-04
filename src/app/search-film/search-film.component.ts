@@ -1,64 +1,56 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MovieService } from '../services/api/movie.service'; // Import MovieService
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-film',
   templateUrl: './search-film.component.html',
   styleUrls: ['./search-film.component.css']
 })
-export class SearchFilmComponent {
-  films = [
-    { title: 'Mắt Biếc', actors: 'Trần Nghĩa, Nguyễn Lâm Thùy Anh', director: 'Victor Vũ', genre: 'Tình cảm' },
-    { title: 'Hai Phượng', actors: 'Ngô Thanh Vân, Quốc Trường', director: 'Le Thanh Son', genre: 'Hành động' },
-    { title: 'Tháng Năm Rực Rỡ', actors: 'Hồng Ánh, Lan Ngọc', director: 'Nguyễn Quang Dũng', genre: 'Nhạc kịch' },
-    { title: 'Cua Lại Vợ Bầu', actors: 'Trấn Thành, Ninh Dương Lan Ngọc', director: 'Nhất Trung', genre: 'Hài' },
-    { title: 'Bố Già', actors: 'Trấn Thành, Lê Giang', director: 'Trấn Thành', genre: 'Hài' },
-    { title: 'Ngày Nảy Ngày Nay', actors: 'Hứa Vĩ Văn, Hồng Đăng', director: 'Nguyễn Quang Dũng', genre: 'Hài' },
-    { title: 'Chị Mười Ba', actors: 'Angela Phương Trinh, BB Trần', director: 'Erik Nguyễn', genre: 'Hành động' },
-    { title: 'Lật Mặt: 48h', actors: 'Lý Hải, Minh Nhí', director: 'Lý Hải', genre: 'Hành động' },
-    { title: 'Trạng Tí', actors: 'Ngô Kiến Huy, Nhã Phương', director: 'Phan Gia Nhật Linh', genre: 'Phiêu lưu' },
-    { title: 'Dòng Máu Anh Hùng', actors: 'Quách Ngọc Ngoan, Trương Ngọc Ánh', director: 'Lê Thanh Sơn', genre: 'Hành động' },
-  ];
+export class SearchFilmComponent implements OnInit {
+  currentUser: any = null;
+  isLoggedIn: boolean = false;
+  searchKeyword: string = ''; // Từ khóa tìm kiếm
+  searchResults: any[] = []; // Kết quả tìm kiếm
+  errorSearch: string | null = null; // Lỗi khi tìm kiếm
+  loadingSearch: boolean = false; // Trạng thái đang tải kết quả tìm kiếm
 
-  searchResults = this.films;
-  currentPage = 1;
-  itemsPerPage = 3;
+  constructor(
+    private movieService: MovieService,
+    private router: Router
+  ) {}
 
-  get paginatedFilms() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.searchResults.slice(start, start + this.itemsPerPage);
-  }
+  ngOnInit(): void {}
 
-  onSearch(event: any) {
-    const searchTerm = event.target.value.toLowerCase();
-    this.searchResults = this.films.filter(film =>
-      film.title.toLowerCase().includes(searchTerm) ||
-      film.actors.toLowerCase().includes(searchTerm) ||
-      film.director.toLowerCase().includes(searchTerm) ||
-      film.genre.toLowerCase().includes(searchTerm)
-    );
-    this.currentPage = 1; // Reset về trang 1 khi tìm kiếm
-  }
-
-  onKeydown(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
-      // Bạn có thể thực hiện hành động nào đó khi nhấn Enter
-      this.onSearch(event);
+  onSearch(): void {
+    if (!this.searchKeyword.trim()) {
+      this.errorSearch = 'Vui lòng nhập từ khóa để tìm kiếm.';
+      return;
     }
+
+    this.loadingSearch = true;
+    this.errorSearch = null;
+
+    this.movieService.searchMovies(this.searchKeyword).subscribe({
+      next: (data) => {
+        this.searchResults = data; // Lấy dữ liệu từ MovieService
+        if (this.searchResults.length === 0) {
+          this.errorSearch = 'Không tìm thấy phim nào.';
+        }
+        this.loadingSearch = false;
+      },
+      error: (error) => {
+        this.errorSearch = 'Không thể tìm kiếm phim. Vui lòng thử lại sau.';
+        this.loadingSearch = false;
+        console.error(error);
+      }
+    });
   }
 
-  nextPage() {
-    if (this.currentPage < this.getTotalPages()) {
-      this.currentPage++;
-    }
-  }
-
-  previousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
-  }
-
-  getTotalPages(): number {
-    return Math.ceil(this.searchResults.length / this.itemsPerPage);
+  logout() {
+    this.currentUser = null; // Xóa thông tin người dùng
+    this.isLoggedIn = false; // Đặt trạng thái đăng nhập thành false
+    localStorage.removeItem('currentUser'); // Xóa dữ liệu người dùng trong localStorage (nếu có)
+    this.router.navigate(['/login']); // Điều hướng đến trang đăng nhập
   }
 }

@@ -1,95 +1,117 @@
 /* Resetting default styles */
-* {
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
 body {
-    background: url('https://media.vietq.vn/files/phim-hanh-dong-my-giang-sinh-2015-1.jpg') no-repeat center center fixed;
-    background-size: cover; /* Đảm bảo hình ảnh bao phủ toàn bộ màn hình */
-    height: 100vh;
+    background-color: #f0f0f0; /* Light gray background */
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: Arial, sans-serif;
+    height: 100vh;
+    font-size: 16px;
+    position: relative;
+    overflow: hidden;
 }
 
 .container {
     width: 100%;
-    max-width: 500px;
-    padding: 2rem;
-    background-color: rgba(119, 118, 118, 0.7); /* Làm trắng mờ hơn */
-    border: 2px solid rgba(0, 0, 0, 0.5); /* Viền đậm màu đen mờ */
+    max-width: 500px; /* Increased container width to match signup form */
+    padding: 2rem; /* Increased padding */
+    background-color: #fff; /* White background */
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: none; /* Remove any transform or scale effects */
 }
-
 
 .form-box h2 {
     text-align: center;
-    color: #333;
-    font-size: 28px;
+    color: #333; /* Dark gray color */
+    font-size: 28px; /* Increased size for emphasis */
     margin-bottom: 20px;
     letter-spacing: 1px;
 }
 
 .input-box {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Increased margin */
 }
 
 .input-box input {
     width: 100%;
     padding: 12px 20px;
     font-size: 16px;
-    color: #333;
-    background-color: #b1afaf;
-    border: 1px solid #ddd;
+    color: #333; /* Dark gray text color */
+    background-color: #f8f8f8; /* Light gray input field */
+    border: 1px solid #ddd; /* Light gray border */
     border-radius: 8px;
     outline: none;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease; /* Border color transition on focus */
+}
+
+.input-box input::placeholder {
+    color: #999; /* Light gray placeholder color */
 }
 
 .input-box input:focus {
-    border-color: #666;
+    border-color: #666; /* Dark gray border color on focus */
+}
+
+.button {
+    text-align: center;
 }
 
 .button .btn {
-    background-color: #333;
-    color: #fff;
+    background-color: #333; /* Dark gray button color */
+    color: #fff; /* White text color */
     border: none;
     border-radius: 8px;
-    padding: 14px;
+    padding: 14px; /* Slightly larger padding */
     width: 100%;
-    font-size: 18px;
+    font-size: 18px; /* Increased font size */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Keep transform on hover only */
 }
 
 .button .btn:hover {
-    background-color: #666;
+    background-color: #666; /* Slightly lighter gray on hover */
+}
+
+.button .btn:active {
+    transform: none; /* Ensure no scale effect when button is clicked */
+}
+
+div {
+    text-align: center;
+    margin-top: 10px;
 }
 
 a {
-    color: #333;
+    color: #333; /* Dark gray link color */
     text-decoration: none;
-    font-size: 14px;
     margin: 0 10px;
+    font-size: 14px; /* Improved readability */
 }
 
 a:hover {
     text-decoration: underline;
 }
 
+/* Thông báo lỗi */
 .text-danger {
-    color: #dc3545;
+    color: #dc3545; /* Red color for error messages */
     font-weight: bold;
     margin-bottom: 10px;
 }
 
+/* Thông báo thành công */
 .text-success {
-    color: #28a745;
+    color: #28a745; /* Green color for success messages */
     font-weight: bold;
     margin-bottom: 10px;
 }

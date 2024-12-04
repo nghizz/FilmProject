@@ -1,0 +1,317 @@
+/* Header Section */
+.header {
+  background-color: rgb(249, 243, 243);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+
+  /* Hiệu ứng khi scroll */
+  &.scrolled {
+    background-color: rgba(249, 243, 243, 0.95);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar {
+    padding: 0.5rem 0;
+
+    .navbar-nav {
+      margin-left: auto;
+      margin-right: 2rem;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.5);
+      }
+
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+        background-color: #ff6b00;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%);
+        margin-right: 8px;
+      }
+
+      .logo-text {
+        color: #ff6b00;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+    }
+
+    .nav-link {
+      color: #ff6b00 !important;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+
+      &:hover {
+        color: white;
+      }
+    }
+
+    .auth-buttons {
+      .btn-outline-primary {
+        border-color: #ff6b00;
+        color: #ff6b00;
+
+        &:hover {
+          background-color: #ff6b00;
+          color: white;
+        }
+      }
+
+      .btn-primary {
+        background-color: #ff6b00;
+        border-color: #ff6b00;
+
+        &:hover {
+          background-color: darken(#ff6b00, 10%);
+          border-color: darken(#ff6b00, 10%);
+        }
+      }
+    }
+  }
+}
+
+
+/* Main container styling */
+
+main {
+  margin-top: 80px; /* Điều chỉnh giá trị này để tránh header che phủ */
+}
+
+h2 {
+  color: #ff6600;
+  font-weight: bold;
+}
+
+button {
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+  margin-left: 80%;
+}
+
+button:hover {
+  background-color: #ff6600;
+  color: #fff;
+}
+
+.promotion-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Styling for each promotion item */
+.promotion-item {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  max-width: 250px;
+  width: 100%;
+}
+
+.promotion-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Promotion image */
+.promotion-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Promotion info styling */
+.promotion-info {
+  padding: 15px;
+}
+
+.promotion-info h5 {
+  font-size: 1.25rem;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.promotion-info p {
+  font-size: 0.9rem;
+  color: #ff6b00;
+  margin-bottom: 5px;
+}
+
+/* Promotion time styling */
+.promotion-time {
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
+}
+
+.promotion-time p {
+  font-size: 0.85rem;
+  color: #777;
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .promotion-grid {
+    gap: 15px;
+  }
+
+  .promotion-item {
+    max-width: 100%;
+  }
+}
+
+/* Khung chi tiết khuyến mãi hiển thị trên cùng */
+.promotion-details-overlay {
+  position: absolute; /* Đặt khung chi tiết trên cùng của voucher */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.95); /* Nền trắng mờ */
+  padding: 20px;
+  border-radius: 8px;
+  display: none; /* Ẩn khung chi tiết mặc định */
+  z-index: 10; /* Đảm bảo khung chi tiết hiển thị trên các phần tử khác */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease; /* Hiệu ứng chuyển đổi mượt mà */
+}
+
+/* Hiển thị khung chi tiết khi được chọn */
+.promotion-details-overlay.active {
+  display: block; /* Hiển thị khung chi tiết */
+}
+
+/* Đảm bảo voucher có vị trí tương đối để khung chi tiết hiển thị đúng */
+.promotion-item {
+  position: relative; /* Đặt vị trí tương đối cho voucher */
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hiệu ứng hover cho voucher */
+.promotion-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Hiệu ứng zoom cho ảnh khi hover */
+.promotion-image img {
+  transition: transform 0.3s ease;
+}
+
+.promotion-item:hover .promotion-image img {
+  transform: scale(1.1); /* Phóng to ảnh khi hover */
+}
+
+/* Footer Section */
+.footer {
+  background-color: #212121;
+  color: white;
+  padding: 3rem 0 1rem;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background-color: #ff6b00;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%);
+      margin-right: 8px;
+    }
+
+    .logo-text {
+      color: #ff6b00;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  }
+
+  .footer-heading {
+    color: #ff6b00;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 1.2rem;
+    text-transform: uppercase;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 0.8rem;
+
+      a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.9rem;
+
+        &:hover {
+          color: #ff6b00;
+        }
+      }
+    }
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+
+    .social-icon {
+      color: white;
+      font-size: 1.5rem;
+
+      &:hover {
+        color: #ff6b00;
+      }
+    }
+  }
+
+  .app-download {
+    .app-buttons {
+      display: flex;
+      gap: 1rem;
+
+      img {
+        height: 40px;
+        object-fit: contain;
+      }
+    }
+  }
+
+  .footer-bottom {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+
+    .copyright {
+      color: #666;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+  }
+}

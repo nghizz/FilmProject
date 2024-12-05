@@ -48,7 +48,7 @@ export class PromotionComponent implements OnInit {
 
     // Hàm xử lý khi nhấn nút "Lịch sử sử dụng khuyến mãi"
     showPromotionHistory(): void {
-  
+
       this.loading = true; // Hiển thị trạng thái đang tải
       const userId = this.currentUser.id; // Lấy userId từ thông tin người dùng đã đăng nhập
   
@@ -69,7 +69,6 @@ export class PromotionComponent implements OnInit {
   logout() {
     this.currentUser = null; // Xóa thông tin người dùng
     this.isLoggedIn = false; // Đặt trạng thái đăng nhập thành false
-    localStorage.removeItem('currentUser'); // Xóa dữ liệu người dùng trong localStorage (nếu có)
     this.router.navigate(['/login']); // Điều hướng đến trang đăng nhập
   }
 }

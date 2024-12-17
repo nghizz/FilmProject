@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { MovieService } from '../../services/api/movie.service';
 import { Router } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common'; 
+import { isPlatformBrowser } from '@angular/common'; // Import isPlatformBrowser
 
 @Component({
   selector: 'app-home-page',
@@ -9,7 +9,6 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent implements OnInit {
-
   searchKeyword: string = ''; // Biến lưu từ khóa tìm kiếm
   currentUser: any = null;
   isLoggedIn: boolean = false;
@@ -92,26 +91,6 @@ export class HomePageComponent implements OnInit {
         this.loading = false;
       },
     });
-  }
-
-  onSearch(): void {
-    if (!this.searchKeyword.trim()) {
-      this.searchResults = [...this.movies]; // Hiển thị lại tất cả phim khi không có từ khóa
-      return;
-    }
-
-    this.loadingSearch = true;
-    this.errorSearch = null;
-    this.searchResults = this.movies.filter(movie =>
-      movie.name.toLowerCase().includes(this.searchKeyword.toLowerCase()) ||
-      movie.genre.toLowerCase().includes(this.searchKeyword.toLowerCase())
-    );
-
-    if (this.searchResults.length === 0) {
-      this.errorSearch = 'Không tìm thấy phim nào.';
-    }
-
-    this.loadingSearch = false;
   }
 
   logout(): void {

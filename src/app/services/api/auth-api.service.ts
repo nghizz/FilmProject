@@ -13,7 +13,7 @@ export class AuthApiService {
   constructor(private http: HttpClient) {}
 
   //Đăng ký người dùng
-  register(userDetails: { username: string; password: string; confirmPassword: string }): Observable<any> {
+  register(userDetails: { username: string; password: string; }): Observable<any> {
     return this.http.post(`${this.apiUrl}/Users/register`, userDetails, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     });

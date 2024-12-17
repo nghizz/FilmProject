@@ -7,8 +7,6 @@ import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SearchFilmComponent } from './movies/search-film/search-film.component'; // Thêm component này
@@ -16,12 +14,15 @@ import { MovieDetailComponent } from './movies/movie-detail/movie-detail.compone
 import { PaymentComponent } from './booking/payment/payment.component';
 import { SeatSelectionComponent } from './booking/seat-seletion/seat-seletion.component';
 import { PromotionComponent } from './booking/promotion/promotion.component';
+import { ProfileUserComponent } from './users/profile-user/profile-user.component';
+import { HistoryPaymentComponent } from './users/history-payment/history-payment.component';
+import { FilmsManagementComponent } from './admins/films-management/films-management.component';
+import { TicketsManagementComponent } from './admins/tickets-management/tickets-management.component';
+import { LoginRegisterComponent } from './auth/login-register/login-register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
     HomeComponent,
     HomePageComponent,
     SearchFilmComponent, // Đảm bảo khai báo component này
@@ -29,6 +30,11 @@ import { PromotionComponent } from './booking/promotion/promotion.component';
     PaymentComponent,
     SeatSelectionComponent,
     PromotionComponent,
+    ProfileUserComponent,
+    HistoryPaymentComponent,
+    FilmsManagementComponent,
+    TicketsManagementComponent,
+    LoginRegisterComponent,
   ],
   imports: [
     BrowserModule,

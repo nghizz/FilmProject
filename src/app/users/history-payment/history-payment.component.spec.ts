@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegisterComponent } from './register.component';
+import { HistoryPaymentComponent } from './history-payment.component';
 
-describe('RegisterComponent', () => {
-  let component: RegisterComponent;
-  let fixture: ComponentFixture<RegisterComponent>;
+describe('HistoryPaymentComponent', () => {
+  let component: HistoryPaymentComponent;
+  let fixture: ComponentFixture<HistoryPaymentComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RegisterComponent]
+      declarations: [HistoryPaymentComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RegisterComponent);
+    fixture = TestBed.createComponent(HistoryPaymentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

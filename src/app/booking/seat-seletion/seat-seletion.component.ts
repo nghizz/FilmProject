@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SeatApiService, Seat } from '../../services/api/seat-api.service';
+import { SeatApiService } from '../../services/api/seat-api.service';
+import { Seat } from '../../models/seat.model';
 
 @Component({
   selector: 'app-seat-selection',

@@ -29,3 +29,4 @@ export class SeatApiService {
     return this.http.post(`${this.apiUrl}/reserve`, seatIds);
   }
 }
+

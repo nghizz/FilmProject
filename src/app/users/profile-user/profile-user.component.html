@@ -1,0 +1,47 @@
+<div class="profile-container">
+    <!-- Thông Tin Cá Nhân -->
+    <div class="personal-info">
+      <h2>Thông Tin Cá Nhân</h2>
+      <p>Họ tên</p>
+      <p>Mật khẩu</p>
+      </div>
+      <div class="buttons">
+        <button class="btn">Cập Nhật Thông Tin</button>
+      </div>
+    </div>
+  
+    <!-- Lịch Sử Giao Dịch () -->
+    <div class="transaction-history">
+      <h2>Lịch Sử Giao Dịch</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Tên Phim</th>
+            <th>Ngày Chiếu</th>
+            <th>Xuất Chiếu</th>
+            <th>Số Ghế</th>
+            <th>Tổng Tiền</th>
+            <th>Hình Thức Thanh Toán</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let transaction of transactionHistory">
+            <td>{{ transaction.tenPhim }}</td>
+            <td>{{ transaction.ngayChieu }}</td>
+            <td>{{ transaction.xuatChieu }}</td>
+            <td>{{ transaction.soGhe }}</td>
+            <td>{{ transaction.tongTien }}</td>
+            <td>{{ transaction.hinhThucThanhToan }}</td>
+          </tr>
+          <tr *ngIf="transactionHistory.length === 0">
+            <td colspan="6" class="no-data">Không có dữ liệu</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Nút Quay Lại -->
+  <div class="back-button">
+    <button class="btn" (click)="goToHomePage()">Quay Lại Trang Chính</button>
+  </div>
+  
+  

@@ -16,6 +16,10 @@ import { MovieDetailComponent } from './movies/movie-detail/movie-detail.compone
 import { PaymentComponent } from './booking/payment/payment.component';
 import { SeatSelectionComponent } from './booking/seat-seletion/seat-seletion.component';
 import { PromotionComponent } from './booking/promotion/promotion.component';
+import { ProfileComponent } from './users/profile-user/profile-user.component';
+import { HistoryPaymentComponent } from './users/history-payment/history-payment.component';
+import { FilmsManagementComponent } from './admins/films-management/films-management.component';
+import { TicketsManagementComponent } from './admins/tickets-management/tickets-management.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,10 @@ import { PromotionComponent } from './booking/promotion/promotion.component';
     PaymentComponent,
     SeatSelectionComponent,
     PromotionComponent,
+    ProfileComponent,
+    HistoryPaymentComponent,
+    FilmsManagementComponent,
+    TicketsManagementComponent,
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,19 @@ export class MovieService {
     );
   }
 
+  //lấy danh sách phim theo id
+  getMovieById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
+      map((movie) => {
+        // Chuyển đổi Object showtimes thành Array
+        if (movie.showtimes && typeof movie.showtimes === 'object') {
+          movie.showtimes = Object.values(movie.showtimes);
+        }
+        return movie;
+      })
+    );
+  }
+    
   // Tìm kiếm phim theo từ khóa
   searchMovies(keyword: string): Observable<any[]> {
     const url = `${this.apiUrl}/search?keyword=${encodeURIComponent(keyword)}`;

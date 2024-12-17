@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeComponent } from './pages/home/home.component';
-import { SearchFilmComponent } from './movies/search-film/search-film.component'; // Thêm component này
 import { MovieDetailComponent } from './movies/movie-detail/movie-detail.component';
 import { PaymentComponent } from './booking/payment/payment.component';
 import { SeatSelectionComponent } from './booking/seat-seletion/seat-seletion.component';
@@ -25,7 +24,6 @@ import { LoginRegisterComponent } from './auth/login-register/login-register.com
     AppComponent,
     HomeComponent,
     HomePageComponent,
-    SearchFilmComponent, // Đảm bảo khai báo component này
     MovieDetailComponent,
     PaymentComponent,
     SeatSelectionComponent,

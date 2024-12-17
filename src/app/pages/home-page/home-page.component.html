@@ -44,28 +44,32 @@
               <!-- Menu for admin -->
               <ng-container *ngIf="currentUser.role === 'admin'">
                 <li><a class="dropdown-item" routerLink="/manage-movies">
-                  <i class="fas fa-film"></i> Quản lí Phim
-                </a></li>
+                    <i class="fas fa-film"></i> Quản lí Phim
+                  </a></li>
                 <li><a class="dropdown-item" routerLink="/manage-tickets">
-                  <i class="fas fa-ticket-alt"></i> Quản lí Vé
-                </a></li>
-                <li><hr class="dropdown-divider"></li>
+                    <i class="fas fa-ticket-alt"></i> Quản lí Vé
+                  </a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
               </ng-container>
 
               <!-- Menu for regular user -->
               <ng-container *ngIf="currentUser.role === 'user'">
                 <li><a class="dropdown-item" routerLink="/profile">
-                  <i class="fas fa-user"></i> Thông tin tài khoản
-                </a></li>
+                    <i class="fas fa-user"></i> Thông tin tài khoản
+                  </a></li>
                 <li><a class="dropdown-item" routerLink="/my-orders">
-                  <i class="fas fa-ticket-alt"></i> Đơn hàng của tôi
-                </a></li>
-                <li><hr class="dropdown-divider"></li>
+                    <i class="fas fa-ticket-alt"></i> Đơn hàng của tôi
+                  </a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
               </ng-container>
 
               <li><a class="dropdown-item text-danger" (click)="logout()">
-                <i class="fas fa-sign-out-alt"></i> Đăng xuất
-              </a></li>
+                  <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </a></li>
             </ul>
           </div>
         </ng-container>
@@ -85,29 +89,45 @@
     </div>
   </nav>
 </header>
-  
+
+
+
 <!-- Main Content -->
 <main>
+  <!-- Form tìm kiếm -->
+  <div class="search-bar mb-4 d-flex">
+    <input type="text" [(ngModel)]="searchKeyword" placeholder="Nhập từ khóa tìm kiếm..."
+      class="form-control me-2 search-input" />
+    <button (click)="onSearch()" class="btn btn-outline-success">Tìm</button>
+  </div>
+
+  <!-- Hiển thị kết quả tìm kiếm -->
+  <div *ngIf="loading" class="loading text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Đang tìm kiếm...</span>
+    </div>
+  </div>
+
   <!-- Phần Movies Section -->
   <section id="movies" class="py-5">
     <div class="container">
-      <h2 class="section-title">Phim đang chiếu</h2>
+      <h2 class="section-title">DANH SÁCH PHIM</h2>
 
       <!-- Nếu đang tải dữ liệu -->
-      <div *ngIf="loadingMovies" class="text-center my-5">
+      <div *ngIf="loading" class="text-center my-5">
         <div class="spinner-border" role="status">
           <span class="visually-hidden">Đang tải...</span>
         </div>
       </div>
 
       <!-- Nếu có lỗi -->
-      <div *ngIf="errorMovies" class="alert alert-danger text-center">
-        {{ errorMovies }}
+      <div *ngIf="error" class="alert alert-danger text-center">
+        {{ error }}
       </div>
 
       <!-- Danh sách phim -->
-      <div *ngIf="!loadingMovies && !errorMovies" class="row">
-        <div *ngFor="let movie of movies" class="col-md-6 col-lg-4 mb-4">
+      <div *ngIf="!loading && !error" class="row">
+        <div *ngFor="let movie of searchResults" class="col-md-6 col-lg-4 mb-4">
           <div class="card movie-card">
             <img [src]="movie.imageUrl" class="card-img-top" [alt]="movie.name" />
             <div class="card-body">
@@ -118,8 +138,8 @@
               </p>
               <p class="card-text">{{ movie.description }}</p>
               <div class="d-grid gap-2">
-                <a [routerLink]="['/booking', movie.id]" class="btn btn-outline-primary">Chi tiết</a>
-                <a [routerLink]="['/movie-details', movie.id]" class="btn btn-primary">Đặt vé</a>
+                <a [routerLink]="['/movie-details', movie.id]" class="btn btn-primary">Chi tiết</a>
+                <a [routerLink]="['/booking', movie.id]" class="btn btn-outline-primary">Đặt vé</a>
               </div>
             </div>
           </div>
@@ -127,7 +147,7 @@
       </div>
 
       <!-- Nếu không có phim nào -->
-      <div *ngIf="!loadingMovies && !errorMovies && movies.length === 0" class="alert alert-info">
+      <div *ngIf="!loading && !error && movies.length === 0" class="alert alert-info">
         Hiện tại không có phim nào.
       </div>
     </div>
@@ -135,52 +155,52 @@
 </main>
 
 <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="row">
-        <!-- Logo Column -->
-        <div class="col-lg-3 mb-4">
-          <div class="logo-container">
-            <i class="logo-icon"></i>
-            <span class="logo-text">PRO MOVIE</span>
-          </div>
-        </div>
-  
-        <!-- Giới thiệu Column -->
-        <div class="col-lg-3 mb-4">
-          <h5 class="footer-heading">GIỚI THIỆU</h5>
-          <ul class="footer-links">
-            <li><a routerLink="/about">VỀ CHÚNG TÔI</a></li>
-            <li><a routerLink="/terms">THỎA THUẬN SỬ DỤNG</a></li>
-            <li><a routerLink="/privacy-policy">QUY CHẾ BẢO MẬT</a></li>
-            <li><a routerLink="/privacy">CHÍNH SÁCH BẢO MẬT</a></li>
-          </ul>
-        </div>
-  
-        <!-- Hỗ trợ Column -->
-        <div class="col-lg-3 mb-4">
-          <h5 class="footer-heading">HỖ TRỢ</h5>
-          <ul class="footer-links">
-            <li><a routerLink="/feedback">GÓP Ý</a></li>
-            <li><a routerLink="/service">SALE & SERVICE</a></li>
-            <li><a routerLink="/theaters">RẠP / GIÁ VÉ</a></li>
-            <li><a routerLink="/careers">TUYỂN DỤNG</a></li>
-          </ul>
-        </div>
-  
-        <!-- Kết nối Column -->
-        <div class="col-lg-3 mb-4">
-          <h5 class="footer-heading">KẾT NỐI PRO MOVIE</h5>
-          <div class="social-links">
-            <a href="https://www.facebook.com" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.youtube.com" class="social-icon"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.tiktok.com/" class="social-icon"><i class="fab fa-tiktok"></i></a>
-          </div>
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <!-- Logo Column -->
+      <div class="col-lg-3 mb-4">
+        <div class="logo-container">
+          <i class="logo-icon"></i>
+          <span class="logo-text">PRO MOVIE</span>
         </div>
       </div>
-  
-      <div class="footer-bottom">
-        <p class="copyright">© 2024 PRO MOVIE / PRO.</p>
+
+      <!-- Giới thiệu Column -->
+      <div class="col-lg-3 mb-4">
+        <h5 class="footer-heading">GIỚI THIỆU</h5>
+        <ul class="footer-links">
+          <li><a routerLink="/about">VỀ CHÚNG TÔI</a></li>
+          <li><a routerLink="/terms">THỎA THUẬN SỬ DỤNG</a></li>
+          <li><a routerLink="/privacy-policy">QUY CHẾ BẢO MẬT</a></li>
+          <li><a routerLink="/privacy">CHÍNH SÁCH BẢO MẬT</a></li>
+        </ul>
+      </div>
+
+      <!-- Hỗ trợ Column -->
+      <div class="col-lg-3 mb-4">
+        <h5 class="footer-heading">HỖ TRỢ</h5>
+        <ul class="footer-links">
+          <li><a routerLink="/feedback">GÓP Ý</a></li>
+          <li><a routerLink="/service">SALE & SERVICE</a></li>
+          <li><a routerLink="/theaters">RẠP / GIÁ VÉ</a></li>
+          <li><a routerLink="/careers">TUYỂN DỤNG</a></li>
+        </ul>
+      </div>
+
+      <!-- Kết nối Column -->
+      <div class="col-lg-3 mb-4">
+        <h5 class="footer-heading">KẾT NỐI PRO MOVIE</h5>
+        <div class="social-links">
+          <a href="https://www.facebook.com" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.youtube.com" class="social-icon"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.tiktok.com/" class="social-icon"><i class="fab fa-tiktok"></i></a>
+        </div>
       </div>
     </div>
+
+    <div class="footer-bottom">
+      <p class="copyright">© 2024 PRO MOVIE / PRO.</p>
+    </div>
+  </div>
 </footer>

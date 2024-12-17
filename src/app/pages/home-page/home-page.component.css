@@ -244,3 +244,44 @@ main {
     }
   }
 }
+.d-flex{
+  justify-content: center;
+}
+
+/* Continue with CSS for search input */
+.search-input {
+  border: 1px solid #ced4da; /* Giao diện border */
+  border-radius: 4px; /* Góc bo cho input */
+  padding: 0.375rem 0.75rem; /* Padding cho input */
+  font-size: 1rem; /* Kích thước chữ */
+  transition: border-color 0.2s; /* Hiệu ứng chuyển màu trong border */
+  width: 40%;
+}
+
+/* Thay đổi màu border khi focus */
+.search-input:focus {
+  border-color: #80bdff; /* Màu border khi focus */
+  outline: 0; /* Bỏ outline mặc định */
+}
+
+/* Button Tìm kiếm */
+.btn-outline-success {
+  border-radius: 4px; /* Góc bo cho button */
+  margin-left: 0.5rem; /* Khoảng cách giữa input và button */
+}
+
+/* Responsive adjustments for the search bar */
+@media (max-width: 768px) {
+  .navbar-nav {
+    margin-bottom: 1rem; /* Khoảng cách giữa nav-items và input */
+  }
+  .search-input {
+    width: 100%; /* Chiều rộng 100% trên màn hình nhỏ */
+  }
+}
+.alert-danger{
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  margin: auto;
+}

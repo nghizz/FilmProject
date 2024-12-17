@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
           role: localStorage.getItem('role'),
         };
       } else {
+        alert("Bạn đã đăng xuất trước đó ! Vui lòng đăng nhập lại !");
         this.isLoggedIn = false;
       }
     }
@@ -44,7 +45,7 @@ export class HomeComponent implements OnInit {
 
   // Điều hướng đến trang đăng ký
   goToRegister(): void {
-    this.router.navigate(['/register']);
+    this.router.navigate(['/login']);
   }
 
   // Điều hướng đến trang Lịch Chiếu

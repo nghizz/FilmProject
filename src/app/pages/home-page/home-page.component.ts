@@ -9,25 +9,24 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent implements OnInit {
-  searchKeyword: string = ''; // Khai báo searchKeyword
-  currentUser: any = null; 
-  isLoggedIn: boolean = false; 
-  movies: any[] = []; // Mảng phim ban đầu
-  searchResults: any[] = []; // Mảng kết quả tìm kiếm
-  loadingMovies: boolean = true; 
-  errorMovies: string | null = null; 
-  loadingSearch: boolean = false;
-  errorSearch: string | null = null;
+
+  searchKeyword: string = ''; // Biến lưu từ khóa tìm kiếm
+  currentUser: any = null;
+  isLoggedIn: boolean = false;
+  movies: any[] = []; // Danh sách phim đầy đủ
+  searchResults: any[] = []; // Kết quả tìm kiếm phim
+  loading: boolean = false; // Trạng thái loading chung
+  error: string | null = null; // Biến lưu lỗi chung
 
   constructor(
-    private movieService: MovieService, 
+    private movieService: MovieService,
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object 
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
     this.checkLoginStatus();
-    this.fetchMovies(); 
+    this.fetchMovies(); // Load danh sách phim lúc đầu
   }
 
   checkLoginStatus(): void {
@@ -41,25 +40,56 @@ export class HomePageComponent implements OnInit {
         };
       } else {
         this.isLoggedIn = false;
+        alert('Bạn đã đăng xuất trước đó! Vui lòng đăng nhập lại!');
         this.router.navigate(['/home']);
       }
     }
   }
 
+  // Hàm lấy danh sách tất cả các phim
   fetchMovies(): void {
-    this.loadingMovies = true;
-    this.errorMovies = null;
+    this.loading = true;
+    this.error = null;
 
     this.movieService.getAllMovies().subscribe({
       next: (data) => {
         this.movies = data;
-        this.searchResults = [...data]; // Mặc định hiển thị tất cả phim
-        this.loadingMovies = false;
+        this.searchResults = data; // Hiển thị danh sách phim mặc định
+        this.loading = false;
       },
       error: (err) => {
         console.error('Lỗi khi lấy danh sách phim:', err);
-        this.errorMovies = 'Không thể tải danh sách phim. Vui lòng thử lại sau.';
-        this.loadingMovies = false;
+        this.error = 'Không thể tải danh sách phim. Vui lòng thử lại sau.';
+        this.loading = false;
+      },
+    });
+  }
+
+  // Hàm tìm kiếm phim
+  onSearch(): void {
+    if (!this.searchKeyword.trim()) {
+      // Nếu từ khóa rỗng -> Hiển thị lại danh sách phim đầy đủ
+      this.searchResults = this.movies;
+      this.error = null;
+      return;
+    }
+
+    // Nếu có từ khóa -> Tìm kiếm phim
+    this.loading = true;
+    this.error = null;
+
+    this.movieService.searchMovies(this.searchKeyword).subscribe({
+      next: (data) => {
+        this.searchResults = data;
+        if (this.searchResults.length === 0) {
+          this.error = 'Không tìm thấy phim nào.';
+        }
+        this.loading = false;
+      },
+      error: (error) => {
+        this.error = 'Không thể tìm kiếm phim. Vui lòng thử lại sau.';
+        console.error(error);
+        this.loading = false;
       },
     });
   }

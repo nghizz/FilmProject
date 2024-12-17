@@ -19,18 +19,23 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
+            <a class="nav-link" href="/home">TRANG CHỦ</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#">LỊCH CHIẾU</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/promotion">KHUYẾN MÃI</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">LIÊN HỆ</a>
-          </li>
+
           <li class="nav-item">
             <a class="nav-link" href="#">TUYỂN DỤNG</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="search-film">TÌM PHIM</a>
+          </li>
         </ul>
+
 
         <!-- User Profile Dropdown -->
         <ng-container *ngIf="currentUser; else loggedOut">
@@ -116,8 +121,8 @@
               </p>
               <p class="card-text">{{ movie.description }}</p>
               <div class="d-grid gap-2">
-                <a [routerLink]="['/movie', movie.id]" class="btn btn-outline-primary">Chi tiết</a>
-                <a [routerLink]="['/booking', movie.id]" class="btn btn-primary">Đặt vé</a>
+                <a [routerLink]="['/booking', movie.id]" class="btn btn-outline-primary">Chi tiết</a>
+                <a [routerLink]="['/movie-details', movie.id]" class="btn btn-primary">Đặt vé</a>
               </div>
             </div>
           </div>

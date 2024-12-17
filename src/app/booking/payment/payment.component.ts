@@ -10,23 +10,27 @@ export class PaymentComponent implements OnInit {
   customerName: string = '';
   phoneNumber: string = '';
   email: string = '';
-  theaterName: string = '';
   movieName: string = '';
-  showTime: string = '';
+  showtime: string = '';
   seatNumber: string = '';
   totalAmount: number = 0;
-  date: string = ''; // Thêm khai báo cho thuộc tính 'date'
+  date: string = ''; // Ngày đặt
 
   paymentMethod: string = 'onepay'; // Mặc định chọn "OnePay"
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.theaterName = params['theaterName'] || 'Tên Rạp';
       this.movieName = params['movieName'] || 'Tên Phim';
       this.date = params['date'] || ''; // Gán giá trị cho thuộc tính 'date'
-      this.showTime = params['showtime'] || '16:00';
+
+      // Chỉ hiển thị giờ từ showtime
+      const fullShowtime = params['showtime'] || '';
+      const showtimeDate = new Date(fullShowtime);
+      this.showtime = showtimeDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+      this.showtime = fullShowtime;
+
       this.seatNumber = params['seatNumber'] || '';
       this.totalAmount = +params['totalAmount'] || 0; // Convert string to number
     });
@@ -35,7 +39,7 @@ export class PaymentComponent implements OnInit {
   // Xử lý khi nhấn nút "Hủy bỏ"
   onCancel(): void {
     alert('Đã hủy thanh toán!');
-    window.history.back();
+    window.history.back(); // Quay trở lại trang trước
   }
 
   // Kiểm tra tính hợp lệ của form
@@ -52,15 +56,11 @@ export class PaymentComponent implements OnInit {
       alert('Email không hợp lệ!');
       return false;
     }
-    if (!this.theaterName.trim()) {
-      alert('Tên rạp không được để trống!');
-      return false;
-    }
     if (!this.movieName.trim()) {
       alert('Tên phim không được để trống!');
       return false;
     }
-    if (!this.showTime.trim()) {
+    if (!this.showtime.trim()) {
       alert('Xuất chiếu không được để trống!');
       return false;
     }
@@ -82,16 +82,17 @@ export class PaymentComponent implements OnInit {
           Họ và tên: ${this.customerName}
           Số điện thoại: ${this.phoneNumber}
           Email: ${this.email}
-          Tên rạp: ${this.theaterName}
           Tên phim: ${this.movieName}
-          Ngày chiếu: ${this.date} 
-          Xuất chiếu: ${this.showTime}
+          Ngày chiếu: ${this.date}
+          Xuất chiếu: ${this.showtime}
           Số ghế: ${this.seatNumber}
           Tổng tiền: ${this.totalAmount} VND
-          Hình thức: ${this.getPaymentMethodName()}
+          Hình thức: ${this.getPaymentMethodName()} 
       `);
     }
-  }// Lấy tên hình thức thanh toán
+  }
+
+  // Lấy tên hình thức thanh toán
   getPaymentMethodName(): string {
     switch (this.paymentMethod) {
       case 'onepay':

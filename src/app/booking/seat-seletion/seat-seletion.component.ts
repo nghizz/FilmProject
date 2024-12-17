@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SeatApiService, Seat } from '../services/api/seat-api.service';
+import { SeatApiService, Seat } from '../../services/api/seat-api.service';
 
 @Component({
   selector: 'app-seat-selection',
@@ -19,15 +19,18 @@ export class SeatSelectionComponent implements OnInit {
   date: string = '';
   showtime: string = '';
 
-  constructor(private seatApiService: SeatApiService, private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private seatApiService: SeatApiService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     // Lấy thông tin từ query parameters
     this.route.queryParams.subscribe((params) => {
-      this.theaterName = params['theaterName'] || 'Tên Rạp';
       this.movieName = params['movieName'] || 'Tên Phim';
-      this.date = params['date'] || '';
-      this.showtime = params['showtime'] || '';
+      this.date = params['date'] || ''; // Nhận ngày từ query params
+      this.showtime = params['showtime'] || ''; // Nhận giờ chiếu
     });
 
     // Load danh sách ghế
@@ -95,7 +98,8 @@ export class SeatSelectionComponent implements OnInit {
 
   /**
    * Tính tổng giá vé của các ghế đã chọn
-   */get totalSeatPrice(): number {
+   */
+  get totalSeatPrice(): number {
     return this.selectedSeats.reduce((total, seat) => total + seat.price, 0);
   }
 
@@ -107,7 +111,7 @@ export class SeatSelectionComponent implements OnInit {
   }
 
   /**
-   * Tính tổng tiền sau khi áp dụng khuyến mãi
+   * Tính tổng tiền sau khi áp dung khuyến mãi
    */
   get totalAmount(): number {
     return this.totalSeatPrice - this.discountAmount;
@@ -116,10 +120,11 @@ export class SeatSelectionComponent implements OnInit {
   /**
    * Xử lý thanh toán
    */
-  out() : void{
+  out(): void {
     alert('Đã hủy!');
     window.history.back();
   }
+
   checkout(): void {
     if (this.selectedSeats.length === 0) {
       alert('Vui lòng chọn ít nhất một ghế để thanh toán.');
@@ -128,17 +133,15 @@ export class SeatSelectionComponent implements OnInit {
 
     const seatNumbers = this.selectedSeats
       .map((seat) => `${seat.rowNumber}-${seat.seatNumber}`)
-      .join(', ');
-    const totalAmount = this.totalAmount;
+      .join(', '); // Chuỗi định dạng cho số ghế đã chọn
 
     this.router.navigate(['/payment'], {
       queryParams: {
-        theaterName: this.theaterName,
         movieName: this.movieName,
-        date: this.date,
-        showtime: this.showtime,
+        date: this.date, // Truyền ngày từ query parameters
+        showtime: this.showtime, // Truyền giờ chiếu
         seatNumber: seatNumbers,
-        totalAmount: totalAmount
+        totalAmount: this.totalAmount // Truyền tổng số tiền
       }
     });
   }

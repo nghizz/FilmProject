@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthApiService } from '../services/api/auth-api.service';
+import { AuthApiService } from '../../services/api/auth-api.service';
 import { isPlatformBrowser } from '@angular/common'; // Import isPlatformBrowser
 import { Inject, PLATFORM_ID } from '@angular/core'; // Import PLATFORM_ID
 
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('role', response.user.role); // Lưu chức vụ người dùng
           }
 
-          this.router.navigate(['/homepage']); // Điều hướng đến trang homepage sau khi đăng nhập thành công
+          this.router.navigate(['/home']); // Điều hướng đến trang homepage sau khi đăng nhập thành công
         }
       },
       (error) => {

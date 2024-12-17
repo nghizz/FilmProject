@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PromotionService, Promotion } from '../services/api/promotion.service';
-import { UserApiService } from '../services/api/user-api.service';
-import { PromotionHistory } from '../services/api/user-api.service';
+import { PromotionService, Promotion } from '../../services/api/promotion.service';
+import { UserApiService } from '../../services/api/user-api.service';
+import { PromotionHistory } from '../../services/api/user-api.service';
 
 @Component({
   selector: 'app-promotion',

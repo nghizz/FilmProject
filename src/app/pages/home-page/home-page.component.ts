@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { MovieService } from '../services/api/movie.service'; 
+import { MovieService } from '../../services/api/movie.service'; 
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common'; // Import isPlatformBrowser
 
@@ -9,6 +9,7 @@ import { isPlatformBrowser } from '@angular/common'; // Import isPlatformBrowser
   styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent implements OnInit {
+  searchQuery: string = '';
   currentUser: any = null; 
   isLoggedIn: boolean = false; 
   movies: any[] = []; 
@@ -69,4 +70,5 @@ export class HomePageComponent implements OnInit {
     }
     this.router.navigate(['/home']);
   }
+  
 }

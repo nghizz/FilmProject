@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { MovieService } from '../../services/api/movie.service'; 
+import { MovieService } from '../../services/api/movie.service';
 import { Router } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common'; // Import isPlatformBrowser
+import { isPlatformBrowser } from '@angular/common'; 
 
 @Component({
   selector: 'app-home-page',
@@ -9,17 +9,20 @@ import { isPlatformBrowser } from '@angular/common'; // Import isPlatformBrowser
   styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent implements OnInit {
-  searchQuery: string = '';
+  searchKeyword: string = ''; // Khai báo searchKeyword
   currentUser: any = null; 
   isLoggedIn: boolean = false; 
-  movies: any[] = []; 
+  movies: any[] = []; // Mảng phim ban đầu
+  searchResults: any[] = []; // Mảng kết quả tìm kiếm
   loadingMovies: boolean = true; 
   errorMovies: string | null = null; 
+  loadingSearch: boolean = false;
+  errorSearch: string | null = null;
 
   constructor(
     private movieService: MovieService, 
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object // Inject PLATFORM_ID
+    @Inject(PLATFORM_ID) private platformId: Object 
   ) {}
 
   ngOnInit(): void {
@@ -28,7 +31,7 @@ export class HomePageComponent implements OnInit {
   }
 
   checkLoginStatus(): void {
-    if (isPlatformBrowser(this.platformId)) { // Kiểm tra nếu đang ở môi trường trình duyệt
+    if (isPlatformBrowser(this.platformId)) {
       const storedUser = localStorage.getItem('auth_token');
       if (storedUser) {
         this.isLoggedIn = true;
@@ -38,7 +41,7 @@ export class HomePageComponent implements OnInit {
         };
       } else {
         this.isLoggedIn = false;
-        this.router.navigate(['/home']); 
+        this.router.navigate(['/home']);
       }
     }
   }
@@ -49,7 +52,8 @@ export class HomePageComponent implements OnInit {
 
     this.movieService.getAllMovies().subscribe({
       next: (data) => {
-        this.movies = data; 
+        this.movies = data;
+        this.searchResults = [...data]; // Mặc định hiển thị tất cả phim
         this.loadingMovies = false;
       },
       error: (err) => {
@@ -60,15 +64,34 @@ export class HomePageComponent implements OnInit {
     });
   }
 
+  onSearch(): void {
+    if (!this.searchKeyword.trim()) {
+      this.searchResults = [...this.movies]; // Hiển thị lại tất cả phim khi không có từ khóa
+      return;
+    }
+
+    this.loadingSearch = true;
+    this.errorSearch = null;
+    this.searchResults = this.movies.filter(movie =>
+      movie.name.toLowerCase().includes(this.searchKeyword.toLowerCase()) ||
+      movie.genre.toLowerCase().includes(this.searchKeyword.toLowerCase())
+    );
+
+    if (this.searchResults.length === 0) {
+      this.errorSearch = 'Không tìm thấy phim nào.';
+    }
+
+    this.loadingSearch = false;
+  }
+
   logout(): void {
-    this.currentUser = null; 
-    this.isLoggedIn = false; 
-    if (isPlatformBrowser(this.platformId)) { // Kiểm tra nếu đang ở môi trường trình duyệt
-      localStorage.removeItem('auth_token'); 
-      localStorage.removeItem('username'); 
-      localStorage.removeItem('role'); 
+    this.currentUser = null;
+    this.isLoggedIn = false;
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('username');
+      localStorage.removeItem('role');
     }
     this.router.navigate(['/home']);
   }
-  
 }

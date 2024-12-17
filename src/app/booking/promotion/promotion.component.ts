@@ -5,7 +5,6 @@ import { UserApiService } from '../../services/api/user-api.service';
 import { PromotionHistory } from '../../models/promotion-history.model';
 import { Promotion } from '../../models/promotion.model';
 
-
 @Component({
   selector: 'app-promotion',
   templateUrl: './promotion.component.html',

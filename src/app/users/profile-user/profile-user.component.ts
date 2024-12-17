@@ -31,4 +31,3 @@ export class ProfileComponent {
   goToHomePage() {
     this.router.navigate(['/homepage']);
   }
-}

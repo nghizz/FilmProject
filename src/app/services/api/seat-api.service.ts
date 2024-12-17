@@ -2,16 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-export interface Seat {
-  id: number;
-  rowNumber: number;
-  seatNumber: number;
-  isAvailable: boolean;
-  seatType: string;
-  price: number;
-  isSelected: boolean; // Added for UI selection
-}
+import { Seat } from '../../models/seat.model';
 
 @Injectable({
   providedIn: 'root'

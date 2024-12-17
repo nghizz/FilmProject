@@ -38,4 +38,11 @@ export class MovieService {
       map(response => response.$values || []) // Lấy danh sách phim từ $values
     );
   }
+
+  addMovie(movie: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, movie);  // Gửi yêu cầu POST để thêm phim
+  }
+  deleteMovie(movieId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${movieId}`);  // Gửi yêu cầu DELETE để xóa phim
+  }
 }

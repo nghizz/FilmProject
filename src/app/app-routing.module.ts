@@ -9,6 +9,7 @@ import { SeatSelectionComponent } from './booking/seat-seletion/seat-seletion.co
 import { PromotionComponent } from './booking/promotion/promotion.component'; 
 import { ProfileComponent } from './users/profile-user/profile-user.component';
 import { LoginRegisterComponent } from './auth/login-register/login-register.component';
+import { FilmsmanagementComponent } from './admins/films-management/films-management.component';
 
 const routes: Routes = [
   { path: 'profile', component: ProfileComponent},
@@ -17,7 +18,7 @@ const routes: Routes = [
   { path: 'homepage', component: HomePageComponent},
   { path: 'movie-details/:id', component: MovieDetailComponent },
   { path: 'payment', component: PaymentComponent },
-
+  { path: 'films', component: FilmsmanagementComponent  },
   { path: 'promotion', component: PromotionComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'seat-selection', component: SeatSelectionComponent }, // Trang chọn ghế

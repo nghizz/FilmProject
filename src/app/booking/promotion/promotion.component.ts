@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PromotionService } from '../../services/api/promotion.service';
 import { UserApiService } from '../../services/api/user-api.service';
-import { PromotionHistory } from '../../models/promotion-history.model'; 
+import { PromotionHistory } from '../../models/promotion-history.model';
 import { Promotion } from '../../models/promotion.model';
 
 @Component({

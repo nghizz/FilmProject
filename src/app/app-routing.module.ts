@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { FilmsEditComponent } from './admins/films-edit/films-edit.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeComponent } from './pages/home/home.component'; 
 import { MovieDetailComponent } from './movies/movie-detail/movie-detail.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'homepage', component: HomePageComponent},
   { path: 'movie-details/:id', component: MovieDetailComponent },
   { path: 'payment', component: PaymentComponent },
+  { path: 'filmedit/:id', component: FilmsEditComponent},
   { path: 'films', component: FilmsmanagementComponent  },
   { path: 'promotion', component: PromotionComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },

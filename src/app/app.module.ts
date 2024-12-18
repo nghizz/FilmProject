@@ -14,10 +14,12 @@ import { PaymentComponent } from './booking/payment/payment.component';
 import { SeatSelectionComponent } from './booking/seat-seletion/seat-seletion.component';
 import { PromotionComponent } from './booking/promotion/promotion.component';
 import { ProfileComponent } from './users/profile-user/profile-user.component'; 
-import { HistoryPaymentComponent } from './users/history-payment/history-payment.component';
 import { FilmsmanagementComponent } from './admins/films-management/films-management.component';
 import { TicketsManagementComponent } from './admins/tickets-management/tickets-management.component';
 import { LoginRegisterComponent } from './auth/login-register/login-register.component';
+import { FilmsAddComponent } from './admins/films-add/films-add.component';
+import { FilmsEditComponent } from './admins/films-edit/films-edit.component';
+
 
 @NgModule({
   declarations: [
@@ -29,10 +31,11 @@ import { LoginRegisterComponent } from './auth/login-register/login-register.com
     SeatSelectionComponent,
     PromotionComponent,
     ProfileComponent,
-    HistoryPaymentComponent,
     FilmsmanagementComponent,
     TicketsManagementComponent,
     LoginRegisterComponent,
+    FilmsAddComponent,
+    FilmsEditComponent,
   ],
   imports: [
     BrowserModule,

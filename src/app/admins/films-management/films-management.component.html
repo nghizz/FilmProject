@@ -1,58 +1,70 @@
 <div class="container py-5">
-    <h2 class="mb-4">Quản lý danh sách phim</h2>
-  
-    <!-- Nếu đang tải dữ liệu -->
-    <div *ngIf="loadingMovies" class="text-center">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Đang tải...</span>
-      </div>
+  <h2 class="mb-4">Quản lý danh sách phim</h2>
+
+  <!-- Nếu đang tải dữ liệu -->
+  <div *ngIf="loadingMovies" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Đang tải...</span>
     </div>
-  
-    <!-- Nếu có lỗi -->
-    <div *ngIf="errorMovies" class="alert alert-danger">
-      {{ errorMovies }}
-    </div>
-  
-    <!-- Danh sách phim -->
-    <div *ngIf="!loadingMovies && movies.length > 0" class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Hình Ảnh</th>
-            <th>Tên Phim</th>
-            <th>Thể Loại</th>
-            <th>Thời Lượng</th>
-            <th>Ngày Chiếu</th>
-            <th>Hành Động</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let movie of movies">
-            <td>
-              <img [src]="movie.imageUrl" alt="Hình ảnh phim" class="img-fluid" width="100">
-            </td>
-            <td>{{ movie.name }}</td>
-            <td>{{ movie.genre }}</td>
-            <td>{{ movie.duration }} phút</td>
-            <td>{{ movie.releaseDate }}</td>
-            <td>
-              <button class="btn btn-warning" (click)="editMovie(movie.id)">Sửa</button>
-              <button class="btn btn-danger" (click)="deleteMovie(movie.id)">Xóa</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <!-- Nếu không có phim nào -->
-    <div *ngIf="!loadingMovies && !errorMovies && movies.length === 0" class="alert alert-info">
-      Hiện tại không có phim nào.
-    </div>
-    <div class="nagetive">
-    <!-- Nút Thêm Phim -->
-    <button class="btn btn-primary mt-3" (click)="addMovie()">Thêm phim mới</button>
-  
-    <!-- Nút Quay Lại Trang Chủ -->
-    <button class="btn btn-danger mt-3" (click)="goToHome()">Quay lại trang chủ</button>
   </div>
-  
+
+  <!-- Nếu có lỗi -->
+  <div *ngIf="errorMovies" class="alert alert-danger">
+    {{ errorMovies }}
+  </div>
+
+  <!-- Danh sách phim -->
+  <div *ngIf="!loadingMovies && movies.length > 0" class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Hình Ảnh</th>
+          <th>Tên Phim</th>
+          <th>Thể Loại</th>
+          <th>Thời Lượng</th>
+          <th>Giờ Chiếu</th>
+          <th>Hành Động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let movie of movies">
+          <td>
+            <img [src]="movie.imageUrl" alt="Hình ảnh phim" class="img-fluid" width="100">
+          </td>
+          <td>{{ movie.name }}</td>
+          <td>{{ movie.genre }}</td>
+          <td>{{ movie.duration }} phút</td>
+          <td>
+            <!-- Hiển thị danh sách giờ chiếu -->
+            <div *ngIf="movie.showtimes && movie.showtimes.length > 0; else noShowtimes">
+              <span *ngFor="let showtime of movie.showtimes; let i = index">
+                {{ showtime }}<span *ngIf="i < movie.showtimes.length - 1">, </span>
+              </span>
+            </div>
+            <!-- Nếu không có giờ chiếu -->
+            <ng-template #noShowtimes>
+              <span>Chưa có</span>
+            </ng-template>
+          </td>
+          <td>
+            <button class="btn btn-warning" (click)="editMovie(movie.id)">Sửa</button>
+            <button class="btn btn-danger" (click)="deleteMovie(movie.id)">Xóa</button>
+          </td>
+        </tr>
+      </tbody>
+      
+    </table>
+  </div>
+
+  <!-- Nếu không có phim nào -->
+  <div *ngIf="!loadingMovies && !errorMovies && movies.length === 0" class="alert alert-info">
+    Hiện tại không có phim nào.
+  </div>
+  <div class="nagetive">
+  <!-- Nút Thêm Phim -->
+  <button class="btn btn-primary mt-3" (click)="addMovie()">Thêm phim mới</button>
+
+  <!-- Nút Quay Lại Trang Chủ -->
+  <button class="btn btn-danger mt-3" (click)="goToHome()">Quay lại trang chủ</button>
+</div>
+</div>

@@ -18,12 +18,14 @@ export class FilmsmanagementComponent implements OnInit {
     this.loadMovies();
   }
 
-  // Tải danh sách phim
   loadMovies(): void {
     this.loadingMovies = true;
     this.movieService.getAllMovies().subscribe(
       (data) => {
-        this.movies = data;
+        this.movies = data.map((movie: any) => ({
+          ...movie,
+          showtimes: Array.isArray(movie.showtimes) ? movie.showtimes : [] // Đảm bảo showtimes là mảng
+        }));
         this.loadingMovies = false;
       },
       (error) => {
@@ -66,7 +68,7 @@ export class FilmsmanagementComponent implements OnInit {
   // Chỉnh sửa thông tin phim
   editMovie(movieId: number): void {
     // Chuyển hướng tới trang chỉnh sửa phim với ID
-    this.router.navigate(['/edit-movie', movieId]);
+    this.router.navigate(['/filmedit', movieId]);
   }
 
   // Quay lại trang chủ

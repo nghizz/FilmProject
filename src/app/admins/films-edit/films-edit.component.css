@@ -1,0 +1,127 @@
+/* edit-movie.component.css */
+
+/* Thêm kiểu dáng cho form */
+.movie-form {
+    background: linear-gradient(135deg, #e0f7fa, #ffffff); /* Gradient nền nhẹ nhàng */
+    padding: 40px;  /* Tăng padding để tạo không gian thoáng */
+    border-radius: 12px;  /* Tăng độ bo tròn */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Shadow nhẹ */
+    max-width: 1600px; /* Giới hạn chiều rộng của form */
+    width: 100%; /* Đảm bảo form chiếm toàn bộ chiều rộng */
+    margin: 40px auto; /* Căn giữa */
+}
+
+/* Thêm khoảng cách giữa các trường nhập liệu */
+.form-group {
+    margin-bottom: 20px; /* Khoảng cách giữa các trường nhập liệu */
+}
+
+/* Đổi màu nền cho các trường nhập liệu và viền màu sáng */
+input.form-control, textarea.form-control, select.form-control {
+    border: 1px solid #b0bec5; /* Màu viền xám nhẹ */
+    border-radius: 8px;  /* Bo tròn góc */
+    padding: 12px;  /* Tăng padding */
+    font-size: 14px; /* Cải thiện font size */
+    width: 100%;  /* Đảm bảo trường nhập liệu chiếm toàn bộ chiều rộng */
+    transition: border-color 0.3s ease; /* Hiệu ứng khi hover vào input */
+}
+
+/* Đổi màu nền cho các trường nhập liệu và viền sáng khi focus */
+input.form-control:focus, textarea.form-control:focus, select.form-control:focus {
+    border-color: #64b5f6; /* Màu xanh dương khi focus */
+    outline: none;  /* Tắt outline */
+}
+
+/* Đổi màu nền cho các nút và viền */
+button.btn-primary {
+    background-color: #4caf50; /* Màu xanh lá nhạt */
+    border-color: #388e3c; /* Viền màu xanh lá đậm */
+    color: white;
+    padding: 14px 24px;  /* Kích thước nút */
+    font-size: 16px;  /* Font size */
+    border-radius: 8px; /* Bo tròn nút */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Hiệu ứng hover */
+    text-transform: uppercase; /* Chữ in hoa */
+    letter-spacing: 1px; /* Tăng khoảng cách giữa các chữ */
+}
+
+button.btn-primary:hover {
+    background-color: #499ce4; /* Màu xanh lá tối hơn khi hover */
+    transform: translateY(-2px); /* Di chuyển nút lên khi hover */
+}
+
+button.btn-secondary {
+    background-color: #607d8b; /* Màu xám xanh nhạt */
+    border: 1px solid #455a64; /* Viền màu xám đậm */
+    color: white;
+    padding: 14px 24px;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.btn-secondary:hover {
+    background-color: #f45835; /* Màu xám đậm khi hover */
+    transform: translateY(-2px); /* Di chuyển nút lên khi hover */
+}
+
+/* Thêm kiểu cho thông báo lỗi */
+.alert.alert-danger {   
+    font-size: 16px;
+    background-color: #f8d7da; /* Nền đỏ nhẹ */
+    color: #721c24;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Cải thiện giao diện cho spinner */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.3rem;
+    border-color: #64b5f6; /* Màu xanh dương nhạt cho spinner */
+}
+
+/* Cải thiện độ rộng của các trường nhập liệu */
+input.form-control, textarea.form-control, select.form-control {
+    max-width: 600px;
+    margin: 0 auto;  /* Căn giữa */
+}
+
+/* Đảm bảo các nút có kích thước hợp lý */
+button.btn {
+    width: auto;
+    margin: 10px 0; /* Khoảng cách giữa các nút */
+}
+
+/* Thêm hiệu ứng khi người dùng hover vào nút */
+button.btn:hover {
+    opacity: 0.9;
+}
+
+/* Tách 2 nút button ra */
+.nagetive {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;  /* Khoảng cách giữa các nút */
+    width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    button.btn-primary, button.btn-secondary {
+        width: 100%;
+    }
+    
+    /* Điều chỉnh layout cho di động */
+    .nagetive {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nagetive .btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+}

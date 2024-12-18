@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HistoryPaymentComponent } from './history-payment.component';
+import { FilmsAddComponent } from './films-add.component';
 
-describe('HistoryPaymentComponent', () => {
-  let component: HistoryPaymentComponent;
-  let fixture: ComponentFixture<HistoryPaymentComponent>;
+describe('FilmsAddComponent', () => {
+  let component: FilmsAddComponent;
+  let fixture: ComponentFixture<FilmsAddComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HistoryPaymentComponent]
+      declarations: [FilmsAddComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HistoryPaymentComponent);
+    fixture = TestBed.createComponent(FilmsAddComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

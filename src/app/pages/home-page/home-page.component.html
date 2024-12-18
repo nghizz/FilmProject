@@ -31,9 +31,6 @@
           <li class="nav-item">
             <a class="nav-link" href="#">TUYỂN DỤNG</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="search-film">TÌM PHIM</a>
-          </li>
         </ul>
 
 
@@ -141,8 +138,8 @@
               </p>
               <p class="card-text">{{ movie.description }}</p>
               <div class="d-grid gap-2">
-                <a [routerLink]="['/movie-details', movie.id]" class="btn btn-primary">Chi tiết</a>
-                <a [routerLink]="['/booking', movie.id]" class="btn btn-outline-primary">Đặt vé</a>
+                <a [routerLink]="['', movie.id]" class="btn btn-primary">Chi tiết</a>
+                <a [routerLink]="['/movie-details', movie.id]" class="btn btn-outline-primary">Đặt vé</a>
               </div>
             </div>
           </div>

@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Movie } from '../../models/movie.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,27 +11,15 @@ export class MovieService {
 
   constructor(private http: HttpClient) { }
 
-  getAllMovies(): Observable<Movie[]> {
+  // Lấy danh sách tất cả phim
+  getAllMovies(): Observable<any[]> {
     return this.http.get<any>(this.apiUrl).pipe(
-      map((response) => response.$values || []),
-      map((movies: any[]) =>
-        movies.map((movie) => {
-          if (movie.showtimes && typeof movie.showtimes === 'object') {
-            movie.showtimes = Object.values(movie.showtimes); // Chuyển đổi object sang array
-          }
-          return movie as Movie; // Ép kiểu sang Movie
-        })
-      ),
-      catchError((error) => {
-        console.error('Lỗi khi lấy danh sách phim:', error);
-        return throwError(() => new Error('Không thể tải danh sách phim. Vui lòng thử lại sau.'));
-      })
       map((response) => response.$values || [])
     );
   }
-  
 
   // Lấy danh sách phim theo id
+  // Trong MovieService
   getMovieById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
       map((movie) => {
@@ -53,10 +38,6 @@ export class MovieService {
     return this.http.get<any>(url).pipe(
       map(response => response.$values || [])
     );
-  }
-   // Lấy danh sách giờ chiếu
-   getShowtimes(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.apiUrl}/showtimes`);
   }
 
   // Thêm phim mới

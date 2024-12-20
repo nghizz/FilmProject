@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { MovieService } from '../../services/api/movie.service';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common'; // Import isPlatformBrowser
+import { SharedDataService } from '../../services/api/sharedData.service';
 
 @Component({
   selector: 'app-home-page',
@@ -20,8 +21,9 @@ export class HomePageComponent implements OnInit {
   constructor(
     private movieService: MovieService,
     private router: Router,
+    private sharedDataService: SharedDataService,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.checkLoginStatus();
@@ -37,6 +39,8 @@ export class HomePageComponent implements OnInit {
           username: localStorage.getItem('username'),
           role: localStorage.getItem('role'),
         };
+        this.sharedDataService.setCustomerId(+localStorage.getItem('customerId')!);
+        this.sharedDataService.setCustomerName(localStorage.getItem('username')!); // Lưu customerName// Lưu customerId vào service  
       } else {
         this.isLoggedIn = false;
         alert('Bạn đã đăng xuất trước đó! Vui lòng đăng nhập lại!');

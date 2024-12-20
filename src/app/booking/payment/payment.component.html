@@ -7,15 +7,7 @@
                 <h2>Thông tin người mua</h2>
                 <div class="form-group">
                     <label class="form-label">Họ và tên</label>
-                    <input type="text" class="form-input" [(ngModel)]="customerName">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Số điện thoại</label>
-                    <input type="text" class="form-input" [(ngModel)]="phoneNumber">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-input" [(ngModel)]="email">
+                    <span class="form-input">{{ customerName }}</span> 
                 </div>
             </div>
 
@@ -27,12 +19,12 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">Ngày chiếu</label>
-                    <input type="text" class="form-input" [(ngModel)]="date" readonly>
+                    <input type="text" class="form-input" [(ngModel)]="dateOrder" readonly>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Xuất chiếu</label>
                     <input type="text" class="form-input" [(ngModel)]="showtime" readonly />
-                  </div>
+                </div>
                 <div class="form-group">
                     <label class="form-label">Số ghế</label>
                     <input type="text" class="form-input" [(ngModel)]="seatNumber" readonly>

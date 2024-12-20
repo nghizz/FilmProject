@@ -36,6 +36,7 @@ export class LoginRegisterComponent {
           localStorage.setItem('auth_token', response.token);
           localStorage.setItem('username', response.user.username);
           localStorage.setItem('role', response.user.role);
+          localStorage.setItem('customerId', response.user.id);
 
           // Điều hướng đến trang home sau khi đăng nhập thành công
           this.router.navigate(['/homepage']);

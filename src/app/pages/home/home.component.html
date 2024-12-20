@@ -33,15 +33,42 @@
         </ul>
         
 
-        <!-- Auth buttons or User profile -->
-        <ng-container *ngIf="isLoggedIn; else loggedOut">
+        <!-- User Profile Dropdown -->
+        <ng-container *ngIf="currentUser; else loggedOut">
           <div class="dropdown">
             <button class="btn btn-link dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
-              <span class="username">Xin chào, {{ currentUser.username }}</span>
+              <span class="username">Xin chào ! {{ currentUser.username }}</span>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-              <li><a class="dropdown-item" (click)="goToHomePage()">Trang chủ</a></li>
-              <li><a class="dropdown-item text-danger" (click)="logout()">Đăng xuất</a></li>
+              <!-- Menu for admin -->
+              <ng-container *ngIf="currentUser.role === 'admin'">
+                <li><a class="dropdown-item" routerLink="/films">
+                  <i class="fas fa-film"></i> Quản lí Phim
+                </a></li>
+                <li><a class="dropdown-item" routerLink="/Tickets">
+                    <i class="fas fa-ticket-alt"></i> Quản lí Vé
+                  </a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+              </ng-container>
+
+              <!-- Menu for regular user -->
+              <ng-container *ngIf="currentUser.role === 'user'">
+                <li><a class="dropdown-item" routerLink="/profile">
+                    <i class="fas fa-user"></i> Thông tin tài khoản
+                  </a></li>
+                <li><a class="dropdown-item" routerLink="/my-orders">
+                    <i class="fas fa-ticket-alt"></i> Đơn hàng của tôi
+                  </a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+              </ng-container>
+
+              <li><a class="dropdown-item text-danger" (click)="logout()">
+                  <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </a></li>
             </ul>
           </div>
         </ng-container>

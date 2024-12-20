@@ -12,7 +12,7 @@ import { Movie } from '../../models/movie.model';
 export class MovieService {
   private apiUrl = 'https://localhost:7233/api/Movies';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAllMovies(): Observable<Movie[]> {
     return this.http.get<any>(this.apiUrl).pipe(
@@ -29,6 +29,7 @@ export class MovieService {
         console.error('Lỗi khi lấy danh sách phim:', error);
         return throwError(() => new Error('Không thể tải danh sách phim. Vui lòng thử lại sau.'));
       })
+      map((response) => response.$values || [])
     );
   }
   
@@ -37,9 +38,9 @@ export class MovieService {
   getMovieById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
       map((movie) => {
-        // Chuyển đổi Object showtimes thành Array
-        if (movie.showtimes && typeof movie.showtimes === 'object') {
-          movie.showtimes = Object.values(movie.showtimes);
+        // Xử lý showtimes (sửa lại đoạn này)
+        if (movie.showtimes && movie.showtimes.$values) {
+          movie.showtimes = movie.showtimes.$values; // Gán trực tiếp $values cho showtimes
         }
         return movie;
       })

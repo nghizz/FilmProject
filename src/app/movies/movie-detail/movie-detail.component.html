@@ -28,10 +28,10 @@
       <div class="mt-4">
         <label for="showtime-select" class="form-label"><strong>Chọn giờ chiếu:</strong></label>
         <select id="showtime-select" class="form-select" (change)="onShowtimeSelect($event)"
-          [disabled]="!movie?.showtimes?.length">
+                [disabled]="!movie?.showtimes?.length"> 
           <option value="" disabled selected>Chọn giờ chiếu</option>
-          <option *ngFor="let showtime of movie?.showtimes" [value]="showtime">
-            {{ showtime | date: 'shortTime' }}
+          <option *ngFor="let showtime of movie?.showtimes" [value]="showtime.id"> 
+            {{ showtime.startTime | date: 'shortTime' }} 
           </option>
         </select>
       </div>
@@ -45,7 +45,7 @@
       <div class="nagetive">
         <!-- Nút tiếp tục -->
         <div class="mt-4">
-          <button class="btn btn-primary" (click)="continueBooking()" [disabled]="!selectedShowtime">
+          <button class="btn btn-primary" (click)="continueBooking()" [disabled]="!selectedShowtimeId || !selectedDate"> 
             Tiếp tục
           </button>
         </div>

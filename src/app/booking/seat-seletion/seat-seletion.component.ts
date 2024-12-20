@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SeatApiService } from '../../services/api/seat-api.service';
 import { Seat } from '../../models/seat.model';
+import { SharedDataService } from '../../services/api/sharedData.service';
 
 @Component({
   selector: 'app-seat-selection',
@@ -15,23 +16,35 @@ export class SeatSelectionComponent implements OnInit {
   selectedPromotion: number = 0; // Tỷ lệ khuyến mãi (mặc định không có khuyến mãi)
 
   // Các thông tin nhận từ query parameters
+  customerId: number = 0;
   theaterName: string = '';
   movieName: string = '';
   date: string = '';
   showtime: string = '';
+  movieId: number = 0;
+  showtimeId: number = 0;
 
   constructor(
     private seatApiService: SeatApiService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private sharedDataService: SharedDataService
   ) { }
 
   ngOnInit(): void {
+    const customerId = this.sharedDataService.getCustomerId(); // Lấy customerId từ service
+    if (customerId) {
+      this.customerId = customerId;
+    } else {
+      alert('Không tìm thấy thông tin khách hàng!');
+    }
     // Lấy thông tin từ query parameters
     this.route.queryParams.subscribe((params) => {
       this.movieName = params['movieName'] || 'Tên Phim';
       this.date = params['date'] || ''; // Nhận ngày từ query params
       this.showtime = params['showtime'] || ''; // Nhận giờ chiếu
+      this.movieId = +params['movieId'];
+      this.showtimeId = +params['showtimeId']
     });
 
     // Load danh sách ghế
@@ -132,17 +145,21 @@ export class SeatSelectionComponent implements OnInit {
       return;
     }
 
+    // Chuyển đổi ghế đã chọn thành chuỗi số ghế
     const seatNumbers = this.selectedSeats
       .map((seat) => `${seat.rowNumber}-${seat.seatNumber}`)
-      .join(', '); // Chuỗi định dạng cho số ghế đã chọn
+      .join(', ');
 
+    // Truyền thông tin thanh toán và ghế vào queryParams
     this.router.navigate(['/payment'], {
       queryParams: {
+        movieId: this.movieId,
         movieName: this.movieName,
-        date: this.date, // Truyền ngày từ query parameters
-        showtime: this.showtime, // Truyền giờ chiếu
+        date: this.date,
+        showtime: this.showtime,
+        showtimeId: this.showtimeId,
         seatNumber: seatNumbers,
-        totalAmount: this.totalAmount // Truyền tổng số tiền
+        totalAmount: this.totalAmount
       }
     });
   }

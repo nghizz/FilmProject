@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { OrderService } from '../../services/api/order.service';   // Import service để gọi API
+import { Payment } from '../../models/payment.model';
+import { SharedDataService } from '../../services/api/sharedData.service';
+import moment from 'moment-timezone';
 
 @Component({
   selector: 'app-payment',
@@ -11,30 +15,51 @@ export class PaymentComponent implements OnInit {
   phoneNumber: string = '';
   email: string = '';
   movieName: string = '';
-  showtime: string = '';
+  showtime: string = ''; // Giờ chiếu (định dạng hiển thị)
   seatNumber: string = '';
   totalAmount: number = 0;
-  date: string = ''; // Ngày đặt
+  dateOrder: string = ''; // Ngày đặt (order_date)
+  showtimeId: number = 0; // Showtime ID
+  movieId: number = 0;
 
-  paymentMethod: string = 'onepay'; // Mặc định chọn "OnePay"
+  paymentMethod: string = 'onepay';
+  customerId: number = 0; // Gán giá trị mặc định là 0
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private orderService: OrderService,
+    private sharedDataService: SharedDataService
+  ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.movieName = params['movieName'] || 'Tên Phim';
-      this.date = params['date'] || ''; // Gán giá trị cho thuộc tính 'date'
+      this.dateOrder = params['date'] || '';
+      this.movieId = +params['movieId'] || 0;  // Đảm bảo lấy đúng giá trị movieId
 
-      // Chỉ hiển thị giờ từ showtime
+      if (this.movieId === 0) {
+        alert('ID phim không hợp lệ!');  // Kiểm tra nếu movieId không hợp lệ
+      }
+
       const fullShowtime = params['showtime'] || '';
       const showtimeDate = new Date(fullShowtime);
       this.showtime = showtimeDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-      this.showtime = fullShowtime;
 
       this.seatNumber = params['seatNumber'] || '';
-      this.totalAmount = +params['totalAmount'] || 0; // Convert string to number
+      this.totalAmount = +params['totalAmount'] || 0;
+      this.showtimeId = +params['showtimeId'] || 0;
+
+      // Kiểm tra customerId
+      this.customerId = this.sharedDataService.getCustomerId() ?? 0;
+      this.customerName = this.sharedDataService.getCustomerName() ?? '';
+
+      if (this.customerId === 0) {
+        alert('Không tìm thấy thông tin khách hàng!');
+      } else {
+        console.log('Customer ID:', this.customerId);
+      }
     });
   }
+
+
 
   // Xử lý khi nhấn nút "Hủy bỏ"
   onCancel(): void {
@@ -48,49 +73,47 @@ export class PaymentComponent implements OnInit {
       alert('Họ và tên không được để trống!');
       return false;
     }
-    if (!this.phoneNumber.trim() || !/^\d+$/.test(this.phoneNumber)) {
-      alert('Số điện thoại không hợp lệ!');
-      return false;
-    }
-    if (!this.email.trim() || !/^\S+@\S+\.\S+$/.test(this.email)) {
-      alert('Email không hợp lệ!');
-      return false;
-    }
-    if (!this.movieName.trim()) {
-      alert('Tên phim không được để trống!');
-      return false;
-    }
-    if (!this.showtime.trim()) {
-      alert('Xuất chiếu không được để trống!');
-      return false;
-    }
-    if (!this.seatNumber.trim()) {
-      alert('Số ghế không được để trống!');
-      return false;
-    }
-    if (this.totalAmount <= 0) {
-      alert('Tổng tiền phải lớn hơn 0!');
-      return false;
-    }
     return true; // Form hợp lệ
   }
 
   // Xử lý khi nhấn nút "Xác nhận"
   onConfirm(): void {
+    if (this.movieId === 0) {
+      alert('ID phim không hợp lệ!');
+      return;
+    }
+  
+    const dateOrderUTC = moment(this.dateOrder).tz('UTC').toDate();  // Chuyển string thành đối tượng Date
+  
     if (this.isFormValid()) {
-      alert(`Thanh toán thành công!
-          Họ và tên: ${this.customerName}
-          Số điện thoại: ${this.phoneNumber}
-          Email: ${this.email}
-          Tên phim: ${this.movieName}
-          Ngày chiếu: ${this.date}
-          Xuất chiếu: ${this.showtime}
-          Số ghế: ${this.seatNumber}
-          Tổng tiền: ${this.totalAmount} VND
-          Hình thức: ${this.getPaymentMethodName()} 
-      `);
+      const paymentDto: Payment = {
+        showtimeId: this.showtimeId,            // Showtime ID
+        customerId: this.customerId,            // Customer ID
+        movieId: this.movieId,                  // Movie ID
+        dateOrder: dateOrderUTC,                // Chuyển đổi thành Date
+        showtime: this.showtime,                // Giờ chiếu
+        seatNumbers: this.seatNumber.split(',').map(seat => seat.trim()).join(', '),  // Ghế ngồi
+        totalAmount: this.totalAmount,          // Tổng tiền
+        paymentMethod: this.paymentMethod,      // Phương thức thanh toán
+        paymentStatus: 'Pending',              // Trạng thái thanh toán
+        promotionId: 1                         // Mã khuyến mãi, có thể lấy từ tham số nếu cần
+      };
+  
+      console.log('Payment DTO gửi đi:', paymentDto);
+      this.orderService.createOrder(paymentDto).subscribe(
+        (response) => {
+          alert('Thanh toán thành công! Đơn hàng đã được tạo.');
+          // Chuyển hướng người dùng đến trang lịch sử đơn hàng hoặc trang khác nếu cần
+        },
+        (error) => {
+          alert('Có lỗi xảy ra khi thanh toán.');
+          console.error(error);  // In ra lỗi để debug
+        }
+      );
     }
   }
+   
+
 
   // Lấy tên hình thức thanh toán
   getPaymentMethodName(): string {

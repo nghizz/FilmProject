@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieService } from '../../services/api/movie.service';
+import { Showtime } from '../../models/showtime.model';
 
 @Component({
   selector: 'app-movie-detail',
@@ -8,11 +9,11 @@ import { MovieService } from '../../services/api/movie.service';
   styleUrls: ['./movie-detail.component.css'],
 })
 export class MovieDetailComponent implements OnInit {
-  movie: any = null; // Thông tin chi tiết phim
-  loading: boolean = true; // Trạng thái loading
-  error: string | null = null; // Thông báo lỗi
-  selectedShowtime: string | null = null; // Giờ chiếu đã chọn
-  selectedDate: string | null = null; // Ngày đặt đã chọn
+  movie: any = null;
+  loading: boolean = true;
+  error: string | null = null;
+  selectedShowtimeId: number | null = null;
+  selectedDate: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +35,12 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.getMovieById(id).subscribe({
       next: (data) => {
         this.movie = data;
+
+        // Kiểm tra và xử lý showtimes
+        if (this.movie.showtimes && this.movie.showtimes.$values) {
+          this.movie.showtimes = this.movie.showtimes.$values;
+        }
+
         this.loading = false;
       },
       error: (err) => {
@@ -44,37 +51,46 @@ export class MovieDetailComponent implements OnInit {
     });
   }
 
-  // Xử lý khi chọn giờ chiếu
   onShowtimeSelect(event: Event): void {
-    const selectedValue = (event.target as HTMLSelectElement).value;
-    const selectedDate = new Date(selectedValue);
-    this.selectedShowtime = selectedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) || null;
+    const target = event.target as HTMLSelectElement;
+    const value = target?.value; // Xử lý trường hợp null
+    if (value) {
+      this.selectedShowtimeId = +value; // Cập nhật selectedShowtimeId
+      console.log('Selected value:', this.selectedShowtimeId);
+    } else {
+      console.error('No value selected!');
+    }
   }
-
-  // Xử lý khi người dùng chọn ngày đặt
+  
   onDateSelect(event: Event): void {
     const selectedDate = (event.target as HTMLInputElement).value;
-    this.selectedDate = selectedDate || null;
-  }
+    this.selectedDate = selectedDate || null; // Gán null nếu không chọn ngày
+    console.log("Selected Date:", this.selectedDate);
+  }  
 
-  // Xử lý sự kiện nhấn nút "Tiếp tục"
   continueBooking(): void {
-    if (this.selectedShowtime && this.selectedDate) {
-      this.router.navigate(['/seat-selection'], {
-        queryParams: {
-          movieName: this.movie?.name,
-          date: this.selectedDate,
-          showtime: this.selectedShowtime
-        }
-      });
+    if (this.selectedShowtimeId !== null && this.selectedDate) {
+      const selectedShowtime: Showtime | undefined = this.movie.showtimes.find((showtime: Showtime) => showtime.id === this.selectedShowtimeId);
+
+      if (selectedShowtime) {
+        this.router.navigate(['/seat-selection'], {
+          queryParams: {
+            movieName: this.movie?.name,
+            date: this.selectedDate,
+            showtime: selectedShowtime.startTime,
+            showtimeId: this.selectedShowtimeId,
+            movieId: this.movie.id
+          }
+        });
+      } else {
+        alert('Giờ chiếu không hợp lệ.');
+      }
     } else {
       alert('Vui lòng chọn giờ chiếu và ngày đặt trước khi tiếp tục.');
     }
   }
-
-  // Xử lý sự kiện nhấn nút "Quay lại"
   goBack(): void {
-    this.router.navigate(['/homepage']); // Hoặc đường dẫn bạn muốn quay lại
+    this.router.navigate(['/homepage']);
   }
 
   todayDate(): string {

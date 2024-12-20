@@ -22,7 +22,7 @@
             <a class="nav-link" href="/home">TRANG CHỦ</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">LỊCH CHIẾU</a>
+            <a class="nav-link" href="/homepage">LỊCH CHIẾU</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/promotion">KHUYẾN MÃI</a>
@@ -31,20 +31,17 @@
           <li class="nav-item">
             <a class="nav-link" href="#">TUYỂN DỤNG</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="search-film">TÌM PHIM</a>
-          </li>
         </ul>
 
 
-        <!-- User Profile Dropdown -->
+        <!-- User Profile Dropdown 
         <ng-container *ngIf="currentUser; else loggedOut">
           <div class="dropdown">
             <button class="btn btn-link dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
               <span class="username">Xin chào ! {{ currentUser.username }}</span>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-              <!-- Menu for admin -->
+              < Menu for admin >
               <ng-container *ngIf="currentUser.role === 'admin'">
                 <li><a class="dropdown-item" routerLink="/films">
                   <i class="fas fa-film"></i> Quản lí Phim
@@ -57,7 +54,7 @@
                 </li>
               </ng-container>
 
-              <!-- Menu for regular user -->
+              < Menu for regular user>
               <ng-container *ngIf="currentUser.role === 'user'">
                 <li><a class="dropdown-item" routerLink="/profile">
                     <i class="fas fa-user"></i> Thông tin tài khoản
@@ -77,7 +74,7 @@
           </div>
         </ng-container>
 
-        <!-- If user is not logged in, show login and register links -->
+        < If user is not logged in, show login and register links -->
         <ng-template #loggedOut>
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
@@ -141,8 +138,8 @@
               </p>
               <p class="card-text">{{ movie.description }}</p>
               <div class="d-grid gap-2">
-                <a [routerLink]="['/movie-details', movie.id]" class="btn btn-primary">Chi tiết</a>
-                <a [routerLink]="['/booking', movie.id]" class="btn btn-outline-primary">Đặt vé</a>
+                <a [routerLink]="['', movie.id]" class="btn btn-primary">Chi tiết</a>
+                <a [routerLink]="['/movie-details', movie.id]" class="btn btn-outline-primary">Đặt vé</a>
               </div>
             </div>
           </div>

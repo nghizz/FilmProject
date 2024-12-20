@@ -7,6 +7,7 @@
   top: 0;
   z-index: 1000;
   transition: all 0.3s ease;
+  padding: 15px 0;
 
   /* Hiệu ứng khi scroll */
   &.scrolled {
@@ -46,13 +47,38 @@
       }
     }
 
+    /* Cập nhật để chữ to hơn và có hiệu ứng */
     .nav-link {
       color: #ff6b00 !important;
-      font-weight: 500;
-      padding: 0.5rem 1rem;
+      font-weight: 700; /* Chữ đậm hơn */
+      padding: 1rem 1.5rem; /* Tăng padding cho khoảng cách chữ */
+      font-size: 1.5rem; /* Tăng kích thước chữ */
+      position: relative; /* Cần thiết để pseudo-element hoạt động */
+      transition: color 0.3s ease, transform 0.2s ease; /* Thêm hiệu ứng chuyển động */
 
       &:hover {
         color: white;
+        transform: scale(1.1); /* Phóng to chữ khi hover */
+      }
+
+      &:active {
+        transform: scale(0.9); /* Thu nhỏ nhẹ chữ khi nhấn */
+      }
+
+      /* Hiệu ứng gạch chân động */
+      &::after {
+        content: ''; /* Tạo nội dung giả cho pseudo-element */
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 2px; /* Độ dày của gạch chân */
+        background-color: #ff6b00; /* Màu gạch chân */
+        transition: width 0.3s ease; /* Hiệu ứng chuyển động */
+      }
+
+      &:hover::after {
+        width: 100%; /* Mở rộng gạch chân khi hover */
       }
     }
 
@@ -150,7 +176,6 @@ main {
   }
 }
 
-
 /* Footer Section */
 .footer {
   background-color: #212121;
@@ -244,6 +269,7 @@ main {
     }
   }
 }
+
 .d-flex{
   justify-content: center;
 }
@@ -256,6 +282,8 @@ main {
   font-size: 1rem; /* Kích thước chữ */
   transition: border-color 0.2s; /* Hiệu ứng chuyển màu trong border */
   width: 40%;
+  margin-top: 70px; /* Thêm khoảng cách cho thanh tìm kiếm */
+
 }
 
 /* Thay đổi màu border khi focus */
@@ -268,6 +296,7 @@ main {
 .btn-outline-success {
   border-radius: 4px; /* Góc bo cho button */
   margin-left: 0.5rem; /* Khoảng cách giữa input và button */
+  margin-top: 70px; /* Thêm khoảng cách cho thanh tìm kiếm */
 }
 
 /* Responsive adjustments for the search bar */
@@ -279,7 +308,8 @@ main {
     width: 100%; /* Chiều rộng 100% trên màn hình nhỏ */
   }
 }
-.alert-danger{
+
+.alert-danger {
   display: flex;
   justify-content: center;
   width: 50%;

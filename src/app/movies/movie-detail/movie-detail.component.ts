@@ -31,16 +31,19 @@ export class MovieDetailComponent implements OnInit {
   fetchMovieDetails(id: number): void {
     this.loading = true;
     this.error = null;
-
+  
     this.movieService.getMovieById(id).subscribe({
       next: (data) => {
         this.movie = data;
-
+  
         // Kiểm tra và xử lý showtimes
         if (this.movie.showtimes && this.movie.showtimes.$values) {
-          this.movie.showtimes = this.movie.showtimes.$values;
+          this.movie.showtimes = this.movie.showtimes.$values.filter(
+            (value: Showtime, index: number, self: Showtime[]) =>
+              index === self.findIndex((t) => new Date(t.startTime).getTime() === new Date(value.startTime).getTime())
+          );
         }
-
+  
         this.loading = false;
       },
       error: (err) => {
@@ -50,6 +53,7 @@ export class MovieDetailComponent implements OnInit {
       },
     });
   }
+  
 
   onShowtimeSelect(event: Event): void {
     const target = event.target as HTMLSelectElement;

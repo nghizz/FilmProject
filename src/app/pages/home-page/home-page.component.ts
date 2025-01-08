@@ -77,20 +77,6 @@ export class HomePageComponent implements OnInit {
     this.loading = true;
     this.error = null;
 
-    this.movieService.searchMovies(this.searchKeyword).subscribe({
-      next: (data) => {
-        this.searchResults = data;
-        if (this.searchResults.length === 0) {
-          this.error = 'Không tìm thấy phim nào.';
-        }
-        this.loading = false;
-      },
-      error: (error) => {
-        this.error = 'Không thể tìm kiếm phim. Vui lòng thử lại sau.';
-        console.error(error);
-        this.loading = false;
-      },
-    });
   }
 
   logout(): void {

@@ -1,58 +1,179 @@
 <div class="container py-5">
-    <h2 class="mb-4">Quản lý danh sách phim</h2>
-  
-    <!-- Nếu đang tải dữ liệu -->
-    <div *ngIf="loadingMovies" class="text-center">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Đang tải...</span>
-      </div>
+  <h2 class="mb-4">Quản lý danh sách phim</h2>
+
+  <!-- Nếu đang tải dữ liệu -->
+  <div *ngIf="loadingMovies" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Đang tải...</span>
     </div>
-  
-    <!-- Nếu có lỗi -->
-    <div *ngIf="errorMovies" class="alert alert-danger">
-      {{ errorMovies }}
-    </div>
-  
-    <!-- Danh sách phim -->
-    <div *ngIf="!loadingMovies && movies.length > 0" class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Hình Ảnh</th>
-            <th>Tên Phim</th>
-            <th>Thể Loại</th>
-            <th>Thời Lượng</th>
-            <th>Ngày Chiếu</th>
-            <th>Hành Động</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let movie of movies">
-            <td>
-              <img [src]="movie.imageUrl" alt="Hình ảnh phim" class="img-fluid" width="100">
-            </td>
-            <td>{{ movie.name }}</td>
-            <td>{{ movie.genre }}</td>
-            <td>{{ movie.duration }} phút</td>
-            <td>{{ movie.releaseDate }}</td>
-            <td>
-              <button class="btn btn-warning" (click)="editMovie(movie.id)">Sửa</button>
-              <button class="btn btn-danger" (click)="deleteMovie(movie.id)">Xóa</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <!-- Nếu không có phim nào -->
-    <div *ngIf="!loadingMovies && !errorMovies && movies.length === 0" class="alert alert-info">
-      Hiện tại không có phim nào.
-    </div>
-    <div class="nagetive">
-    <!-- Nút Thêm Phim -->
-    <button class="btn btn-primary mt-3" (click)="addMovie()">Thêm phim mới</button>
-  
-    <!-- Nút Quay Lại Trang Chủ -->
-    <button class="btn btn-danger mt-3" (click)="goToHome()">Quay lại trang chủ</button>
   </div>
+
+  <!-- Nếu có lỗi -->
+  <div *ngIf="errorMovies" class="alert alert-danger">
+    {{ errorMovies }}
+  </div>
+
+  <!-- Danh sách phim -->
+  <div *ngIf="!loadingMovies && movies.length > 0" class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Hình Ảnh</th>
+          <th>Tên Phim</th>
+          <th>Thể Loại</th>
+          <th>Thời Lượng</th>
+          <th>Ngày Chiếu</th>
+          <th>Hành Động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let movie of movies">
+          <td>
+            <img [src]="movie.imageUrl" alt="Hình ảnh phim" class="img-fluid" width="100">
+          </td>
+          <td>{{ movie.name }}</td>
+          <td>{{ movie.genre }}</td>
+          <td>{{ movie.duration }} phút</td>
+          <td>{{ movie.releaseDate }}</td>
+          <td>
+            <button class="btn btn-warning" (click)="openEditForm(movie)">Sửa</button>
+
+            <button class="btn btn-danger" (click)="deleteMovie(movie.id)">Xóa</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Nếu không có phim nào -->
+  <div *ngIf="!loadingMovies && !errorMovies && movies.length === 0" class="alert alert-info">
+    Hiện tại không có phim nào.
+  </div>
+
+  <!-- Form Chỉnh Sửa Phim -->
+<div class="mb-4" *ngIf="editMovieForm.id !== null">
+  <h3>Chỉnh sửa phim</h3>
+  <form (ngSubmit)="updateMovie()">
+    <div class="form-group mb-3">
+      <label for="editName">Tên Phim</label>
+      <input type="text" id="editName" class="form-control" [(ngModel)]="editMovieForm.name" name="editName" required>
+    </div>
+    <div class="form-group mb-3">
+      <label for="editGenre">Thể Loại</label>
+      <input type="text" id="editGenre" class="form-control" [(ngModel)]="editMovieForm.genre" name="editGenre" required>
+    </div>
+    <div class="form-group mb-3">
+      <label for="editDuration">Thời Lượng (phút)</label>
+      <input type="number" id="editDuration" class="form-control" [(ngModel)]="editMovieForm.duration" name="editDuration" required>
+    </div>
+    <div class="form-group mb-3">
+      <label for="editDescription">Mô Tả</label>
+      <textarea id="editDescription" class="form-control" [(ngModel)]="editMovieForm.description" name="editDescription" required></textarea>
+    </div>
+    <div class="form-group mb-3">
+      <label for="editTrailerUrl">Trailer URL</label>
+      <input type="text" id="editTrailerUrl" class="form-control" [(ngModel)]="editMovieForm.trailerUrl" name="editTrailerUrl" required>
+    </div>
+    <div class="form-group mb-3">
+      <label for="editDirector">Đạo Diễn</label>
+      <input type="text" id="editDirector" class="form-control" [(ngModel)]="editMovieForm.director" name="editDirector" required>
+    </div>
+    <div class="form-group mb-3">
+      <label for="editImageUrl">URL Hình Ảnh</label>
+      <input type="text" id="editImageUrl" class="form-control" [(ngModel)]="editMovieForm.imageUrl" name="editImageUrl" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Cập Nhật</button>
+    <button type="button" class="btn btn-secondary" (click)="resetEditForm()">Hủy</button>
+  </form>
+</div>
+
+  <!-- Form Thêm Phim -->
+  <div class="mb-4">
+    <h3>Thêm phim mới</h3>
+    <form (ngSubmit)="addMovieFromForm()">
+      <div class="form-group mb-3">
+        <label for="name">Tên Phim</label>
+        <input
+          type="text"
+          id="name"
+          class="form-control"
+          [(ngModel)]="addMovieForm.name"
+          name="name"
+          required
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label for="genre">Thể Loại</label>
+        <input
+          type="text"
+          id="genre"
+          class="form-control"
+          [(ngModel)]="addMovieForm.genre"
+          name="genre"
+          required
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label for="duration">Thời Lượng (phút)</label>
+        <input
+          type="number"
+          id="duration"
+          class="form-control"
+          [(ngModel)]="addMovieForm.duration"
+          name="duration"
+          required
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label for="description">Mô Tả</label>
+        <textarea
+          id="description"
+          class="form-control"
+          [(ngModel)]="addMovieForm.description"
+          name="description"
+          required
+        ></textarea>
+      </div>
+      <div class="form-group mb-3">
+        <label for="trailerUrl">Trailer URL</label>
+        <input
+          type="text"
+          id="trailerUrl"
+          class="form-control"
+          [(ngModel)]="addMovieForm.trailerUrl"
+          name="trailerUrl"
+          required
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label for="director">Đạo Diễn</label>
+        <input
+          type="text"
+          id="director"
+          class="form-control"
+          [(ngModel)]="addMovieForm.director"
+          name="director"
+          required
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label for="imageUrl">URL Hình Ảnh</label>
+        <input
+          type="text"
+          id="imageUrl"
+          class="form-control"
+          [(ngModel)]="addMovieForm.imageUrl"
+          name="imageUrl"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Thêm Phim</button>
+    </form>
+    
   
+
+  <div class="d-flex justify-content-between mt-4">
+    <!-- Nút Quay Lại Trang Chủ -->
+    <button class="btn btn-danger" (click)="goToHome()">Quay lại trang chủ</button>
+  </div>
+</div>

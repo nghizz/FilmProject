@@ -31,17 +31,6 @@ export class MovieDetailComponent implements OnInit {
     this.loading = true;
     this.error = null;
 
-    this.movieService.getMovieById(id).subscribe({
-      next: (data) => {
-        this.movie = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Lỗi khi lấy chi tiết phim:', err);
-        this.error = 'Không thể tải thông tin chi tiết phim. Vui lòng thử lại.';
-        this.loading = false;
-      },
-    });
   }
 
   // Xử lý khi chọn giờ chiếu

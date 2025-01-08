@@ -4,6 +4,7 @@ import { PromotionService } from '../../services/api/promotion.service';
 import { UserApiService } from '../../services/api/user-api.service';
 import { PromotionHistory } from '../../models/promotion-history.model';
 import { Promotion } from '../../models/promotion.model';
+import { SharedDataService } from '../../services/api/sharedData.service';
 
 @Component({
   selector: 'app-promotion',
@@ -18,11 +19,13 @@ export class PromotionComponent implements OnInit {
   selectedPromotion: Promotion | null = null; // Khuyến mãi được chọn
   errorMessage: string | null = null; // Lưu thông báo lỗi
   loading: boolean = false; // Trạng thái đang tải dữ liệu
+  showHistory: boolean = false; // Trạng thái hiển thị lịch sử
 
   constructor(
     private promotionService: PromotionService,
     private userApiService: UserApiService,
-    private router: Router
+    private router: Router,
+    private sharedDataService: SharedDataService
   ) {}
 
   ngOnInit(): void {
@@ -47,27 +50,44 @@ export class PromotionComponent implements OnInit {
       this.selectedPromotion === promotion ? null : promotion; // Bật/tắt hiển thị
   }
 
-    // Hàm xử lý khi nhấn nút "Lịch sử sử dụng khuyến mãi"
-    showPromotionHistory(): void {
+  // Hiển thị lịch sử khuyến mãi
+  showPromotionHistory(): void {
+    this.loading = true;
+    this.showHistory = true; // Mở trạng thái hiển thị lịch sử
+    const userId = this.sharedDataService.getCustomerId();
 
-      this.loading = true; // Hiển thị trạng thái đang tải
-      const userId = this.currentUser.id; // Lấy userId từ thông tin người dùng đã đăng nhập
-  
+    if (userId) {
       this.userApiService.getPromotionHistory(userId).subscribe({
-        next: (history) => {
-          this.promotionHistory = history; // Lưu danh sách lịch sử khuyến mãi
-          this.errorMessage = null; // Xóa thông báo lỗi
-          this.loading = false; // Tắt trạng thái đang tải
+        next: (response: any) => {
+          if (response && response.$values) {
+            this.promotionHistory = response.$values;
+          } else {
+            this.promotionHistory = [];
+            console.error('Dữ liệu lịch sử khuyến mãi không hợp lệ:', response);
+          }
+          this.errorMessage = null;
+          this.loading = false;
         },
         error: (err) => {
           console.error('Lỗi khi lấy lịch sử khuyến mãi:', err);
+          this.promotionHistory = [];
           this.errorMessage = err.error?.message || 'Không thể tải lịch sử khuyến mãi.';
-          this.loading = false; // Tắt trạng thái đang tải
+          this.loading = false;
         }
       });
+    } else {
+      this.errorMessage = 'Vui lòng đăng nhập để xem lịch sử khuyến mãi.';
+      this.loading = false;
     }
+  }
 
-  logout() {
+  // Đóng lịch sử khuyến mãi
+  closePromotionHistory(): void {
+    this.showHistory = false; // Đóng trạng thái hiển thị lịch sử
+    this.promotionHistory = [];
+  }
+
+  logout(): void {
     this.currentUser = null; // Xóa thông tin người dùng
     this.isLoggedIn = false; // Đặt trạng thái đăng nhập thành false
     this.router.navigate(['/login']); // Điều hướng đến trang đăng nhập

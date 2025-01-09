@@ -36,11 +36,11 @@ export class FilmsEditComponent implements OnInit {
           console.error(err);
         },
       });
-    } */
+    } 
   }
 
-  /* fetchAvailableShowtimes(): void {
-    this.movieService.getMovieById(id).subscribe({
+  fetchAvailableShowtimes(): void {
+    this.movieService.getShowtimeList().subscribe({ // Use getShowtimeList here
       next: (data: string[]) => {
         this.availableShowtimes = data; // Dữ liệu showtimes được lưu vào mảng
         this.loading = false;
@@ -51,7 +51,8 @@ export class FilmsEditComponent implements OnInit {
         console.error(err);
       },
     });
-  } */
+  }
+
   // Save movie with updated details
   saveMovie(): void {
     if (this.movie) {

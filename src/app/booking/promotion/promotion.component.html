@@ -75,19 +75,32 @@
     
     <!-- Phần hiển thị lịch sử khuyến mãi -->
     <div *ngIf="promotionHistory.length > 0" class="promotion-history mt-4">
-      <h3>Lịch sử sử dụng khuyến mãi</h3>
-      <ul>
-        <li *ngFor="let history of promotionHistory">
-          <p><strong>{{ history.promotionName }}</strong>: {{ history.promotionDescription }}</p>
-          <p>Giảm giá: {{ history.discountPercentage }}%</p>
-          <p>Ngày sử dụng: {{ history.usedDate | date: 'dd/MM/yyyy' }}</p>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Trường hợp không có dữ liệu -->
-    <div *ngIf="promotionHistory.length === 0 && !loading">
-      <p>Không có lịch sử khuyến mãi nào.</p>
+      <h3 class="text-center">Lịch sử sử dụng khuyến mãi</h3>
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="table-primary">
+            <tr>
+              <th>#</th>
+              <th>Tên khuyến mãi</th>
+              <th>Mô tả</th>
+              <th>Giảm giá (%)</th>
+              <th>Ngày sử dụng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let history of promotionHistory; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ history.promotionName }}</td>
+              <td>{{ history.promotionDescription }}</td>
+              <td>{{ history.discountPercentage }}</td>
+              <td>{{ history.usedDate | date: 'dd/MM/yyyy' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center mt-3">
+        <button class="btn btn-outline-secondary" (click)="closePromotionHistory()">Đóng</button>
+      </div>
     </div>
 
     <!-- Danh sách khuyến mãi -->

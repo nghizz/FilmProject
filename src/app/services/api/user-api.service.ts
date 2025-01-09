@@ -18,8 +18,8 @@ export class UserApiService {
     });
   }
 
-    // Gọi API: Lấy lịch sử sử dụng khuyến mãi
-    getPromotionHistory(userId: number): Observable<PromotionHistory[]> {
-      return this.http.get<PromotionHistory[]>(`${this.apiUrl}/history/${userId}`);
-    }
+  getPromotionHistory(userId: number): Observable<PromotionHistory[]> { 
+    const url = `${this.apiUrl}/history/${userId}`; 
+    return this.http.get<PromotionHistory[]>(url); 
+  }
 }

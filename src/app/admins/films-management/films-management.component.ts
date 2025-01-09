@@ -20,11 +20,11 @@ export class FilmsmanagementComponent implements OnInit {
 
   loadMovies(): void {
     this.loadingMovies = true;
-    this.movieService.getAllMovies().subscribe(
+    this.movieService.getShowtimeList().subscribe(
       (data) => {
         this.movies = data.map((movie: any) => ({
           ...movie,
-          showtimes: Array.isArray(movie.showtimes) ? movie.showtimes : [] // Đảm bảo showtimes là mảng
+          showtimes: movie.showtimes // Directly access the showtimes array
         }));
         this.loadingMovies = false;
       },
@@ -35,7 +35,12 @@ export class FilmsmanagementComponent implements OnInit {
     );
   }
 
-  // Thêm phim mới
+  // Định dạng giờ chiếu theo "hh:mm"
+  formatShowtime(showtime: string): string {
+    const date = new Date(showtime);
+    return date.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+  }
+
   addMovie(): void {
     const newMovie = {
       id: 5,
@@ -44,19 +49,19 @@ export class FilmsmanagementComponent implements OnInit {
       duration: 148,
       releaseDate: '2010-07-16',
       description: 'A thief who steals corporate secrets through the use of dream-sharing technology.',
-      imageUrl: 'https://example.com/images/inception.jpg'
+      imageUrl: 'https://example.com/images/inception.jpg',
+      showtimes: ['2024-12-25T10:30:00', '2024-12-25T13:45:00']
     };
     this.movieService.addMovie(newMovie).subscribe(() => {
-      this.loadMovies(); // Tải lại danh sách sau khi thêm phim
+      this.loadMovies();
     });
   }
 
-  // Xóa phim
   deleteMovie(movieId: number): void {
     if (confirm('Bạn có chắc chắn muốn xóa phim này?')) {
       this.movieService.deleteMovie(movieId).subscribe(
         () => {
-          this.loadMovies(); // Tải lại danh sách sau khi xóa thành công
+          this.loadMovies();
         },
         (error) => {
           this.errorMovies = 'Không thể xóa phim';
@@ -65,13 +70,10 @@ export class FilmsmanagementComponent implements OnInit {
     }
   }
 
-  // Chỉnh sửa thông tin phim
   editMovie(movieId: number): void {
-    // Chuyển hướng tới trang chỉnh sửa phim với ID
     this.router.navigate(['/filmedit', movieId]);
   }
 
-  // Quay lại trang chủ
   goToHome(): void {
     this.router.navigate(['/homepage']);
   }

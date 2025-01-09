@@ -30,14 +30,39 @@ export class MovieService {
   getMovieById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
       map((movie) => {
-        // Xử lý showtimes (sửa lại đoạn này)
-        if (movie.showtimes && movie.showtimes.$values) {
-          movie.showtimes = movie.showtimes.$values; // Gán trực tiếp $values cho showtimes
-        }
-        return movie;
+        return {
+          ...movie,
+          showtimes: Array.isArray(movie.showtimes?.$values)
+            ? movie.showtimes.$values
+            : []
+        };
       })
     );
   }
+
+  getShowtimeList(): Observable<any[]> {
+    return this.http.get<any>(this.apiUrl).pipe(
+      map((response) => {
+        const movies = response.$values || [];
+        return movies.map((movie: any) => ({
+          ...movie,
+          showtimes: this.formatShowtimes(movie.showtimes?.$values || [])
+        }));
+      })
+    );
+  }
+
+  // Hàm định dạng giờ chiếu (chuyển sang hh:mm)
+  private formatShowtimes(showtimes: any[]): string[] {
+    return showtimes.map((time: string) => {
+      const date = new Date(time);
+      return !isNaN(date.getTime())
+        ? date.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })
+        : 'Không hợp lệ';
+    });
+  }
+
+
 
   // Tìm kiếm phim theo từ khóa
   searchMovies(keyword: string): Observable<any[]> {

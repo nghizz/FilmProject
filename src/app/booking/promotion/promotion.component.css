@@ -249,6 +249,92 @@
   }
 
 
+  .promotion-history {
+    position: fixed; /* Giữ cố định vị trí trên màn hình */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Căn giữa */
+    background-color: #fff;
+    padding: 20px 30px; /* Cân đối khoảng cách trong */
+    border-radius: 12px; /* Bo góc mềm mại */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tạo hiệu ứng nổi */
+    z-index: 1050; /* Hiển thị trên các phần tử khác */
+    max-width: 90%; /* Giới hạn chiều rộng tối đa */
+    max-height: 80%; /* Giới hạn chiều cao tối đa */
+    overflow-y: auto; /* Thêm thanh cuộn nếu nội dung quá dài */
+  }
+  
+  /* Tiêu đề */
+  .promotion-history h3 {
+    margin-bottom: 20px;
+    color: #ff6b00;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  /* Bảng lịch sử */
+  .promotion-history .table {
+    margin: 0; /* Loại bỏ khoảng cách mặc định */
+  }
+  
+  .promotion-history .table th {
+    background-color: #ffefd5; /* Màu nền nhạt cho phần tiêu đề */
+    color: #333; /* Màu chữ tiêu đề bảng */
+    font-weight: 600; /* In đậm tiêu đề */
+  }
+  
+  .promotion-history .table td {
+    color: #555; /* Màu chữ nội dung */
+    padding: 10px 15px; /* Tăng khoảng cách trong ô */
+    vertical-align: middle; /* Canh giữa theo chiều dọc */
+  }
+  
+  /* Nút Đóng */
+  .promotion-history .btn-outline-secondary {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border-color: #ff6b00; /* Màu viền cam */
+    color: #ff6b00; /* Màu chữ cam */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  
+  /* Hiệu ứng khi nhấn nút Đóng */
+  .promotion-history .btn-outline-secondary:hover {
+    background-color: #ff6b00;
+    color: #fff;
+    border-color: #ff6b00; /* Giữ màu viền cam khi hover */
+  }
+  
+  /* Hiệu ứng xuất hiện */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -60%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+  }
+  
+  .promotion-history {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  /* Backdrop mờ nền */
+  .promotion-history-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền tối mờ */
+    z-index: 1040; /* Nằm dưới lịch sử khuyến mãi */
+  }
+  
 
   /* Footer Section */
   .footer {

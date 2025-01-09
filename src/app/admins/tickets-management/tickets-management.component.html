@@ -1,25 +1,26 @@
-<div *ngIf="errorMovies" class="error">{{ errorMovies }}</div>
-
 <h2>Quản lý vé</h2>
 
 <div *ngIf="loadingMovies">Đang tải dữ liệu...</div>
 
+<div *ngIf="errorMovies" class="error">{{ errorMovies }}</div> 
+
 <div *ngIf="movies.length > 0" class="movies-list">
   <div *ngFor="let movie of movies" class="movie-card">
-    <!-- Hình ảnh phim -->
-    <img [src]="movie.imageUrl" alt="{{ movie.name }}" class="movie-image" />
+    <img [src]="movie.imageUrl" alt="{{ movie.name }}" class="movie-image" /> 
 
-    <!-- Thông tin phim -->
     <div class="movie-info">
       <h3>{{ movie.name }}</h3>
       <p><strong>Thể loại:</strong> {{ movie.genre }}</p>
 
-      <!-- Lịch chiếu -->
       <div *ngFor="let showtime of movie.showtimes" class="showtime">
-        <p><strong>Thời gian chiếu:</strong> {{ showtime.time | date: 'short' }}</p>
-        <p><strong>Tổng số vé:</strong> {{ showtime.totalSeats }}</p>
-        <p><strong>Đã bán:</strong> {{ showtime.soldSeats }}</p>
-        <p><strong>Còn lại:</strong> {{ showtime.remainingSeats }}</p>
+        <p>
+          <span>Thời gian chiếu:</span> 
+          <span>{{ showtime.startTime | date: 'dd/MM/yyyy HH:mm' }}</span> 
+        </p>
+
+        <p>Tổng số vé: {{ showtime.totalSeats }}</p>
+        <p>Đã bán: {{ showtime.soldSeats }}</p>
+        <p>Còn lại: {{ showtime.remainingSeats }}</p>
       </div>
     </div>
   </div>

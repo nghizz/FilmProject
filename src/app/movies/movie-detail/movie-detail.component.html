@@ -12,10 +12,15 @@
       <div><strong>Director:</strong> {{ movie.director }}</div>
       <p><strong>Description:</strong> {{ movie.description }}</p>
   
+      
       <div class="nagetive">
         <button class="btn btn-outline-primary" (click)="goBack()">Quay lại</button>
       </div>
   
       <a [href]="movie.trailerUrl" target="_blank" class="trailer-link">Watch Trailer</a>
+      <app-movie-review></app-movie-review>
     </div>
+    
   </div>
+  
+

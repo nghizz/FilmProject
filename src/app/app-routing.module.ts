@@ -12,13 +12,15 @@ import { ProfileComponent } from './users/profile-user/profile-user.component';
 import { LoginRegisterComponent } from './auth/login-register/login-register.component';
 import { FilmsmanagementComponent } from './admins/films-management/films-management.component';
 import { TicketsManagementComponent } from './admins/tickets-management/tickets-management.component';
+import { MovieBookingComponent } from './movies/movie-booking/movie-booking.component';
+import { MovieReviewComponent } from './movies/movie-review/movie-review.component'; 
 
 const routes: Routes = [
   { path: 'profile', component: ProfileComponent},
   { path: 'login', component:LoginRegisterComponent},
   { path: 'home', component: HomeComponent },
   { path: 'homepage', component: HomePageComponent},
-  { path: 'movie-details/:id', component: MovieDetailComponent },
+  { path: 'movie-booking/:id', component: MovieBookingComponent },
   { path: 'payment', component: PaymentComponent },
   { path: 'filmedit/:id', component: FilmsEditComponent},
   { path: 'films', component: FilmsmanagementComponent  },

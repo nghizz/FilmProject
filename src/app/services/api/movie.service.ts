@@ -14,12 +14,19 @@ export class MovieService {
   // Lấy danh sách tất cả phim
   getAllMovies(): Observable<any[]> {
     return this.http.get<any>(this.apiUrl).pipe(
-      map((response) => response.$values || [])
+      map((response) => {
+        const movies = response.$values || [];
+        // Chuyển đổi showtimes.$values thành showtimes trực tiếp
+        return movies.map((movie: any) => {
+          if (movie.showtimes?.$values) {
+            movie.showtimes = movie.showtimes.$values;
+          }
+          return movie;
+        });
+      })
     );
   }
-
   // Lấy danh sách phim theo id
-  // Trong MovieService
   getMovieById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
       map((movie) => {
@@ -54,4 +61,6 @@ export class MovieService {
   updateMovie(movie: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${movie.id}`, movie);  // Đảm bảo ID được gửi
   }
+
+
 }

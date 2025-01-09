@@ -113,8 +113,6 @@ export class PaymentComponent implements OnInit {
     }
   }
    
-
-
   // Lấy tên hình thức thanh toán
   getPaymentMethodName(): string {
     switch (this.paymentMethod) {

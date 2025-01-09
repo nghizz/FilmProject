@@ -1,8 +1,6 @@
-<!-- Header -->
 <header class="header">
   <nav class="navbar navbar-expand-lg">
     <div class="container">
-      <!-- Logo -->
       <a class="navbar-brand" href="http://localhost:4200/">
         <div class="logo-container">
           <i class="logo-icon"></i>
@@ -10,12 +8,10 @@
         </div>
       </a>
 
-      <!-- Toggle button for mobile -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <!-- Navigation items -->
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
@@ -34,18 +30,16 @@
         </ul>
 
 
-        <!-- User Profile Dropdown 
         <ng-container *ngIf="currentUser; else loggedOut">
           <div class="dropdown">
             <button class="btn btn-link dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
               <span class="username">Xin chào ! {{ currentUser.username }}</span>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-              < Menu for admin >
               <ng-container *ngIf="currentUser.role === 'admin'">
                 <li><a class="dropdown-item" routerLink="/films">
-                  <i class="fas fa-film"></i> Quản lí Phim
-                </a></li>
+                    <i class="fas fa-film"></i> Quản lí Phim
+                  </a></li>
                 <li><a class="dropdown-item" routerLink="/manage-tickets">
                     <i class="fas fa-ticket-alt"></i> Quản lí Vé
                   </a></li>
@@ -54,7 +48,6 @@
                 </li>
               </ng-container>
 
-              < Menu for regular user>
               <ng-container *ngIf="currentUser.role === 'user'">
                 <li><a class="dropdown-item" routerLink="/profile">
                     <i class="fas fa-user"></i> Thông tin tài khoản
@@ -74,7 +67,6 @@
           </div>
         </ng-container>
 
-        < If user is not logged in, show login and register links -->
         <ng-template #loggedOut>
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
@@ -90,42 +82,51 @@
   </nav>
 </header>
 
-
-
-<!-- Main Content -->
 <main>
-  <!-- Form tìm kiếm -->
   <div class="search-bar mb-4 d-flex">
     <input type="text" [(ngModel)]="searchKeyword" placeholder="Nhập từ khóa tìm kiếm..."
       class="form-control me-2 search-input" />
     <button (click)="onSearch()" class="btn btn-outline-success">Tìm</button>
   </div>
 
-  <!-- Hiển thị kết quả tìm kiếm -->
   <div *ngIf="loading" class="loading text-center">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Đang tìm kiếm...</span>
     </div>
   </div>
 
-  <!-- Phần Movies Section -->
+  <section *ngIf="upcomingMovies.length > 0" id="upcomingMovies" class="py-5">
+    <h2 class="section-title">PHIM SẮP CHIẾU</h2>
+    <div class="slider-container">
+      <div class="slider-wrapper">
+        <div class="slider">
+          <div *ngFor="let movie of limitedUpcomingMovies; let i = index" class="slide"
+            [class.active]="i === currentIndex">
+            <div class="movie-card">
+              <img [src]="movie.imageUrl" [alt]="movie.name" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="slider-button prev" (click)="slideLeft()" (mouseover)="stopAutoScroll()" (mouseout)="startAutoScroll()"> &lt; </button>
+      <button class="slider-button next" (click)="slideRight()" (mouseover)="stopAutoScroll()" (mouseout)="startAutoScroll()"> &gt; </button>
+    </div>
+  </section>
+  
   <section id="movies" class="py-5">
     <div class="container">
       <h2 class="section-title">DANH SÁCH PHIM</h2>
 
-      <!-- Nếu đang tải dữ liệu -->
       <div *ngIf="loading" class="text-center my-5">
         <div class="spinner-border" role="status">
           <span class="visually-hidden">Đang tải...</span>
         </div>
       </div>
 
-      <!-- Nếu có lỗi -->
       <div *ngIf="error" class="alert alert-danger text-center">
         {{ error }}
       </div>
 
-      <!-- Danh sách phim -->
       <div *ngIf="!loading && !error" class="row">
         <div *ngFor="let movie of searchResults" class="col-md-6 col-lg-4 mb-4">
           <div class="card movie-card">
@@ -139,14 +140,13 @@
               <p class="card-text">{{ movie.description }}</p>
               <div class="d-grid gap-2">
                 <a [routerLink]="['', movie.id]" class="btn btn-primary">Chi tiết</a>
-                <a [routerLink]="['/movie-details', movie.id]" class="btn btn-outline-primary">Đặt vé</a>
+                <a [routerLink]="['/movie-booking', movie.id]" class="btn btn-outline-primary">Đặt vé</a>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Nếu không có phim nào -->
       <div *ngIf="!loading && !error && movies.length === 0" class="alert alert-info">
         Hiện tại không có phim nào.
       </div>
@@ -154,11 +154,9 @@
   </section>
 </main>
 
-<!-- Footer -->
 <footer class="footer">
   <div class="container">
     <div class="row">
-      <!-- Logo Column -->
       <div class="col-lg-3 mb-4">
         <div class="logo-container">
           <i class="logo-icon"></i>
@@ -166,7 +164,6 @@
         </div>
       </div>
 
-      <!-- Giới thiệu Column -->
       <div class="col-lg-3 mb-4">
         <h5 class="footer-heading">GIỚI THIỆU</h5>
         <ul class="footer-links">
@@ -177,7 +174,6 @@
         </ul>
       </div>
 
-      <!-- Hỗ trợ Column -->
       <div class="col-lg-3 mb-4">
         <h5 class="footer-heading">HỖ TRỢ</h5>
         <ul class="footer-links">
@@ -188,7 +184,6 @@
         </ul>
       </div>
 
-      <!-- Kết nối Column -->
       <div class="col-lg-3 mb-4">
         <h5 class="footer-heading">KẾT NỐI PRO MOVIE</h5>
         <div class="social-links">

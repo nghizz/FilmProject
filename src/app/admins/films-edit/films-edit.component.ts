@@ -13,6 +13,7 @@ export class FilmsEditComponent implements OnInit {
   availableShowtimes: string[] = []; // Array to store available showtimes
   loading: boolean = false;
   errorMessage: string = '';
+  id: number = 0;
 
   constructor(
     private movieService: MovieService,
@@ -21,7 +22,7 @@ export class FilmsEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    /* const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
       this.loading = true;
       this.movieService.getMovieById(id).subscribe({

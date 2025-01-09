@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MovieService } from '../../services/api/movie.service';
-import { Showtime } from '../../models/showtime.model';
+import { Component, OnInit } from '@angular/core';;
 
 @Component({
   selector: 'app-movie-detail',

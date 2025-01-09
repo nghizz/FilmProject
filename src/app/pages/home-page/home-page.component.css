@@ -325,15 +325,18 @@ main {
   display: flex;
   flex-wrap: nowrap;
   gap: 15px; /* Khoảng cách giữa các thẻ ảnh */
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.2s ease-in-out;
+  animation: autoScroll 22s linear infinite;
+  justify-content: center;
 }
 
 .slide {
   min-width: 300px;
   flex-shrink: 0;
-  opacity: 0.5;
+  opacity: 1;
   margin-right: 15px;
-  transition: opacity 0.3s ease;
+  transition: opacity 5.05s ease;
+  
 }
 
 .slide.active {
@@ -343,7 +346,8 @@ main {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, top 0.3s ease, left 0.3s ease; /* Thêm transition cho top và left */
+  position: relative;
 }
 
 .movie-card:hover {
@@ -400,5 +404,14 @@ main {
   
   .movie-card img {
     height: 350px;
+  }
+}
+
+@keyframes autoScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-300px * 4)); /* Điều chỉnh giá trị này dựa trên số lượng slide hiển thị */
   }
 }

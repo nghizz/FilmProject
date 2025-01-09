@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'homepage', component: HomePageComponent},
   { path: 'movie-booking/:id', component: MovieBookingComponent },
+  { path: 'movie-detail/:id', component: MovieDetailComponent},
   { path: 'payment', component: PaymentComponent },
   { path: 'filmedit/:id', component: FilmsEditComponent},
   { path: 'films', component: FilmsmanagementComponent  },

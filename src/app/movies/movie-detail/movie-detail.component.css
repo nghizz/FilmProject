@@ -1,0 +1,101 @@
+/* Container chính của phần chi tiết phim */
+.movie-detail-container {
+    max-width: 1700px;
+    /* Chiều rộng tối đa */
+    margin: 30px auto;
+    /* Center container */
+    padding: 20px;
+    background-color: rgba(241, 236, 236, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    /* Sử dụng Flexbox để chia layout theo chiều ngang */
+    flex-direction: row;  /* Căn theo chiều ngang */
+    align-items: flex-start;
+    /* Căn theo chiều dọc */
+    gap: 20px;
+    /* Khoảng cách giữa ảnh và thông tin */
+}
+
+/* Phần hình ảnh poster */
+.movie-poster {
+    width: 50%;
+    /* Chiếm 50% chiều rộng */
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Phần thông tin chi tiết phim */
+.movie-info {
+    width: 50%;
+    /* Chiếm 50% còn lại */
+    display: flex;
+    flex-direction: column;
+    /* Xếp các phần tử theo chiều dọc */
+    justify-content: flex-start;
+    /* Căn các phần tử cách nhau từ trên xuống */
+    height: 100%;
+}
+
+/* Thông tin và nội dung */
+h2 {
+    margin: 10px 0;
+    color: #333;
+    font-size: 30px;
+}
+
+p {
+    margin: 10px 0;
+    color: #333;
+    font-size: 20px;
+}
+
+strong {
+    color: #555;
+}
+
+/* Nút quay lại */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .movie-detail-container {
+        flex-direction: column;
+        /* Chuyển thành cột cho màn hình nhỏ */
+    }
+
+    .movie-poster,
+    .movie-info {
+        width: 100%;
+        /* Chiếm 100% chiều rộng trên thiết bị  */
+    }
+}
+
+.nagetive {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 40px;
+}
+
+.nagetive button {
+    padding: 10px 20px;
+}
+
+.btn-outline-primary {
+    background-color: red;
+}

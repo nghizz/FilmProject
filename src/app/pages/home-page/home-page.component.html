@@ -100,8 +100,12 @@
     <div class="slider-container">
       <div class="slider-wrapper">
         <div class="slider">
-          <div *ngFor="let movie of limitedUpcomingMovies; let i = index" class="slide"
-            [class.active]="i === currentIndex">
+          <div *ngFor="let movie of upcomingMovies; let i = index" class="slide" [class.active]="i === currentIndex">
+            <div class="movie-card">
+              <img [src]="movie.imageUrl" [alt]="movie.name" />
+            </div>
+          </div>
+          <div *ngFor="let movie of upcomingMovies; let i = index" class="slide" [class.active]="i === currentIndex"> 
             <div class="movie-card">
               <img [src]="movie.imageUrl" [alt]="movie.name" />
             </div>

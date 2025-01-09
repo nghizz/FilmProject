@@ -25,10 +25,10 @@ const routes: Routes = [
   { path: 'payment', component: PaymentComponent },
   { path: 'filmedit/:id', component: FilmsEditComponent},
   { path: 'films', component: FilmsmanagementComponent  },
-  { path: 'Tickets', component: TicketsManagementComponent},
   { path: 'promotion', component: PromotionComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'seat-selection', component: SeatSelectionComponent }, // Trang chọn ghế
+  { path: 'manage-tickets', component: TicketsManagementComponent},
   { path: '**', redirectTo: 'movie-list' }, // Xử lý các route không tồn tại
 ];
 

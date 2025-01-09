@@ -1,101 +1,120 @@
-/* Container chính của phần chi tiết phim */
 .movie-detail-container {
-    max-width: 1700px;
-    /* Chiều rộng tối đa */
-    margin: 30px auto;
-    /* Center container */
-    padding: 20px;
-    background-color: rgba(241, 236, 236, 0.9);
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    display: flex;
-    /* Sử dụng Flexbox để chia layout theo chiều ngang */
-    flex-direction: row;  /* Căn theo chiều ngang */
-    align-items: flex-start;
-    /* Căn theo chiều dọc */
-    gap: 20px;
-    /* Khoảng cách giữa ảnh và thông tin */
-}
+    display: flex;          /* Sử dụng flexbox để sắp xếp hình ảnh và thông tin */
+    gap: 2rem;             /* Khoảng cách giữa hình ảnh và thông tin */
+    margin-top: 100px;     /* Khoảng cách với header */
+    padding: 2rem;         /* Khoảng cách bên trong container */
+  }
+  
+  .movie-poster {
+    flex: 1;              /* Hình ảnh chiếm 1 phần không gian */
+  }
+  
+  .movie-image {
+    width: 100%;           /* Hình ảnh hiển thị đầy đủ chiều rộng */
+    max-width: 400px;      /* Giới hạn chiều rộng tối đa của hình ảnh */
+    height: auto;          /* Chiều cao tự động điều chỉnh */
+    border-radius: 10px;   /* Bo góc hình ảnh */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+  }
+  
+  .movie-info {
+    flex: 2;              /* Thông tin chiếm 2 phần không gian */
+  }
+  
+  .movie-info h2 {
+    color: #ff6b00;       /* Màu tiêu đề */
+    margin-bottom: 1rem;  /* Khoảng cách với nội dung bên dưới */
+  }
+  
+  .movie-info div {
+    margin-bottom: 0.5rem; /* Khoảng cách giữa các dòng thông tin */
+  }
+  
+  .trailer-link {
+    display: inline-block;  /* Hiển thị link dưới dạng block */
+    padding: 0.5rem 1rem;   /* Khoảng cách bên trong link */
+    background-color: #ff6b00; /* Màu nền link */
+    color: white;           /* Màu chữ link */
+    text-decoration: none;  /* Loại bỏ gạch chân */
+    border-radius: 5px;     /* Bo góc link */
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu */
+    max-width: 125px;
+  }
+  
+  .trailer-link:hover {
+    background-color: #e65c00; /* Màu nền khi hover */
+  }
+  
+  .nagetive {
+    margin-bottom: 1rem; /* Khoảng cách với nội dung bên dưới */
+  }
 
-/* Phần hình ảnh poster */
-.movie-poster {
-    width: 50%;
-    /* Chiếm 50% chiều rộng */
-    height: auto;
-    border-radius: 10px;
-    object-fit: cover;
-}
 
-/* Phần thông tin chi tiết phim */
+/* CSS movie-review */
+
 .movie-info {
-    width: 50%;
-    /* Chiếm 50% còn lại */
-    display: flex;
-    flex-direction: column;
-    /* Xếp các phần tử theo chiều dọc */
-    justify-content: flex-start;
-    /* Căn các phần tử cách nhau từ trên xuống */
-    height: 100%;
-}
-
-/* Thông tin và nội dung */
-h2 {
-    margin: 10px 0;
-    color: #333;
-    font-size: 30px;
-}
-
-p {
-    margin: 10px 0;
-    color: #333;
-    font-size: 20px;
-}
-
-strong {
-    color: #555;
-}
-
-/* Nút quay lại */
-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    margin-top: 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .movie-detail-container {
-        flex-direction: column;
-        /* Chuyển thành cột cho màn hình nhỏ */
-    }
-
-    .movie-poster,
-    .movie-info {
-        width: 100%;
-        /* Chiếm 100% chiều rộng trên thiết bị  */
-    }
-}
-
-.nagetive {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    gap: 40px;
-}
-
-.nagetive button {
-    padding: 10px 20px;
-}
-
-.btn-outline-primary {
-    background-color: red;
-}
+    flex: 2; 
+    display: flex;           /* Sử dụng flexbox để sắp xếp thông tin và đánh giá */
+    flex-direction: column;  /* Sắp xếp các phần tử theo chiều dọc */
+  }
+  
+  .movie-info > *:not(:last-child) { /* Chọn tất cả phần tử con trực tiếp, trừ phần tử cuối cùng */
+    margin-bottom: 1rem;    /* Thêm khoảng cách giữa các phần tử */
+  }
+  
+  /* CSS cho component đánh giá */
+  .review-form, .reviews-list {
+    border: 1px solid #ddd;    /* Thêm border */
+    padding: 1rem;            /* Thêm padding */
+    border-radius: 10px;      /* Bo góc */
+    margin-bottom: 1rem;     /* Thêm khoảng cách với phần tử bên dưới */
+  }
+  
+  .review-form h3 {
+    color: #ff6b00;          /* Màu tiêu đề */
+    margin-bottom: 1rem;     /* Khoảng cách với nội dung bên dưới */
+  }
+  
+  .review-form label {
+    display: block;          /* Hiển thị label trên một dòng riêng biệt */
+    margin-bottom: 0.5rem;  /* Khoảng cách với input */
+  }
+  
+  .review-form select, 
+  .review-form textarea {
+    width: 100%;            /* Chiều rộng input */
+    padding: 0.5rem;         /* Khoảng cách bên trong input */
+    border: 1px solid #ddd; /* Border input */
+    border-radius: 5px;      /* Bo góc input */
+    margin-bottom: 1rem;    /* Khoảng cách với phần tử bên dưới */
+  }
+  
+  .review-form button {
+    background-color: #ff6b00; /* Màu nền button */
+    color: white;            /* Màu chữ button */
+    border: none;            /* Loại bỏ border */
+    padding: 0.5rem 1rem;    /* Khoảng cách bên trong button */
+    border-radius: 5px;      /* Bo góc button */
+    cursor: pointer;         /* Hiển thị con trỏ chuột dạng bàn tay */
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu */
+  }
+  
+  .review-form button:hover {
+    background-color: #e65c00; /* Màu nền khi hover */
+  }
+  
+  .review-item {
+    margin-bottom: 1rem;     /* Khoảng cách giữa các đánh giá */
+  }
+  
+  .review-item h3 {
+    margin-bottom: 0.5rem;  /* Khoảng cách với nội dung bên dưới */
+  }
+  
+  .review-actions button {
+    background-color: transparent; /* Màu nền button */
+    border: none;             /* Loại bỏ border */
+    padding: 0;               /* Loại bỏ padding */
+    margin-right: 1rem;       /* Khoảng cách giữa các button */
+    cursor: pointer;          /* Hiển thị con trỏ chuột dạng bàn tay */
+  }

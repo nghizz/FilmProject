@@ -14,12 +14,14 @@ import { FilmsmanagementComponent } from './admins/films-management/films-manage
 import { TicketsManagementComponent } from './admins/tickets-management/tickets-management.component';
 import { MovieBookingComponent } from './movies/movie-booking/movie-booking.component';
 import { MovieReviewComponent } from './movies/movie-review/movie-review.component'; 
+import { FilmsAddComponent } from './admins/films-add/films-add.component';
 
 const routes: Routes = [
   { path: 'profile', component: ProfileComponent},
   { path: 'login', component:LoginRegisterComponent},
   { path: 'home', component: HomeComponent },
   { path: 'homepage', component: HomePageComponent},
+  { path: 'add-movie', component: FilmsAddComponent},
   { path: 'movie-booking/:id', component: MovieBookingComponent },
   { path: 'movie-detail/:id', component: MovieDetailComponent},
   { path: 'payment', component: PaymentComponent },

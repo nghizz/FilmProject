@@ -1,0 +1,113 @@
+/* Cấu trúc chính của form */
+.add-movie-form {
+    background: linear-gradient(135deg, #1c1c1c, #2e2e2e);
+    /* Gradient nền tối */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    /* Shadow nổi bật */
+    max-width: 800px;
+    margin: 40px auto;
+    color: #ffffff;
+    /* Chữ màu trắng */
+}
+
+/* Tiêu đề form */
+.add-movie-form h3 {
+    color: #e74c3c;
+    /* Màu đỏ tạo điểm nhấn */
+    margin-bottom: 20px;
+    font-size: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+/* Các trường nhập liệu */
+.add-movie-form .form-control {
+    background-color: #2e2e2e;
+    /* Nền tối nhẹ */
+    color: #ffffff;
+    /* Chữ màu trắng */
+    border: 1px solid #4a4a4a;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hiệu ứng khi focus */
+.add-movie-form .form-control:focus {
+    border-color: #e74c3c;
+    /* Đổi viền sang màu đỏ khi focus */
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+    /* Shadow hiệu ứng focus */
+    outline: none;
+}
+
+/* Nút bấm */
+.add-movie-form .btn {
+    font-size: 1.1rem;
+    padding: 12px 20px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    letter-spacing: 1px;
+}
+
+/* Nút thêm phim */
+.add-movie-form .btn-primary {
+    background-color: #e74c3c;
+    /* Màu đỏ */
+    border: none;
+    color: #ffffff;
+}
+
+.add-movie-form .btn-primary:hover {
+    background-color: #c0392b;
+    /* Đỏ đậm hơn khi hover */
+    transform: scale(1.05);
+    /* Phóng to nhẹ */
+}
+
+/* Nút quay lại */
+.add-movie-form .btn-secondary {
+    background-color: #7f8c8d;
+    /* Màu xám nhạt */
+    border: none;
+    color: #ffffff;
+}
+
+.add-movie-form .btn-secondary:hover {
+    background-color: #95a5a6;
+    /* Xám sáng hơn khi hover */
+    transform: scale(1.05);
+}
+
+/* Căn chỉnh khoảng cách giữa các nút */
+.add-movie-form .form-group {
+    margin-bottom: 20px;
+}
+
+/* Căn chỉnh hai nút */
+.add-movie-form .form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .add-movie-form {
+        padding: 20px;
+    }
+
+    .add-movie-form .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .add-movie-form .btn {
+        width: 100%;
+    }
+}

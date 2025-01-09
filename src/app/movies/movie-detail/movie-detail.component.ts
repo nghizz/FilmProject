@@ -48,4 +48,5 @@ export class MovieDetailComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['/homepage']);
   }
+
 }

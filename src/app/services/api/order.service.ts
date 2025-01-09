@@ -1,25 +1,41 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Payment } from '../../models/payment.model';
-// Service: order.service.ts
+
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
-  private apiUrl = 'https://localhost:7233/api/Orders';  // URL API
+  private apiUrl = 'https://localhost:7233/api/Orders'; 
 
   constructor(private http: HttpClient) { }
 
-  // Tạo đơn hàng mới
-  createOrder(paymentDto: Payment): Observable<any> {  // Dùng 'any' hoặc define DTO type
-    return this.http.post(this.apiUrl, paymentDto);  // Gọi API
+  createOrder(paymentDto: Payment): Observable<any> { 
+    return this.http.post(this.apiUrl, paymentDto).pipe(
+      catchError(this.handleError) // Thêm xử lý lỗi
+    );
   }
 
-  // Phương thức để lấy lịch sử đơn hàng
   getOrderHistory(userId: number): Observable<any> {  
-    const url = `${this.apiUrl}/history/${userId}`; // URL API để lấy lịch sử đơn hàng
-    return this.http.get(url);
+    const url = `${this.apiUrl}/history/${userId}`; 
+    return this.http.get(url).pipe(
+      catchError(this.handleError) // Thêm xử lý lỗi
+    );
+  }
+
+  // Hàm xử lý lỗi
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // Lỗi client-side hoặc lỗi mạng
+      console.error('An error occurred:', error.error);
+    } else {
+      // Lỗi server-side
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Trả về lỗi để component có thể xử lý
+    return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 }

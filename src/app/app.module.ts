@@ -19,6 +19,8 @@ import { TicketsManagementComponent } from './admins/tickets-management/tickets-
 import { LoginRegisterComponent } from './auth/login-register/login-register.component';
 import { FilmsAddComponent } from './admins/films-add/films-add.component';
 import { FilmsEditComponent } from './admins/films-edit/films-edit.component';
+import { MovieBookingComponent } from './movies/movie-booking/movie-booking.component';
+import { MovieReviewComponent } from './movies/movie-review/movie-review.component';
 
 
 
@@ -37,6 +39,8 @@ import { FilmsEditComponent } from './admins/films-edit/films-edit.component';
     LoginRegisterComponent,
     FilmsAddComponent,
     FilmsEditComponent,
+    MovieBookingComponent,
+    MovieReviewComponent,
   ],
   imports: [
     BrowserModule,

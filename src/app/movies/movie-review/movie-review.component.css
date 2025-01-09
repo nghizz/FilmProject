@@ -1,0 +1,189 @@
+/* CSS cho danh sách phim */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+li {
+    border: 1px solid #ddd;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+li:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+li img {
+    display: block;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+li strong {
+    display: block;
+    font-size: 1.1em;
+    margin-bottom: 4px;
+}
+
+li em {
+    display: block;
+    color: #666;
+}
+
+/* CSS cho phần thông tin phim được chọn */
+div {
+    margin-top: 20px;
+}
+
+h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1.2em;
+    margin: 5px 0;
+}
+
+img {
+    border-radius: 8px;
+    margin-top: 10px;
+    display: block;
+}
+
+/* CSS cho phần thông báo khi chưa chọn phim */
+ng-template p {
+    font-style: italic;
+    color: #888;
+    margin-top: 20px;
+}
+
+
+/* Tổng thể */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    /* Nền trắng */
+    color: #333333;
+    /* Màu chữ đậm, dễ đọc */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Container chính */
+.container {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    /* Nền khối */
+    border-radius: 8px;
+}
+
+/* Thẻ tiêu đề phim */
+.movie-card {
+    text-align: center;
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+.movie-card img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+}
+
+.movie-card h2 {
+    font-size: 1.8rem;
+    color: #222222;
+    margin: 10px 0;
+}
+
+.movie-card p {
+    font-size: 1rem;
+    color: #555555;
+}
+
+/* Form đánh giá */
+.review-form {
+    background-color: #ffffff;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.review-form h3 {
+    font-size: 1.4rem;
+    color: #333333;
+    margin-bottom: 15px;
+}
+
+.review-form label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+.review-form select,
+.review-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px;
+    font-size: 1rem;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+.review-form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.review-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Danh sách đánh giá */
+.reviews-list {
+    margin-top: 20px;
+}
+
+.review-item {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.review-item span {
+    font-weight: bold;
+    color: #007bff;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.review-item p {
+    font-size: 1rem;
+    color: #444444;
+    margin: 0;
+}

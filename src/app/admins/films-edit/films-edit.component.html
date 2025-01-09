@@ -1,57 +1,83 @@
-<div class="container py-5">
-  <h2 class="mb-4">Chỉnh sửa phim</h2>
-  
-  <!-- Hiển thị thông báo lỗi nếu có -->
-  <div *ngIf="errorMessage" class="alert alert-danger">
-    {{ errorMessage }}
-  </div>
-
-  <!-- Hiển thị form chỉnh sửa -->
-  <div *ngIf="movie && !loading" class="movie-form">
-    <form (ngSubmit)="saveMovie()">
-      <div class="form-group">
-        <label for="name">Tên Phim</label>
-        <input type="text" class="form-control" id="name" [(ngModel)]="movie.name" name="name" required>
-      </div>
-
-      <div class="form-group">
-        <label for="genre">Thể Loại</label>
-        <input type="text" class="form-control" id="genre" [(ngModel)]="movie.genre" name="genre" required>
-      </div>
-
-      <div class="form-group">
-        <label for="duration">Thời Lượng</label>
-        <input type="number" class="form-control" id="duration" [(ngModel)]="movie.duration" name="duration" required>
-      </div>
-
-      <div class="form-group">
-        <label for="showtime">Giờ Chiếu</label>
-        <select class="form-control" id="showtime" [(ngModel)]="movie.showtimes" name="showtime" required>
-          <option *ngFor="let time of availableShowtimes" [value]="time">{{ time }}</option>
-        </select>
-      </div>
-  
-      <div class="form-group">
-        <label for="description">Mô Tả</label>
-        <textarea class="form-control" id="description" [(ngModel)]="movie.description" name="description" required></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="imageUrl">URL Hình Ảnh</label>
-        <input type="text" class="form-control" id="imageUrl" [(ngModel)]="movie.imageUrl" name="imageUrl" required>
-      </div>
-      
-      <div class="nagetive">
-        <button type="submit" class="btn btn-primary mt-3">Lưu Thay Đổi</button>
-        <button type="button" class="btn btn-secondary mt-3" (click)="goBackHome()">Quay lại</button>
-      </div>
-    </form>
-  </div>
-
-  <!-- Hiển thị spinner khi đang tải -->
-  <div *ngIf="loading" class="text-center">
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Đang tải...</span>
+<div class="mb-4" *ngIf="editMovieForm.id !== null">
+  <h3>Chỉnh sửa phim</h3>
+  <form (ngSubmit)="updateMovie()">
+    <div class="form-group mb-3">
+      <label for="editName">Tên Phim</label>
+      <input
+        type="text"
+        id="editName"
+        class="form-control"
+        [(ngModel)]="editMovieForm.name"
+        name="editName"
+        required
+      />
     </div>
-  </div>
+    <div class="form-group mb-3">
+      <label for="editGenre">Thể Loại</label>
+      <input
+        type="text"
+        id="editGenre"
+        class="form-control"
+        [(ngModel)]="editMovieForm.genre"
+        name="editGenre"
+        required
+      />
+    </div>
+    <div class="form-group mb-3">
+      <label for="editDuration">Thời Lượng (phút)</label>
+      <input
+        type="number"
+        id="editDuration"
+        class="form-control"
+        [(ngModel)]="editMovieForm.duration"
+        name="editDuration"
+        required
+      />
+    </div>
+    <div class="form-group mb-3">
+      <label for="editDescription">Mô Tả</label>
+      <textarea
+        id="editDescription"
+        class="form-control"
+        [(ngModel)]="editMovieForm.description"
+        name="editDescription"
+        required
+      ></textarea>
+    </div>
+    <div class="form-group mb-3">
+      <label for="editTrailerUrl">Trailer URL</label>
+      <input
+        type="text"
+        id="editTrailerUrl"
+        class="form-control"
+        [(ngModel)]="editMovieForm.trailerUrl"
+        name="editTrailerUrl"
+        required
+      />
+    </div>
+    <div class="form-group mb-3">
+      <label for="editDirector">Đạo Diễn</label>
+      <input
+        type="text"
+        id="editDirector"
+        class="form-control"
+        [(ngModel)]="editMovieForm.director"
+        name="editDirector"
+        required
+      />
+    </div>
+    <div class="form-group mb-3">
+      <label for="editImageUrl">URL Hình Ảnh</label>
+      <input
+        type="text"
+        id="editImageUrl"
+        class="form-control"
+        [(ngModel)]="editMovieForm.imageUrl"
+        name="editImageUrl"
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Cập Nhật</button>
+    <button type="button" class="btn btn-secondary" (click)="goToHome()">Hủy</button>
+  </form>
 </div>

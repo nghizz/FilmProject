@@ -12,6 +12,19 @@ export class FilmsmanagementComponent implements OnInit {
   loadingMovies = false;
   errorMovies: string = '';
 
+  editMovieForm = {
+    id: null,
+    name: '',
+    genre: '',
+    duration: null,
+    description: '',
+    trailerUrl: '',
+    director: '',
+    imageUrl: '',
+    showtimes: [],
+    movieReviews: []
+  };
+
   constructor(private movieService: MovieService, private router: Router) {}
 
   ngOnInit(): void {
@@ -41,21 +54,6 @@ export class FilmsmanagementComponent implements OnInit {
     return date.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
   }
 
-  addMovie(): void {
-    const newMovie = {
-      id: 5,
-      name: 'Inception',
-      genre: 'Khoa học viễn tưởng, Hành động',
-      duration: 148,
-      releaseDate: '2010-07-16',
-      description: 'A thief who steals corporate secrets through the use of dream-sharing technology.',
-      imageUrl: 'https://example.com/images/inception.jpg',
-      showtimes: ['2024-12-25T10:30:00', '2024-12-25T13:45:00']
-    };
-    this.movieService.addMovie(newMovie).subscribe(() => {
-      this.loadMovies();
-    });
-  }
 
   deleteMovie(movieId: number): void {
     if (confirm('Bạn có chắc chắn muốn xóa phim này?')) {
@@ -70,10 +68,15 @@ export class FilmsmanagementComponent implements OnInit {
     }
   }
 
-  editMovie(movieId: number): void {
-    this.router.navigate(['/filmedit', movieId]);
+  goToAddMovie(): void {
+    this.router.navigate(['/add-movie']);
   }
 
+  goToEditMovie(movie: any): void {
+    this.movieService.setMovieForEdit(movie);
+    this.router.navigate(['/filmedit', movie.id]);
+  }
+  
   goToHome(): void {
     this.router.navigate(['/homepage']);
   }

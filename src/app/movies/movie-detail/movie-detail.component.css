@@ -1,0 +1,72 @@
+.movie-detail-container {
+    display: flex;
+    /* Sử dụng flexbox để sắp xếp hình ảnh và thông tin */
+    gap: 2rem;
+    /* Khoảng cách giữa hình ảnh và thông tin */
+    margin-top: 100px;
+    /* Khoảng cách với header */
+    padding: 2rem;
+    /* Khoảng cách bên trong container */
+}
+
+.movie-poster {
+    flex: 1;
+    /* Hình ảnh chiếm 1 phần không gian */
+}
+
+.movie-image {
+    width: 100%;
+    /* Hình ảnh hiển thị đầy đủ chiều rộng */
+    max-width: 400px;
+    /* Giới hạn chiều rộng tối đa của hình ảnh */
+    height: auto;
+    /* Chiều cao tự động điều chỉnh */
+    border-radius: 10px;
+    /* Bo góc hình ảnh */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Hiệu ứng đổ bóng */
+}
+
+.movie-info {
+    flex: 2;
+    /* Thông tin chiếm 2 phần không gian */
+}
+
+.movie-info h2 {
+    color: #ff6b00;
+    /* Màu tiêu đề */
+    margin-bottom: 1rem;
+    /* Khoảng cách với nội dung bên dưới */
+}
+
+.movie-info div {
+    margin-bottom: 0.5rem;
+    /* Khoảng cách giữa các dòng thông tin */
+}
+
+.trailer-link {
+    display: inline-block;
+    /* Hiển thị link dưới dạng block */
+    padding: 0.5rem 1rem;
+    /* Khoảng cách bên trong link */
+    background-color: #ff6b00;
+    /* Màu nền link */
+    color: white;
+    /* Màu chữ link */
+    text-decoration: none;
+    /* Loại bỏ gạch chân */
+    border-radius: 5px;
+    /* Bo góc link */
+    transition: background-color 0.3s ease;
+    /* Hiệu ứng chuyển màu */
+}
+
+.trailer-link:hover {
+    background-color: #e65c00;
+    /* Màu nền khi hover */
+}
+
+.nagetive {
+    margin-bottom: 1rem;
+    /* Khoảng cách với nội dung bên dưới */
+}

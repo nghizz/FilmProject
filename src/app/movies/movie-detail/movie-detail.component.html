@@ -1,0 +1,21 @@
+<div *ngIf="!isLoading && movie" class="movie-detail-container">
+    <!-- Phần hình ảnh -->
+    <div class="movie-poster">
+      <img [src]="movie.imageUrl" alt="Movie Poster" class="movie-image">
+    </div>
+  
+    <!-- Phần thông tin chi tiết phim -->
+    <div class="movie-info">
+      <h2>{{ movie.name }}</h2>
+      <div><strong>Genre:</strong> {{ movie.genre }}</div>
+      <div><strong>Duration:</strong> {{ movie.duration }} minutes</div>
+      <div><strong>Director:</strong> {{ movie.director }}</div>
+      <p><strong>Description:</strong> {{ movie.description }}</p>
+  
+      <div class="nagetive">
+        <button class="btn btn-outline-primary" (click)="goBack()">Quay lại</button>
+      </div>
+  
+      <a [href]="movie.trailerUrl" target="_blank" class="trailer-link">Watch Trailer</a>
+    </div>
+  </div>
